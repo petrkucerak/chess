@@ -27,4 +27,25 @@ public class Chessboard {
         this.countOfWhiteFigurines = countOfWhiteFigurines;
     }
 
+
+    /**
+     * Load Chessboard from the file.
+     */
+    public void loadChessboard(){
+
+    }
+
+    /**
+     * Save Chessboard to the file.
+     */
+    public void saveChessboard(){
+
+    }
+
+    /**
+     * Create all figurines
+     */
+    public void createAllFigurines(){
+
+    }
 }
