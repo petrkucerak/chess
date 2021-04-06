@@ -48,7 +48,7 @@ public class Figurine {
      * @param chessboard info of board
      * @return true - if the move is possible or false - if it isn't possible
      */
-    public boolean pinedPeace(int x, int y, Chessboard chessboard){
+    private boolean pinedPeace(int x, int y, Chessboard chessboard){
         return false;
     }
 
