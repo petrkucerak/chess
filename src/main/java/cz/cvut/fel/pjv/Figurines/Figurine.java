@@ -4,6 +4,17 @@ import cz.cvut.fel.pjv.Chessboard;
 
 /**
  * Class for manipulations with Figurines.
+ * Type of figurines are represented as numbers by this key:
+ * • king - 9
+ * • queen - 8
+ * • rook - 7
+ * • bishop - 6
+ * • knight - 5
+ * • pawn - 4
+ * Color of figurines are represented as decimal multiple by this key:
+ * • black - 10
+ * • white - 20
+ * (For example, the black king has a number 19 or the white pawn has the number 24)
  */
 public class Figurine {
     private char color;
@@ -20,7 +31,6 @@ public class Figurine {
     public int[][] getPossibleMoves(){
         return null;
     }
-
 
     /**
      * @param x coordinates of the position
