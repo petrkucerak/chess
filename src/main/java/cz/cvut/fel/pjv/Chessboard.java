@@ -30,8 +30,9 @@ public class Chessboard {
 
     /**
      * Load Chessboard from the file.
+     * @param filepath name of the file with figurines positions
      */
-    public void loadChessboard(){
+    public void loadChessboard(String filepath){
 
     }
 
