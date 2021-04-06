@@ -48,4 +48,18 @@ public class Chessboard {
     public void createAllFigurines(){
 
     }
+
+    /**
+     * Export Chessboard as PNG
+     */
+    public void exportPNGChessboard(){
+
+    }
+
+    /**
+     * Import Chessboard as PNG
+     */
+    public void importPNGChessboard(){
+
+    }
 }
