@@ -1,7 +1,7 @@
 package cz.cvut.fel.pjv.Figurines;
 
 public class Kinght extends Figurine {
-    public Kinght(char color, int type) {
-        super(color, type);
+    public Kinght(char color) {
+        super(color, 9);
     }
 }
