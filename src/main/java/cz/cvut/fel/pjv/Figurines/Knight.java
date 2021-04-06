@@ -1,11 +1,11 @@
 package cz.cvut.fel.pjv.Figurines;
 
 /**
- * Class for the Queen figurine
+ * Class for the Knight figurine
  */
-public class Queen extends Figurine {
-    public Queen(char color) {
-        super(color, 8);
+public class Knight extends Figurine {
+    public Knight(char color) {
+        super(color, 9);
     }
 
     @Override
