@@ -5,7 +5,7 @@ import cz.cvut.fel.pjv.Chessboard;
 /**
  * Class for manipulations with Figurines.
  */
-public abstract class Figurine {
+public abstract class Figurine implements java.io.Serializable {
     private char color;
     private String codeName;
 

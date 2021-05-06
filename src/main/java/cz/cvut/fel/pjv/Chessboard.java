@@ -3,15 +3,12 @@ package cz.cvut.fel.pjv;
 
 import cz.cvut.fel.pjv.Figurines.Figurine;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.io.*;
 
 /**
  * Class representations Chessboard as a 2D array.
  */
-public class Chessboard {
+public class Chessboard implements java.io.Serializable {
     private Figurine board[][];
     private int gameRound;
     private char playerColor;
@@ -35,22 +32,6 @@ public class Chessboard {
         return "Round: " + gameRound + "\n"
                 + "Player color: " + playerColor + "\n"
                 + tmp;
-    }
-
-    /**
-     * Load Chessboard from the file.
-     *
-     * @param filepath name of the file with figurines positions
-     */
-    public void loadChessboard(String filepath) {
-
-    }
-
-    /**
-     * Save Chessboard to the file.
-     */
-    public void saveChessboard(String filepath) {
-
     }
 
     /**
