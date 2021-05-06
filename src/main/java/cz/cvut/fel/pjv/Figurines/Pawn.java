@@ -7,7 +7,7 @@ import cz.cvut.fel.pjv.Chessboard;
  */
 public class Pawn extends Figurine {
 
-    public Pawn(char color, String codeName) {
+    public Pawn(char color) {
         super(color, "Pawn");
     }
 }

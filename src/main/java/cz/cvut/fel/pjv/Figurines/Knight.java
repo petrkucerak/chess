@@ -5,7 +5,7 @@ package cz.cvut.fel.pjv.Figurines;
  */
 public class Knight extends Figurine {
 
-    public Knight(char color, String codeName) {
+    public Knight(char color) {
         super(color, "Knight");
     }
 }
