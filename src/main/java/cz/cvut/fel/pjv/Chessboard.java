@@ -35,13 +35,6 @@ public class Chessboard implements java.io.Serializable {
     }
 
     /**
-     * Create all figurines
-     */
-    public void createAllFigurines() {
-
-    }
-
-    /**
      * Export Chessboard as PNG
      */
     public void exportPNGChessboard() {

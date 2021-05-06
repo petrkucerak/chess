@@ -2,7 +2,16 @@ package cz.cvut.fel.pjv;
 
 import java.io.*;
 
+/**
+ * Support functions
+ */
 public class Utilities {
+
+    /**
+     * Save Chessboard for serialization
+     * @param chessboard
+     * @param filepath
+     */
     public static void saveChessboard(Chessboard chessboard, String filepath) {
         try (OutputStream fos = new FileOutputStream(filepath);
              ObjectOutputStream out = new ObjectOutputStream(fos)) {
@@ -13,6 +22,11 @@ public class Utilities {
         }
     }
 
+    /**
+     * Load Chessboard from serialized file
+     * @param filepath
+     * @return loaded chessboard
+     */
     public static Chessboard loadChessboard(String filepath) {
         Chessboard chessboard = null;
         try (InputStream fis = new FileInputStream(filepath);

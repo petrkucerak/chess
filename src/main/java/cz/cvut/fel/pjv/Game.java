@@ -12,7 +12,6 @@ public class Game {
         Figurine figurines[][] = new Figurine[8][8];
         Chessboard board = new Chessboard(figurines, 10, 'B');
         System.out.println(board);
-
     }
 
     /**
