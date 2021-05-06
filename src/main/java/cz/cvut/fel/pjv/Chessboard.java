@@ -35,6 +35,29 @@ public class Chessboard implements java.io.Serializable {
     }
 
     /**
+     * Switch player color on the Chessboard
+     */
+    private void switch_color() {
+        if (this.playerColor == 'B') this.playerColor = 'W';
+        if (this.playerColor == 'W') this.playerColor = 'B';
+    }
+
+    /**
+     * Move the figurine
+     *
+     * @param x
+     * @param y
+     * @param new_x
+     * @param new_y
+     */
+    public void moveFigurine(int x, int y, int new_x, int new_y) {
+        this.board[new_x][new_y] = this.board[x][y];
+        this.board[x][y] = null;
+        this.gameRound++;
+        switch_color();
+    }
+
+    /**
      * Export Chessboard as PNG
      */
     public void exportPNGChessboard() {
