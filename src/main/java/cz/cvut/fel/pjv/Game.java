@@ -9,8 +9,12 @@ import cz.cvut.fel.pjv.Figurines.*;
 public class Game {
 
     public void testRun(){
-        Figurine figurines[][] = new Figurine[8][8];
-        Chessboard board = new Chessboard(figurines, 10, 'B');
+        // crate native board
+        this.generateClassicChessboard("src/main/resources/initClassicGame");
+        // load native board
+        Chessboard board = Utilities.loadChessboard("src/main/resources/initClassicGame");
+        System.out.println(board);
+        board.moveFigurine(0,0,2,0);
         System.out.println(board);
     }
 
@@ -54,6 +58,6 @@ public class Game {
         Chessboard board = new Chessboard(figurines, 0, 'W');
         Utilities.saveChessboard(board, filepath);
         // board = Utilities.loadChessboard(filepath);
-        System.out.println(board);
+        // System.out.println(board);
     }
 }

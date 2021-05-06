@@ -4,7 +4,7 @@ public class Main {
     static public void main(String []args) {
         System.out.println("Hello world!");
         Game testGame = new Game();
-        testGame.generateClassicChessboard("src/main/resources/initClassicGame");
+        testGame.testRun();
     }
 }
 /*
