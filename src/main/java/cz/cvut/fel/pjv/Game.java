@@ -23,22 +23,39 @@ public class Game {
     public void generateClassicChessboard(String filepath){
         Figurine figurines[][] = new Figurine[8][8];
 
-        // add figurines
-        Pawn bp1, bp2, bp3, bp4, bp5, bp6, bp7, bp8 = new Pawn('B');
-        Pawn wp1, wp2, wp3, wp4, wp5, wp6, wp7, wp8 = new Pawn('W');
-        Knight bk1, bk2 = new Knight('B');
-        Knight wk1, wk2 = new Knight('W');
-        Bishop bb1, bb2 = new Bishop('B');
-        Bishop wb1, wb2 = new Bishop('W');
-        Rook br1, br2 = new Rook('B');
-        Rook wr1, wr2 = new Rook('W');
-        Queen bq1 = new Queen('B');
-        Queen wq1 = new Queen('W');
-        King bi1 = new King('B');
-        King wi1 = new King('W');
+        // PLACE FIGURINES
+        // pawns
+        for(int i = 0; i < figurines[1].length; i++){
+            figurines[1][i] = new Pawn('B');
+        }
+        for(int i = 0; i < figurines[1].length; i++){
+            figurines[6][i] = new Pawn('W');
+        }
+        // Kings
+        figurines[0][4] = new King('B');
+        figurines[7][4] = new King('W');
+        // Queens
+        figurines[0][3] = new Queen('B');
+        figurines[7][3] = new Queen('W');
+        // Rooks
+        figurines[0][0] = new Rook('B');
+        figurines[0][7] = new Rook('B');
+        figurines[7][0] = new Rook('W');
+        figurines[7][7] = new Rook('W');
+        // Bishops
+        figurines[0][2] = new Rook('B');
+        figurines[0][5] = new Rook('B');
+        figurines[7][5] = new Rook('W');
+        figurines[7][2] = new Rook('W');
+        // Knights
+        figurines[0][1] = new Rook('B');
+        figurines[0][6] = new Rook('B');
+        figurines[7][1] = new Rook('W');
+        figurines[7][6] = new Rook('W');
 
 
-        Chessboard board = new Chessboard(figurines, -1, 'N');
+
+        Chessboard board = new Chessboard(figurines, 0, 'W');
         // board.saveChessboard(filepath);
         System.out.println(board);
     }
