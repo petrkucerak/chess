@@ -5,11 +5,6 @@ package cz.cvut.fel.pjv.Figurines;
  */
 public class Knight extends Figurine {
     public Knight(char color) {
-        super(color, 9);
-    }
-
-    @Override
-    public int[][] getPossibleMoves() {
-        return super.getPossibleMoves();
+        super(color);
     }
 }

@@ -5,11 +5,6 @@ package cz.cvut.fel.pjv.Figurines;
  */
 public class Queen extends Figurine {
     public Queen(char color) {
-        super(color, 8);
-    }
-
-    @Override
-    public int[][] getPossibleMoves() {
-        return super.getPossibleMoves();
+        super(color);
     }
 }
