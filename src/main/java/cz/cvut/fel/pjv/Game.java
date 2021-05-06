@@ -11,7 +11,6 @@ public class Game {
     public void testRun(){
         Figurine figurines[][] = new Figurine[8][8];
         Chessboard board = new Chessboard(figurines, 10, 'B');
-        board.loadChessboard("src/main/resources/initClassicGame");
         System.out.println(board);
 
     }
@@ -53,10 +52,9 @@ public class Game {
         figurines[7][1] = new Rook('W');
         figurines[7][6] = new Rook('W');
 
-
-
         Chessboard board = new Chessboard(figurines, 0, 'W');
-        // board.saveChessboard(filepath);
+        Utilities.saveChessboard(board, filepath);
+        // board = Utilities.loadChessboard(filepath);
         System.out.println(board);
     }
 }
