@@ -2,6 +2,8 @@ package cz.cvut.fel.pjv;
 
 import cz.cvut.fel.pjv.Figurines.*;
 
+import java.util.Scanner;
+
 /**
  * Includes mechanism of the game
  * controller
@@ -14,8 +16,24 @@ public class Game {
         // load native board
         Chessboard board = Utilities.loadChessboard("src/main/resources/initClassicGame");
         System.out.println(board);
-        board.moveFigurine(0,0,2,0);
-        System.out.println(board);
+
+        // scanner
+        Scanner sc = new Scanner(System.in);
+        while (true){
+            System.out.println("Aktualni souradnice");
+            System.out.println("x");
+            int x = sc.nextInt();
+            System.out.println("y");
+            int y = sc.nextInt();
+            System.out.println("Nove souradnice");
+            System.out.println("x");
+            int new_x = sc.nextInt();
+            System.out.println("y");
+            int new_y = sc.nextInt();
+
+            board.moveFigurine(x,y,new_x,new_y);
+            System.out.println(board);
+        }
     }
 
     /**
