@@ -13,5 +13,14 @@ public abstract class Figurine {
         this.color = color;
         this.codeName = codeName;
     }
+
+    public String getCodeName() {
+        return codeName;
+    }
+
+    @Override
+    public String toString() {
+        return color + " " + codeName;
+    }
 }
 
