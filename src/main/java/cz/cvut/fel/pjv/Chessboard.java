@@ -1,32 +1,32 @@
 package cz.cvut.fel.pjv;
 
 
+import cz.cvut.fel.pjv.Figurines.Figurine;
+
+import java.util.Arrays;
+
 /**
  * Class representations Chessboard as a 2D array.
  */
 public class Chessboard {
-    private int [][]positions;
+    private Figurine board [][];
     private int gameRound;
     private char playerColor;
 
-    private int countOfBlackFigurines;
-    private int countOfWhiteFigurines;
-
-    /**
-     * @param positions representations Chessboard as a 2D array. Load positions from a data file by type of game.
-     * @param gameRound
-     * @param playerColor determines which player is on the move (black player - B, white color - W).
-     * @param countOfBlackFigurines
-     * @param countOfWhiteFigurines
-     */
-    public Chessboard(int[][] positions, int gameRound, char playerColor, int countOfBlackFigurines, int countOfWhiteFigurines) {
-        this.positions = positions;
+    public Chessboard(Figurine[][] board, int gameRound, char playerColor) {
+        this.board = board;
         this.gameRound = gameRound;
         this.playerColor = playerColor;
-        this.countOfBlackFigurines = countOfBlackFigurines;
-        this.countOfWhiteFigurines = countOfWhiteFigurines;
     }
 
+    @Override
+    public String toString() {
+        return "Chessboard{" +
+                "board=" + Arrays.toString(board) +
+                ", gameRound=" + gameRound +
+                ", playerColor=" + playerColor +
+                '}';
+    }
 
     /**
      * Load Chessboard from the file.

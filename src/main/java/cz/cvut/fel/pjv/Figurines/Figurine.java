@@ -7,10 +7,11 @@ import cz.cvut.fel.pjv.Chessboard;
  */
 public abstract class Figurine {
     private char color;
+    private String codeName;
 
-    public Figurine(char color) {
+    public Figurine(char color, String codeName) {
         this.color = color;
+        this.codeName = codeName;
     }
-
 }
 
