@@ -11,10 +11,8 @@ public class Game {
 
     public void testRun(){
         Figurine figurines[][] = new Figurine[8][8];
-        Bishop bishop = new Bishop('B', "bishop");
-        figurines[0][0] = bishop;
-        Chessboard board = new Chessboard(figurines, 0, 'B');
-
+        Chessboard board = new Chessboard(figurines, 10, 'B');
+        board.loadChessboard("src/main/resources/initClassicGame");
         System.out.println(board);
 
     }

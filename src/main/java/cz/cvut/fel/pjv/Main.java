@@ -11,5 +11,8 @@ public class Main {
 ToDo:
  1. hra, kde lze vypsat pole
  2. pole s umistenim figurek
- 3. pohyb figurek
+ 4. nacteni herni situace ze souboru
+ 5. pohyb figurek
+ 6. pohyb figurek pomoci terminalu
+ 7. check pohybu figurek
  */

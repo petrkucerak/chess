@@ -3,7 +3,10 @@ package cz.cvut.fel.pjv;
 
 import cz.cvut.fel.pjv.Figurines.Figurine;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  * Class representations Chessboard as a 2D array.
@@ -46,7 +49,7 @@ public class Chessboard {
     /**
      * Save Chessboard to the file.
      */
-    public void saveChessboard() {
+    public void saveChessboard(String filepath) {
 
     }
 
