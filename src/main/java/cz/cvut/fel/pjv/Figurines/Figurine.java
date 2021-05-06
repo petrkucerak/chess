@@ -5,7 +5,7 @@ import cz.cvut.fel.pjv.Chessboard;
 /**
  * Class for manipulations with Figurines.
  */
-public class Figurine {
+public abstract class Figurine {
     private char color;
     private int type;
     private int codeName;
