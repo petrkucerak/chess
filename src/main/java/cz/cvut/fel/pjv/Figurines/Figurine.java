@@ -35,7 +35,7 @@ public abstract class Figurine implements java.io.Serializable {
      * Set all position as false in possible moves array
      * @param array of possible moves
      */
-    private static void setAllPositionFalse(boolean[][] array){
+    public static void setAllPositionFalse(boolean[][] array){
         for(int i = 0; i < array.length; i++){
             for(int j = 0; j < array[i].length; j++){
                 array[i][j] = false;
