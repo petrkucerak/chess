@@ -20,18 +20,28 @@ public class Game {
         // scanner
         Scanner sc = new Scanner(System.in);
         while (true){
-            System.out.println("Aktualni souradnice");
+            // chose figurine
+            System.out.println("Chose the figurine");
+            System.out.println("set coords");
             System.out.println("x");
             int x = sc.nextInt();
             System.out.println("y");
             int y = sc.nextInt();
-            System.out.println("Nove souradnice");
+
+            // print possible moves
+            board.printPossibleMoves(x, y);
+
+            // set move
+            System.out.println("set new coords");
             System.out.println("x");
             int new_x = sc.nextInt();
             System.out.println("y");
             int new_y = sc.nextInt();
 
+            // make move
             board.moveFigurine(x,y,new_x,new_y);
+
+            // print new board stadium
             System.out.println(board);
         }
     }
@@ -63,15 +73,15 @@ public class Game {
         figurines[7][0] = new Rook('W');
         figurines[7][7] = new Rook('W');
         // Bishops
-        figurines[0][2] = new Rook('B');
-        figurines[0][5] = new Rook('B');
-        figurines[7][5] = new Rook('W');
-        figurines[7][2] = new Rook('W');
+        figurines[0][2] = new Bishop('B');
+        figurines[0][5] = new Bishop('B');
+        figurines[7][5] = new Bishop('W');
+        figurines[7][2] = new Bishop('W');
         // Knights
-        figurines[0][1] = new Rook('B');
-        figurines[0][6] = new Rook('B');
-        figurines[7][1] = new Rook('W');
-        figurines[7][6] = new Rook('W');
+        figurines[0][1] = new Knight('B');
+        figurines[0][6] = new Knight('B');
+        figurines[7][1] = new Knight('W');
+        figurines[7][6] = new Knight('W');
 
         Chessboard board = new Chessboard(figurines, 0, 'W');
         Utilities.saveChessboard(board, filepath);
