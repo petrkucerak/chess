@@ -53,7 +53,7 @@ public class Chessboard implements java.io.Serializable {
     public void moveFigurine(int x, int y, int new_x, int new_y) {
 
         // print the possible moves
-        int[][] tmp = new int[8][8];
+        boolean[][] tmp = new boolean[8][8];
         tmp = this.board[x][y].possible_moves(x,y);
         Utilities.print_2d_array(tmp);
 

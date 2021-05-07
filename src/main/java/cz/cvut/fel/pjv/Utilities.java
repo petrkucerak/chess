@@ -41,13 +41,14 @@ public class Utilities {
     }
 
     /**
-     * Support function for print 2D array
+     * Support function for print 2D array with possible moves
      * @param array
      */
-    public static void print_2d_array(int[][] array){
+    public static void print_2d_array(boolean[][] array){
         for(int i = 0; i < array.length; i++){
             for(int j = 0; j < array[i].length; j++){
-                System.out.print(" " + array[i][j]);
+                if(array[i][j] == true) System.out.print(" x");
+                if(array[i][j] == false) System.out.print(" o");
             }
             System.out.println();
         }
