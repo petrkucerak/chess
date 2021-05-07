@@ -23,6 +23,12 @@ public abstract class Figurine implements java.io.Serializable {
         return color + " " + codeName;
     }
 
+    /**
+     * Function calculation possible figurine moves
+     * @param x chord
+     * @param y chord
+     * @return true - possible move; false - not possible move
+     */
     public abstract boolean[][] possible_moves(int x, int y);
 }
 
