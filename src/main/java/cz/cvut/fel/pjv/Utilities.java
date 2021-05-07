@@ -39,4 +39,17 @@ public class Utilities {
         }
         return chessboard;
     }
+
+    /**
+     * Support function for print 2D array
+     * @param array
+     */
+    public static void print_2d_array(int[][] array){
+        for(int i = 0; i < array.length; i++){
+            for(int j = 0; j < array[i].length; j++){
+                System.out.print(" " + array[i][j]);
+            }
+            System.out.println();
+        }
+    }
 }
