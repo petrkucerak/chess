@@ -51,6 +51,14 @@ public class Chessboard implements java.io.Serializable {
      * @param new_y
      */
     public void moveFigurine(int x, int y, int new_x, int new_y) {
+
+        // print the possible moves
+        int[][] tmp = new int[8][8];
+        tmp = this.board[x][y].possible_moves(x,y);
+        Utilities.print_2d_array(tmp);
+
+        System.out.println();
+
         this.board[new_x][new_y] = this.board[x][y];
         this.board[x][y] = null;
         this.gameRound++;
@@ -58,16 +66,17 @@ public class Chessboard implements java.io.Serializable {
     }
 
     /**
-     * Export Chessboard as PNG
+     * Export Chessboard as PGN
      */
     public void exportPNGChessboard() {
 
     }
 
     /**
-     * Import Chessboard as PNG
+     * Import Chessboard as PGN
      */
     public void importPNGChessboard() {
 
     }
+
 }
