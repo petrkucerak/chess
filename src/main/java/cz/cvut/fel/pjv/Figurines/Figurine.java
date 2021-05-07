@@ -22,5 +22,7 @@ public abstract class Figurine implements java.io.Serializable {
     public String toString() {
         return color + " " + codeName;
     }
+
+    public abstract int[][] possible_moves(int x, int y);
 }
 
