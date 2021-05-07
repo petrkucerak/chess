@@ -3,8 +3,6 @@ package cz.cvut.fel.pjv;
 
 import cz.cvut.fel.pjv.Figurines.Figurine;
 
-import java.io.*;
-
 /**
  * Class representations Chessboard as a 2D array.
  */
@@ -54,7 +52,7 @@ public class Chessboard implements java.io.Serializable {
 
         // print the possible moves
         boolean[][] tmp = new boolean[8][8];
-        tmp = this.board[x][y].possible_moves(x,y);
+        tmp = this.board[x][y].possibleMoves(x,y);
         Utilities.print_2d_array(tmp);
 
         System.out.println();

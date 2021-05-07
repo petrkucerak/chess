@@ -29,6 +29,6 @@ public abstract class Figurine implements java.io.Serializable {
      * @param y chord
      * @return true - possible move; false - not possible move
      */
-    public abstract boolean[][] possible_moves(int x, int y);
+    public abstract boolean[][] possibleMoves(int x, int y);
 }
 
