@@ -18,6 +18,10 @@ public abstract class Figurine implements java.io.Serializable {
         return codeName;
     }
 
+    public char getColor() {
+        return color;
+    }
+
     @Override
     public String toString() {
         return color + " " + codeName;
