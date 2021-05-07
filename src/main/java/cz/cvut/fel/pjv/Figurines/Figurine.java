@@ -46,5 +46,9 @@ public abstract class Figurine implements java.io.Serializable {
             }
         }
     }
+    public static boolean isValidPosition(int x, int y){
+        if(x >= 0 && x < 8 && y >= 0 && y < 8) return true;
+        else return false;
+    }
 }
 
