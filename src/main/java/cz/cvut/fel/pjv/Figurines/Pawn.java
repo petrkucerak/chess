@@ -17,6 +17,18 @@ public class Pawn extends Figurine {
         boolean[][] possibleMoves = new boolean[8][8];
         // set all position as empty
         setAllPositionFalse(possibleMoves);
+        int jump;
+        // set move direction
+        if (this.getColor() == 'W') {
+            jump = -1;
+            if(y == 6) possibleMoves[y - 2][x] = true;
+        }
+        else {
+            jump = 1;
+            if(y == 1) possibleMoves[y + 2][x] = true;
+        }
+
+        if (y != 7) possibleMoves[y + jump][x] = true;
         return possibleMoves;
     }
 }
