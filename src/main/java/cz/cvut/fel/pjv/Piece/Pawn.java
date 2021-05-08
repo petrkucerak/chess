@@ -17,13 +17,6 @@ public class Pawn extends Piece {
             return false;
         }
 
-        /*
-        ToDo:
-         3. brani nepratele -> musi tam byt nepratel
-         4. brani mimochodem
-         5. projit na konec gameboard
-         */
-
         int x;
         if (start.getPiece().isWhite()) {
             x = end.getX() - start.getX();
@@ -58,6 +51,8 @@ public class Pawn extends Piece {
             }
         }
 
+        // ToDo add 'El passant'
+        // ToDo add 'Promotion'
 
         return false;
     }
