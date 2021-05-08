@@ -60,6 +60,7 @@ public abstract class Piece {
     boolean isColorPiecesSame(Spot start, Spot end){
         if(end.getPiece() != null) {
             if (start.getPiece().isWhite() == end.getPiece().isWhite()) {
+                System.err.println("Spot is occupied by another piece!");
                 return true;
             }
         }
