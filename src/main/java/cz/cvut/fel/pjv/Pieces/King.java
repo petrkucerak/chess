@@ -1,4 +1,4 @@
-package cz.cvut.fel.pjv.Piece;
+package cz.cvut.fel.pjv.Pieces;
 
 import cz.cvut.fel.pjv.Board;
 import cz.cvut.fel.pjv.Spot;

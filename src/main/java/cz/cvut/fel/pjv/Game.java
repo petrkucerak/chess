@@ -1,14 +1,12 @@
 package cz.cvut.fel.pjv;
 
-import cz.cvut.fel.pjv.Piece.King;
-import cz.cvut.fel.pjv.Piece.Piece;
+import cz.cvut.fel.pjv.Pieces.King;
+import cz.cvut.fel.pjv.Pieces.Piece;
 import cz.cvut.fel.pjv.Player.Player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Includes mechanism of the game

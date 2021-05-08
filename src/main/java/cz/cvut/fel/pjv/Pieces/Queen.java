@@ -1,11 +1,11 @@
-package cz.cvut.fel.pjv.Piece;
+package cz.cvut.fel.pjv.Pieces;
 
 import cz.cvut.fel.pjv.Board;
 import cz.cvut.fel.pjv.Spot;
 
-public class Rook extends Piece {
+public class Queen extends Piece {
 
-    public Rook(boolean white) {
+    public Queen(boolean white) {
         super(white);
     }
 
@@ -17,9 +17,9 @@ public class Rook extends Piece {
     @Override
     public String toString() {
         if(this.isWhite()){
-            return BLACK + "♖";
+            return BLACK + "♕";
         } else {
-            return WHITE + "♖";
+            return WHITE + "♕";
         }
     }
 }

@@ -1,11 +1,9 @@
 package cz.cvut.fel.pjv;
 
-import cz.cvut.fel.pjv.Piece.*;
+import cz.cvut.fel.pjv.Pieces.*;
 
-import java.util.Arrays;
-
-import static cz.cvut.fel.pjv.Piece.Piece.BACK;
-import static cz.cvut.fel.pjv.Piece.Piece.RESET;
+import static cz.cvut.fel.pjv.Pieces.Piece.BACK;
+import static cz.cvut.fel.pjv.Pieces.Piece.RESET;
 
 /**
  * Class representations Chessboard as a 2D array.

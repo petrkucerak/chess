@@ -1,6 +1,6 @@
 package cz.cvut.fel.pjv;
 
-import cz.cvut.fel.pjv.Piece.Piece;
+import cz.cvut.fel.pjv.Pieces.Piece;
 import cz.cvut.fel.pjv.Player.Player;
 
 public class Move {
