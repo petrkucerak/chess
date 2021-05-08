@@ -16,7 +16,7 @@ public class Main {
         Player computer = new ComputerPlayer(false);
         game.initGame(human, computer);
 
-        System.out.println(game);
+        game.printGameInfo();
 
         /*
         // init Scanner for testing

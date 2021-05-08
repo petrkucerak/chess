@@ -121,16 +121,10 @@ public class Game {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Game{" +
-                "players=" + Arrays.toString(players) +
-                ", board=" + board +
-                ", currentTurn=" + currentTurn +
-                ", status=" + status +
-                ", gameRound=" + gameRound +
-                ", movesPlayed=" + movesPlayed +
-                '}';
+    public void printGameInfo(){
+        System.out.println("Round: " + gameRound);
+        System.out.println("Status: " + status);
+        board.printBoard();
     }
 
     public enum GameStatus {

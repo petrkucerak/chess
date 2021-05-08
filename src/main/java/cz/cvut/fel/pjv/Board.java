@@ -2,6 +2,8 @@ package cz.cvut.fel.pjv;
 
 import cz.cvut.fel.pjv.Piece.*;
 
+import java.util.Arrays;
+
 /**
  * Class representations Chessboard as a 2D array.
  */
@@ -46,5 +48,21 @@ public class Board {
             boxes[6][i] = new Spot(new Pawn(false), 6, i);
         }
 
+    }
+
+    public void printBoard() {
+        for (int i = 0; i < boxes.length; i++) {
+            for (int j = 0; j < boxes[i].length; j++) {
+                if(boxes[i][j] != null) {
+                    System.out.print(boxes[i][j].getPiece());
+                } else {
+                    System.out.print(" •");
+                }
+                if(j - 1 != boxes[i].length){
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
     }
 }
