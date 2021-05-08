@@ -9,6 +9,8 @@ public class Move {
     private Spot end;
     private Piece pieceMoved;
     private Piece pieceKilled;
+
+    // specific move
     private boolean castlingMove = false;
 
     public Move(Player player, Spot start, Spot end) {
