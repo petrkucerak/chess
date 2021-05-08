@@ -51,8 +51,8 @@ public class Board {
             boxes[6][i] = new Spot(new Pawn(false), 6, i);
         }
         // place other spots as null
-        for(int i = 2; i < 6; i++){
-            for(int j = 0; j < boxes[i].length; j++){
+        for (int i = 2; i < 6; i++) {
+            for (int j = 0; j < boxes[i].length; j++) {
                 boxes[i][j] = new Spot(null, i, j);
             }
         }
@@ -61,13 +61,14 @@ public class Board {
 
     public void printBoard() {
         for (int i = 0; i < boxes.length; i++) {
+            System.out.print(i + ". ");
             for (int j = 0; j < boxes[i].length; j++) {
-                if(boxes[i][j].getPiece() != null) {
+                if (boxes[i][j].getPiece() != null) {
                     System.out.print(boxes[i][j].getPiece());
                 } else {
                     System.out.print(BACK + "♟");
                 }
-                if(j - 1 != boxes[i].length){
+                if (j - 1 != boxes[i].length) {
                     System.out.print(" ");
                 }
             }
