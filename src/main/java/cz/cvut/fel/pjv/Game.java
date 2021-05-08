@@ -4,6 +4,9 @@ import cz.cvut.fel.pjv.Piece.King;
 import cz.cvut.fel.pjv.Piece.Piece;
 import cz.cvut.fel.pjv.Player.Player;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,20 +19,24 @@ public class Game {
     private Board board;
     private Player currentTurn;
     private GameStatus status;
+    private int gameRound;
     private List<Move> movesPlayed;
 
-    private void initGame(Player p1, Player p2){
+    public void initGame(Player p1, Player p2){
+        this.players = new Player[2];
         players[0] = p1;
         players[1] = p2;
 
-        board.newBoard();
+        this.gameRound = 1;
+
+        this.board = new Board();
 
         if(p1.isWhiteSide()){
             this.currentTurn = p1;
         } else {
             this.currentTurn = p2;
         }
-
+        this.movesPlayed = new ArrayList<Move>();
         movesPlayed.clear();
     }
 
@@ -54,6 +61,8 @@ public class Game {
 
     private boolean makeMove(Move move, Player player) {
         Piece sourcePiece = move.getStart().getPiece();
+
+        // check if piece exist
         if (sourcePiece == null){
             return false;
         }
@@ -62,16 +71,19 @@ public class Game {
         if(player != currentTurn){
             return false;
         }
+        // validate if color of piece is same as player color
         if(sourcePiece.isWhite() != player.isWhiteSide()){
             return false;
         }
 
         // valid move
+        // TODO: create rules for all pieces
         if(!sourcePiece.canMove(board, move.getStart(), move.getEnd())){
             return false;
         }
 
-        // kill
+        // MOVES
+        // kill opponent piece
         Piece destPiece = move.getStart().getPiece();
         if(destPiece != null){
             destPiece.setKilled(true);
@@ -79,7 +91,7 @@ public class Game {
         }
 
         // castling
-        // TODO: ...
+        // TODO: add more specific moves
 
         // store the move
         movesPlayed.add(move);
@@ -104,7 +116,21 @@ public class Game {
             this.currentTurn = players[0];
         }
 
+        gameRound++;
+
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "players=" + Arrays.toString(players) +
+                ", board=" + board +
+                ", currentTurn=" + currentTurn +
+                ", status=" + status +
+                ", gameRound=" + gameRound +
+                ", movesPlayed=" + movesPlayed +
+                '}';
     }
 
     public enum GameStatus {

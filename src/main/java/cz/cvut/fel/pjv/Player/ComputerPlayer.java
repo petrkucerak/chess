@@ -6,4 +6,12 @@ public class ComputerPlayer extends Player {
         this.whiteSide = whiteSide;
         this.humanPlayer = false;
     }
+
+    @Override
+    public String toString() {
+        return "ComputerPlayer{" +
+                "whiteSide=" + whiteSide +
+                ", humanPlayer=" + humanPlayer +
+                '}';
+    }
 }

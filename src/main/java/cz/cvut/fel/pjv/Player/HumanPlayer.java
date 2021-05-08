@@ -6,4 +6,12 @@ public class HumanPlayer extends Player {
         this.whiteSide = whiteSide;
         this.humanPlayer = true;
     }
+
+    @Override
+    public String toString() {
+        return "HumanPlayer{" +
+                "whiteSide=" + whiteSide +
+                ", humanPlayer=" + humanPlayer +
+                '}';
+    }
 }

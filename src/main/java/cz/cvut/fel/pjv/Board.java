@@ -20,6 +20,7 @@ public class Board {
     }
 
     public void newBoard() {
+        this.boxes = new Spot[8][8];
         // place white pieces to spots
         boxes[0][0] = new Spot(new Rook(true), 0, 0);
         boxes[0][1] = new Spot(new Knight(true), 0, 1);
