@@ -1,7 +1,13 @@
 package cz.cvut.fel.pjv;
 
-import cz.cvut.fel.pjv.Figurines.*;
+import cz.cvut.fel.pjv.Piece.King;
+import cz.cvut.fel.pjv.Piece.Piece;
+import cz.cvut.fel.pjv.Player.Player;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -9,83 +15,129 @@ import java.util.Scanner;
  * controller
  */
 public class Game {
+    private Player[] players;
+    private Board board;
+    private Player currentTurn;
+    private GameStatus status;
+    private int gameRound;
+    private List<Move> movesPlayed;
 
-    public void testRun(){
-        // crate native board
-        this.generateClassicChessboard("src/main/resources/initClassicGame");
-        // load native board
-        Chessboard board = Utilities.loadChessboard("src/main/resources/initClassicGame");
-        System.out.println(board);
+    public void initGame(Player p1, Player p2){
+        this.players = new Player[2];
+        players[0] = p1;
+        players[1] = p2;
 
-        // scanner
-        Scanner sc = new Scanner(System.in);
-        while (true){
-            // chose figurine
-            System.out.println("Chose the figurine");
-            System.out.println("set coords");
-            System.out.println("x");
-            int x = sc.nextInt();
-            System.out.println("y");
-            int y = sc.nextInt();
+        this.gameRound = 1;
 
-            // print possible moves
-            board.printPossibleMoves(x, y);
+        this.board = new Board();
 
-            // set move
-            System.out.println("set new coords");
-            System.out.println("x");
-            int new_x = sc.nextInt();
-            System.out.println("y");
-            int new_y = sc.nextInt();
-
-            // make move
-            board.moveFigurine(x,y,new_x,new_y);
-
-            // print new board stadium
-            System.out.println(board);
+        if(p1.isWhiteSide()){
+            this.currentTurn = p1;
+        } else {
+            this.currentTurn = p2;
         }
+        this.movesPlayed = new ArrayList<Move>();
+        movesPlayed.clear();
     }
 
-    /**
-     * Generate classic chessboard
-     * @param filepath
-     */
-    public void generateClassicChessboard(String filepath){
-        Figurine figurines[][] = new Figurine[8][8];
-
-        // PLACE FIGURINES
-        // pawns
-        for(int i = 0; i < figurines[1].length; i++){
-            figurines[1][i] = new Pawn('B');
-        }
-        for(int i = 0; i < figurines[1].length; i++){
-            figurines[6][i] = new Pawn('W');
-        }
-        // Kings
-        figurines[0][4] = new King('B');
-        figurines[7][4] = new King('W');
-        // Queens
-        figurines[0][3] = new Queen('B');
-        figurines[7][3] = new Queen('W');
-        // Rooks
-        figurines[0][0] = new Rook('B');
-        figurines[0][7] = new Rook('B');
-        figurines[7][0] = new Rook('W');
-        figurines[7][7] = new Rook('W');
-        // Bishops
-        figurines[0][2] = new Bishop('B');
-        figurines[0][5] = new Bishop('B');
-        figurines[7][5] = new Bishop('W');
-        figurines[7][2] = new Bishop('W');
-        // Knights
-        figurines[0][1] = new Knight('B');
-        figurines[0][6] = new Knight('B');
-        figurines[7][1] = new Knight('W');
-        figurines[7][6] = new Knight('W');
-
-        Chessboard board = new Chessboard(figurines, 0, 'W');
-        Utilities.saveChessboard(board, filepath);
-        // board = Utilities.loadChessboard(filepath);
-        // System.out.println(board);
+    public boolean isEnd(){
+        return this.getStatus() != GameStatus.ACTIVE;
     }
+
+    public GameStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(GameStatus status) {
+        this.status = status;
+    }
+
+    public boolean playerMove(Player player, int startX, int startY, int endX, int endY) throws Exception {
+        Spot startBox = board.getBox(startX, startY);
+        Spot endBox = board.getBox(endX, endY);
+        Move move = new Move(player, startBox, endBox);
+        return this.makeMove(move, player);
+    }
+
+    private boolean makeMove(Move move, Player player) {
+        Piece sourcePiece = move.getStart().getPiece();
+
+        // check if piece exist
+        if (sourcePiece == null){
+            System.err.println("The piece doesn't exist!");
+            return false;
+        }
+
+        // valid player
+        if(player != currentTurn){
+            System.err.println("The player is not on the move!");
+            return false;
+        }
+        // validate if color of piece is same as player color
+        if(sourcePiece.isWhite() != player.isWhiteSide()){
+            System.err.println("The piece color isn't same as a paler color!");
+            return false;
+        }
+
+        // valid move
+        // TODO: create rules for all pieces
+        if(!sourcePiece.canMove(board, move.getStart(), move.getEnd())){
+            System.err.println("The move isn't possible!");
+            return false;
+        }
+
+        // MOVES
+        // kill opponent piece
+        Piece destPiece = move.getStart().getPiece();
+        if(destPiece != null){
+            destPiece.setKilled(true);
+            move.setPieceKilled(destPiece);
+        }
+
+        // castling
+        // TODO: add more specific moves
+
+        // store the move
+        movesPlayed.add(move);
+
+        // move piece from the start box to end box
+        move.getEnd().setPiece(move.getStart().getPiece());
+        move.getStart().setPiece(null);
+
+        // check win situation
+        if (destPiece != null && destPiece instanceof King){
+            if(player.isWhiteSide()){
+                this.setStatus(GameStatus.WHITE_WIN);
+            } else {
+                this.setStatus(GameStatus.BLACK_WIN);
+            }
+        }
+
+        // set current turn to the other player
+        if(this.currentTurn == players[0]){
+            this.currentTurn = players[1];
+        } else {
+            this.currentTurn = players[0];
+        }
+
+        gameRound++;
+
+        return true;
+    }
+
+    public void printGameInfo(){
+        System.out.println("Round: " + gameRound);
+        System.out.println("Status: " + status);
+        board.printBoard();
+    }
+
+    public enum GameStatus {
+        ACTIVE,
+        BLACK_WIN,
+        WHITE_WIN,
+        FORFEIT,
+        STALEMATE,
+        RESIGNATION
+    }
+
 }
