@@ -11,12 +11,23 @@ public class Knight extends Piece {
 
     @Override
     public boolean canMove(Board board, Spot start, Spot end) {
+
+        // protect spot with same color piece
+        if (end.getPiece().isWhite() == this.isWhite()) {
+            return false;
+        }
+
+        int x = Math.abs(start.getX() - end.getX());
+        int y = Math.abs(start.getY() - end.getY());
+        if (x * y == 2) {
+            return true;
+        }
         return false;
     }
 
     @Override
     public String toString() {
-        if(this.isWhite() == true){
+        if (this.isWhite() == true) {
             return BLACK + "K";
         } else {
             return WHITE + "K";
