@@ -13,13 +13,13 @@ public class Board {
     }
 
     public Spot getBox(int x, int y) throws Exception {
-        if(x < 0 || x > 7 || y < 0 || y > 7){
+        if (x < 0 || x > 7 || y < 0 || y > 7) {
             throw new Exception("Index out of Chessboard!");
         }
         return this.boxes[x][y];
     }
 
-    public void newBoard(){
+    public void newBoard() {
         // place white pieces to spots
         boxes[0][0] = new Spot(new Rook(true), 0, 0);
         boxes[0][1] = new Spot(new Knight(true), 0, 1);
@@ -29,7 +29,7 @@ public class Board {
         boxes[0][5] = new Spot(new Bishop(true), 0, 5);
         boxes[0][6] = new Spot(new Knight(true), 0, 6);
         boxes[0][7] = new Spot(new Rook(true), 0, 7);
-        for(int i = 0; i < boxes[1].length; i++){
+        for (int i = 0; i < boxes[1].length; i++) {
             boxes[1][i] = new Spot(new Pawn(true), 1, i);
         }
         // place black pieces to spots
@@ -41,10 +41,9 @@ public class Board {
         boxes[7][5] = new Spot(new Bishop(false), 7, 5);
         boxes[7][6] = new Spot(new Knight(false), 7, 6);
         boxes[7][7] = new Spot(new Rook(false), 7, 7);
-        for(int i = 0; i < boxes[1].length; i++){
+        for (int i = 0; i < boxes[1].length; i++) {
             boxes[6][i] = new Spot(new Pawn(false), 6, i);
         }
-
 
     }
 }
