@@ -10,7 +10,7 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public boolean canMove(Board board, Spot start, Spot end) {
+    public boolean canMove(Board board, Spot start, Spot end) throws Exception {
 
         // protect spot with same color piece
         if(isMyPieceInTheWay(end)){
@@ -34,13 +34,25 @@ public class Pawn extends Piece {
         }
         int y = Math.abs(start.getY() - end.getY());
 
-        // classic pawn move
         // protect spot with opposite piece
         if(isColorPiecesSame(start, end) || end.getPiece() == null){
+            // classic pawn move
             if(x == 1 && y == 0){
                 return true;
             }
+
+            // first pawn move
+            if(x == 2 && y == 0){
+                // check if spot on the way is empty & position is initialization
+                if(start.getX() == 1 && board.getBox(2, start.getY()).getPiece() == null){
+                    return true;
+                }
+                if(start.getX() == 6 && board.getBox(5, start.getY()).getPiece() == null){
+                    return true;
+                }
+            }
         }
+
 
         return false;
     }

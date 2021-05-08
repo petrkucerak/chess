@@ -59,7 +59,7 @@ public class Game {
         return this.makeMove(move, player);
     }
 
-    private boolean makeMove(Move move, Player player) {
+    private boolean makeMove(Move move, Player player) throws Exception {
         Piece sourcePiece = move.getStart().getPiece();
 
         // check if piece exist

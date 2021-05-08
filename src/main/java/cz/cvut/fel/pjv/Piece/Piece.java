@@ -35,7 +35,7 @@ public abstract class Piece {
         this.white = white;
     }
 
-    public abstract boolean canMove(Board board, Spot start, Spot end);
+    public abstract boolean canMove(Board board, Spot start, Spot end) throws Exception;
 
     /**
      * Protect spot with same color piece
