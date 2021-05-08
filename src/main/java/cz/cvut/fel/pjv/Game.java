@@ -64,21 +64,25 @@ public class Game {
 
         // check if piece exist
         if (sourcePiece == null){
+            System.err.println("The piece doesn't exist!");
             return false;
         }
 
         // valid player
         if(player != currentTurn){
+            System.err.println("The player is not on the move!");
             return false;
         }
         // validate if color of piece is same as player color
         if(sourcePiece.isWhite() != player.isWhiteSide()){
+            System.err.println("The piece color isn't same as a paler color!");
             return false;
         }
 
         // valid move
         // TODO: create rules for all pieces
         if(!sourcePiece.canMove(board, move.getStart(), move.getEnd())){
+            System.err.println("Move isn't possible!");
             return false;
         }
 
