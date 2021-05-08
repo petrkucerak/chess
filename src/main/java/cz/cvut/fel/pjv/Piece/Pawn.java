@@ -13,21 +13,19 @@ public class Pawn extends Piece {
     public boolean canMove(Board board, Spot start, Spot end) throws Exception {
 
         // protect spot with same color piece
-        if(isMyPieceInTheWay(end)){
+        if (isMyPieceInTheWay(end)) {
             return false;
         }
 
         /*
         ToDo:
-         1. normalni krok -> nesmi tam byt nepratel
-         2. krok o dva -> nesmi tam byt nepratel
          3. brani nepratele -> musi tam byt nepratel
          4. brani mimochodem
          5. projit na konec gameboard
          */
 
         int x;
-        if(start.getPiece().isWhite()){
+        if (start.getPiece().isWhite()) {
             x = end.getX() - start.getX();
         } else {
             x = start.getX() - end.getX();
@@ -35,21 +33,28 @@ public class Pawn extends Piece {
         int y = Math.abs(start.getY() - end.getY());
 
         // protect spot with opposite piece
-        if(isColorPiecesSame(start, end) || end.getPiece() == null){
+        if (isColorPiecesSame(start, end) || end.getPiece() == null) {
             // classic pawn move
-            if(x == 1 && y == 0){
+            if (x == 1 && y == 0) {
                 return true;
             }
 
             // first pawn move
-            if(x == 2 && y == 0){
+            if (x == 2 && y == 0) {
                 // check if spot on the way is empty & position is initialization
-                if(start.getX() == 1 && board.getBox(2, start.getY()).getPiece() == null){
+                if (start.getX() == 1 && board.getBox(2, start.getY()).getPiece() == null) {
                     return true;
                 }
-                if(start.getX() == 6 && board.getBox(5, start.getY()).getPiece() == null){
+                if (start.getX() == 6 && board.getBox(5, start.getY()).getPiece() == null) {
                     return true;
                 }
+            }
+        }
+        // kill a opponent piece
+        // if is opponent piece
+        if (!isColorPiecesSame(start, end) && end.getPiece() != null) {
+            if (x == 1 && y == 1) {
+                return true;
             }
         }
 
@@ -59,7 +64,7 @@ public class Pawn extends Piece {
 
     @Override
     public String toString() {
-        if(this.isWhite()){
+        if (this.isWhite()) {
             return BLACK + "♙";
         } else {
             return WHITE + "♙";
