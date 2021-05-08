@@ -4,6 +4,8 @@ import cz.cvut.fel.pjv.Piece.*;
 
 import java.util.Arrays;
 
+import static cz.cvut.fel.pjv.Piece.Piece.GREEN;
+
 /**
  * Class representations Chessboard as a 2D array.
  */
@@ -56,7 +58,7 @@ public class Board {
                 if(boxes[i][j] != null) {
                     System.out.print(boxes[i][j].getPiece());
                 } else {
-                    System.out.print(" •");
+                    System.out.print(GREEN + "•");
                 }
                 if(j - 1 != boxes[i].length){
                     System.out.print(" ");

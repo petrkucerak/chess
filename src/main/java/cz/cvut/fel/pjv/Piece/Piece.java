@@ -8,6 +8,10 @@ public abstract class Piece {
     private boolean killed = false;
     private boolean white = false;
 
+    public static final String BLACK   = "\u001B[34m";
+    public static final String WHITE = "\u001B[33m";
+    public static final String GREEN  = "\u001B[32m";
+
     public Piece(boolean white) {
         this.white = white;
     }
