@@ -27,8 +27,14 @@ public class King extends Piece {
             return false;
         }
 
-
-
         return false;
+    }
+    @Override
+    public String toString() {
+        if(this.isWhite() == true){
+            return "*C";
+        } else {
+            return "+C";
+        }
     }
 }

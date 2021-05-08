@@ -14,5 +14,14 @@ public class Knight extends Piece {
         return false;
     }
 
+    @Override
+    public String toString() {
+        if(this.isWhite() == true){
+            return "*K";
+        } else {
+            return "+K";
+        }
+    }
+
 
 }

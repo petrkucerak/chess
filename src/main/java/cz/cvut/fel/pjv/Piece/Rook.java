@@ -13,4 +13,13 @@ public class Rook extends Piece {
     public boolean canMove(Board board, Spot start, Spot end) {
         return false;
     }
+
+    @Override
+    public String toString() {
+        if(this.isWhite() == true){
+            return "*R";
+        } else {
+            return "+R";
+        }
+    }
 }

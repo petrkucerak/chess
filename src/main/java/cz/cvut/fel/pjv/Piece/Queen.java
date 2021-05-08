@@ -13,4 +13,13 @@ public class Queen extends Piece {
     public boolean canMove(Board board, Spot start, Spot end) {
         return false;
     }
+
+    @Override
+    public String toString() {
+        if(this.isWhite() == true){
+            return "*Q";
+        } else {
+            return "+Q";
+        }
+    }
 }
