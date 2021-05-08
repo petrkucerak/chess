@@ -45,6 +45,22 @@ public class Main {
             game.printGameInfo();
 
             // play black player
+            System.out.println("Set origin coords");
+            System.out.println("x:");
+            startX = sc.nextInt();
+            System.out.println("y:");
+            startY = sc.nextInt();
+
+            System.out.println("Set new coords");
+            System.out.println("x:");
+            endX = sc.nextInt();
+            System.out.println("y:");
+            endY = sc.nextInt();
+
+            game.playerMove(computer, startX, startY, endX, endY);
+
+            // print game status
+            game.printGameInfo();
         }
     }
 }
