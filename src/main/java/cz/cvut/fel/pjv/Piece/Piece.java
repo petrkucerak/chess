@@ -36,4 +36,18 @@ public abstract class Piece {
     }
 
     public abstract boolean canMove(Board board, Spot start, Spot end);
+
+    /**
+     * Protect spot with same color piece
+     * @param end
+     * @return
+     */
+    boolean myPieceInTheWay(Spot end){
+
+        if (end.getPiece() != null && end.getPiece().isWhite() == this.isWhite()) {
+            System.err.println("This spot is occupied by your piece!");
+            return true;
+        }
+        return false;
+    }
 }

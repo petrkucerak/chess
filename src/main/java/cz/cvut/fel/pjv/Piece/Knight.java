@@ -13,7 +13,7 @@ public class Knight extends Piece {
     public boolean canMove(Board board, Spot start, Spot end) {
 
         // protect spot with same color piece
-        if (end.getPiece() != null && end.getPiece().isWhite() == this.isWhite()) {
+        if(myPieceInTheWay(end)){
             return false;
         }
 
