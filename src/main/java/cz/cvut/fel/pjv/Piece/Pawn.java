@@ -28,15 +28,15 @@ public class Pawn extends Piece {
 
         int x;
         if(start.getPiece().isWhite()){
-            x = start.getX() - end.getX();
-        } else {
             x = end.getX() - start.getX();
+        } else {
+            x = start.getX() - end.getX();
         }
         int y = Math.abs(start.getY() - end.getY());
 
         // classic pawn move
         // protect spot with opposite piece
-        if(isColorPiecesSame(start, end)){
+        if(isColorPiecesSame(start, end) || end.getPiece() == null){
             if(x == 1 && y == 0){
                 return true;
             }
