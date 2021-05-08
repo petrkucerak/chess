@@ -18,7 +18,7 @@ public class Main {
 
         game.printGameInfo();
 
-        /*
+
         // init Scanner for testing
         Scanner sc = new Scanner(System.in);
 
@@ -33,7 +33,7 @@ public class Main {
             System.out.println("y:");
             startY = sc.nextInt();
 
-            System.out.println("Set origin coords");
+            System.out.println("Set new coords");
             System.out.println("x:");
             endX = sc.nextInt();
             System.out.println("y:");
@@ -42,9 +42,9 @@ public class Main {
             game.playerMove(human, startX, startY, endX, endY);
 
             // print game status
-            System.out.println(game);
+            game.printGameInfo();
 
             // play black player
-        }*/
+        }
     }
 }

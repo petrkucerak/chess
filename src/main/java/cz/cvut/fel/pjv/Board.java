@@ -5,6 +5,7 @@ import cz.cvut.fel.pjv.Piece.*;
 import java.util.Arrays;
 
 import static cz.cvut.fel.pjv.Piece.Piece.GREEN;
+import static cz.cvut.fel.pjv.Piece.Piece.RESET;
 
 /**
  * Class representations Chessboard as a 2D array.
@@ -64,7 +65,7 @@ public class Board {
                     System.out.print(" ");
                 }
             }
-            System.out.println();
+            System.out.println(RESET);
         }
     }
 }
