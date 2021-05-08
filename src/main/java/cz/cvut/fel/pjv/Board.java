@@ -4,7 +4,7 @@ import cz.cvut.fel.pjv.Piece.*;
 
 import java.util.Arrays;
 
-import static cz.cvut.fel.pjv.Piece.Piece.GREEN;
+import static cz.cvut.fel.pjv.Piece.Piece.BACK;
 import static cz.cvut.fel.pjv.Piece.Piece.RESET;
 
 /**
@@ -65,7 +65,7 @@ public class Board {
                 if(boxes[i][j].getPiece() != null) {
                     System.out.print(boxes[i][j].getPiece());
                 } else {
-                    System.out.print(GREEN + "•");
+                    System.out.print(BACK + "♟");
                 }
                 if(j - 1 != boxes[i].length){
                     System.out.print(" ");

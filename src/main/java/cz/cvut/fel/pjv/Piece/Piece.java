@@ -12,6 +12,8 @@ public abstract class Piece {
     public static final String WHITE = "\u001B[33m";
     public static final String GREEN  = "\u001B[32m";
     public static final String RESET  = "\u001B[0m";
+    public static final String BACK  = "\u001B[30m";
+
 
     public Piece(boolean white) {
         this.white = white;

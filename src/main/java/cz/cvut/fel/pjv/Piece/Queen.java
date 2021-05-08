@@ -17,9 +17,9 @@ public class Queen extends Piece {
     @Override
     public String toString() {
         if(this.isWhite() == true){
-            return BLACK + "Q";
+            return BLACK + "♕";
         } else {
-            return WHITE + "Q";
+            return WHITE + "♕";
         }
     }
 }

@@ -32,9 +32,9 @@ public class King extends Piece {
     @Override
     public String toString() {
         if(this.isWhite() == true){
-            return BLACK + "K";
+            return BLACK + "♔";
         } else {
-            return WHITE + "K";
+            return WHITE + "♔";
         }
     }
 }
