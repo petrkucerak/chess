@@ -42,10 +42,23 @@ public abstract class Piece {
      * @param end
      * @return
      */
-    boolean myPieceInTheWay(Spot end){
+    boolean isMyPieceInTheWay(Spot end){
 
         if (end.getPiece() != null && end.getPiece().isWhite() == this.isWhite()) {
             System.err.println("This spot is occupied by your piece!");
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Check if pieces on current position have the same color
+     * @param start
+     * @param end
+     * @return
+     */
+    boolean isColorPiecesSame(Spot start, Spot end){
+        if(start.getPiece().isWhite() == end.getPiece().isWhite()){
             return true;
         }
         return false;

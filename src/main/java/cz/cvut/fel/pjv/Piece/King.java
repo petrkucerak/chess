@@ -23,7 +23,7 @@ public class King extends Piece {
     public boolean canMove(Board board, Spot start, Spot end) {
 
         // protect spot with same color piece
-        if(myPieceInTheWay(end)){
+        if(isMyPieceInTheWay(end)){
             return false;
         }
 
