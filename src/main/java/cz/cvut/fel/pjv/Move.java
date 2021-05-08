@@ -3,6 +3,9 @@ package cz.cvut.fel.pjv;
 import cz.cvut.fel.pjv.Pieces.Piece;
 import cz.cvut.fel.pjv.Player.Player;
 
+/**
+ * Class definition move of player
+ */
 public class Move {
     private Player player;
     private Spot start;
@@ -13,6 +16,12 @@ public class Move {
     // specific move
     private boolean castlingMove = false;
 
+    /**
+     * Create move object
+     * @param player
+     * @param start spot
+     * @param end spot
+     */
     public Move(Player player, Spot start, Spot end) {
         this.player = player;
         this.start = start;

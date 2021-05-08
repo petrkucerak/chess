@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Includes mechanism of the game
- * controller
+ * The main mechanism of game
  */
 public class Game {
     private Player[] players;
@@ -20,6 +19,11 @@ public class Game {
     private int gameRound;
     private List<Move> movesPlayed;
 
+    /**
+     * Initialization game
+     * @param p1 player
+     * @param p2 player
+     */
     public void initGame(Player p1, Player p2){
         this.players = new Player[2];
         players[0] = p1;
@@ -50,6 +54,16 @@ public class Game {
         this.status = status;
     }
 
+    /**
+     * Do player move
+     * @param player
+     * @param startX
+     * @param startY
+     * @param endX
+     * @param endY
+     * @return true - move is valid
+     * @throws Exception
+     */
     public boolean playerMove(Player player, int startX, int startY, int endX, int endY) throws Exception {
         Spot startBox = board.getBox(startX, startY);
         Spot endBox = board.getBox(endX, endY);
@@ -57,6 +71,13 @@ public class Game {
         return this.makeMove(move, player);
     }
 
+    /**
+     * Process move on the chessboard
+     * @param move
+     * @param player
+     * @return
+     * @throws Exception
+     */
     private boolean makeMove(Move move, Player player) throws Exception {
         Piece sourcePiece = move.getStart().getPiece();
 
@@ -123,12 +144,18 @@ public class Game {
         return true;
     }
 
+    /**
+     * Print game info
+     */
     public void printGameInfo(){
         System.out.println("Round: " + gameRound);
         System.out.println("Status: " + status);
         board.printBoard();
     }
 
+    /**
+     * Game statuses
+     */
     public enum GameStatus {
         ACTIVE,
         BLACK_WIN,

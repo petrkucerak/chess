@@ -6,15 +6,25 @@ import static cz.cvut.fel.pjv.Pieces.Piece.BACK;
 import static cz.cvut.fel.pjv.Pieces.Piece.RESET;
 
 /**
- * Class representations Chessboard as a 2D array.
+ * Class representations Chessboard and support methods
  */
 public class Board {
     Spot[][] boxes;
 
+    /**
+     * For create new chessboard use newBoard function
+     */
     public Board() {
         this.newBoard();
     }
 
+    /**
+     * Return spot on chessboard if exist
+     * @param x coordinate
+     * @param y coordinate
+     * @return
+     * @throws Exception
+     */
     public Spot getBox(int x, int y) throws Exception {
         if (x < 0 || x > 7 || y < 0 || y > 7) {
             throw new Exception("Index out of Chessboard!");
@@ -22,6 +32,9 @@ public class Board {
         return this.boxes[x][y];
     }
 
+    /**
+     * Initialization new chessboard with classic pieces position
+     */
     public void newBoard() {
         this.boxes = new Spot[8][8];
         // place white pieces to spots
@@ -57,6 +70,9 @@ public class Board {
 
     }
 
+    /**
+     * Print the chessboard
+     */
     public void printBoard() {
         for (int i = 0; i < boxes.length; i++) {
             System.out.print(i + ". ");

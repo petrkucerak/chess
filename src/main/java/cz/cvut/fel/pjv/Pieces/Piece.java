@@ -4,6 +4,9 @@ package cz.cvut.fel.pjv.Pieces;
 import cz.cvut.fel.pjv.Board;
 import cz.cvut.fel.pjv.Spot;
 
+/**
+ * Abstract class for define pieces and support methods for piece
+ */
 public abstract class Piece {
     private boolean killed = false;
     private boolean white = false;
@@ -14,7 +17,10 @@ public abstract class Piece {
     public static final String RESET  = "\u001B[0m";
     public static final String BACK  = "\u001B[30m";
 
-
+    /**
+     * Create piece
+     * @param white
+     */
     public Piece(boolean white) {
         this.white = white;
     }

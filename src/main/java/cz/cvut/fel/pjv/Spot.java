@@ -10,6 +10,12 @@ public class Spot {
     private int x;
     private int y;
 
+    /**
+     * Create object of spot
+     * @param piece
+     * @param x
+     * @param y
+     */
     public Spot(Piece piece, int x, int y) {
         this.piece = piece;
         this.x = x;
