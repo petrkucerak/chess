@@ -13,21 +13,41 @@ public class Pawn extends Piece {
     public boolean canMove(Board board, Spot start, Spot end) {
 
         // protect spot with same color piece
-        if (end.getPiece() != null && end.getPiece().isWhite() == this.isWhite()) {
+        if(isMyPieceInTheWay(end)){
             return false;
         }
 
-        int x = Math.abs(start.getX() - end.getX());
-        int y = Math.abs(start.getY() - end.getY());
-        if (x * y == 2) {
-            return true;
+        /*
+        ToDo:
+         1. normalni krok -> nesmi tam byt nepratel
+         2. krok o dva -> nesmi tam byt nepratel
+         3. brani nepratele -> musi tam byt nepratel
+         4. brani mimochodem
+         5. projit na konec gameboard
+         */
+
+        int x;
+        if(start.getPiece().isWhite()){
+            x = start.getX() - end.getX();
+        } else {
+            x = end.getX() - start.getX();
         }
+        int y = Math.abs(start.getY() - end.getY());
+
+        // classic pawn move
+        // protect spot with opposite piece
+        if(isColorPiecesSame(start, end)){
+            if(x == 1 && y == 0){
+                return true;
+            }
+        }
+
         return false;
     }
 
     @Override
     public String toString() {
-        if(this.isWhite() == true){
+        if(this.isWhite()){
             return BLACK + "♙";
         } else {
             return WHITE + "♙";

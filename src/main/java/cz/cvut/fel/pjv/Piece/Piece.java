@@ -58,8 +58,10 @@ public abstract class Piece {
      * @return
      */
     boolean isColorPiecesSame(Spot start, Spot end){
-        if(start.getPiece().isWhite() == end.getPiece().isWhite()){
-            return true;
+        if(end.getPiece() != null) {
+            if (start.getPiece().isWhite() == end.getPiece().isWhite()) {
+                return true;
+            }
         }
         return false;
     }
