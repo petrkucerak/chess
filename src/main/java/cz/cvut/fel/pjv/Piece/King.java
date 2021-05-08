@@ -22,8 +22,8 @@ public class King extends Piece {
     @Override
     public boolean canMove(Board board, Spot start, Spot end) {
 
-        // protect Spot with same color
-        if (end.getPiece().isWhite() == this.isWhite()) {
+        // protect spot with same color piece
+        if (end.getPiece() != null && end.getPiece().isWhite() == this.isWhite()) {
             return false;
         }
 
@@ -32,9 +32,9 @@ public class King extends Piece {
     @Override
     public String toString() {
         if(this.isWhite() == true){
-            return BLACK + "C";
+            return BLACK + "K";
         } else {
-            return WHITE + "C";
+            return WHITE + "K";
         }
     }
 }
