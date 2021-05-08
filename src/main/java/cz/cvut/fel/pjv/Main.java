@@ -23,44 +23,52 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         // run round
-        while (true){
-            // play white
+        while (true) {
             int startX, startY, endX, endY;
+            boolean clearMove = false;
 
-            System.out.println("Set origin coords");
-            System.out.println("x:");
-            startX = sc.nextInt();
-            System.out.println("y:");
-            startY = sc.nextInt();
+            // play white
+            while (!clearMove) {
+                System.out.println("WHITE MOVE");
+                System.out.println("Set origin coords");
+                System.out.println("x:");
+                startX = sc.nextInt();
+                System.out.println("y:");
+                startY = sc.nextInt();
 
-            System.out.println("Set new coords");
-            System.out.println("x:");
-            endX = sc.nextInt();
-            System.out.println("y:");
-            endY = sc.nextInt();
+                System.out.println("Set new coords");
+                System.out.println("x:");
+                endX = sc.nextInt();
+                System.out.println("y:");
+                endY = sc.nextInt();
 
-            game.playerMove(human, startX, startY, endX, endY);
+                clearMove = game.playerMove(human, startX, startY, endX, endY);
 
-            // print game status
-            game.printGameInfo();
+                // print game status
+                game.printGameInfo();
+            }
 
+            clearMove = false;
             // play black player
-            System.out.println("Set origin coords");
-            System.out.println("x:");
-            startX = sc.nextInt();
-            System.out.println("y:");
-            startY = sc.nextInt();
+            while (!clearMove) {
+                System.out.println("BLACK MOVE");
+                System.out.println("Set origin coords");
+                System.out.println("x:");
+                startX = sc.nextInt();
+                System.out.println("y:");
+                startY = sc.nextInt();
 
-            System.out.println("Set new coords");
-            System.out.println("x:");
-            endX = sc.nextInt();
-            System.out.println("y:");
-            endY = sc.nextInt();
+                System.out.println("Set new coords");
+                System.out.println("x:");
+                endX = sc.nextInt();
+                System.out.println("y:");
+                endY = sc.nextInt();
 
-            game.playerMove(computer, startX, startY, endX, endY);
+                clearMove = game.playerMove(computer, startX, startY, endX, endY);
 
-            // print game status
-            game.printGameInfo();
+                // print game status
+                game.printGameInfo();
+            }
         }
     }
 }
