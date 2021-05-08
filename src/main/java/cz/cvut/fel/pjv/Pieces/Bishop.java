@@ -10,7 +10,7 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public boolean canMove(Board board, Spot start, Spot end) {
+    public boolean canMove(Board board, Spot start, Spot end) throws Exception {
 
         // protect spot with same color piece
         if (isMyPieceInTheWay(end)) {
@@ -20,9 +20,9 @@ public class Bishop extends Piece {
         int x = Math.abs(start.getX() - end.getX());
         int y = Math.abs(start.getY() - end.getY());
 
-        if(x == y){
+        if (x == y) {
             // check no piece between start and end position
-            if(isNotPiecesOnTheWay(board, start, end)){
+            if (isNotPiecesOnTheWay(board, start, end)) {
                 return true;
             }
         }
@@ -30,34 +30,55 @@ public class Bishop extends Piece {
         return false;
     }
 
-    private boolean isNotPiecesOnTheWay(Board board, Spot start, Spot end){
+    private boolean isNotPiecesOnTheWay(Board board, Spot start, Spot end) throws Exception {
         // terminate arrow
         int x = start.getX() - end.getX();
         int y = start.getY() - end.getY();
 
-        // upper left
-        if(x>0 && y>0){
+        int i, j;
 
+        // upper left
+        if (x > 0 && y > 0) {
+            i = start.getX();
+            j = start.getY();
+            while (isOnTheBoard(i, j) && board.getBox(i, j).getPiece() != null){
+                i++;
+                j++;
+            }
         }
         // down left
-        if(x<0 && y>0){
-
+        if (x < 0 && y > 0) {
+            i = start.getX();
+            j = start.getY();
+            while (isOnTheBoard(i, j) && board.getBox(i, j).getPiece() != null){
+                i--;
+                j++;
+            }
         }
         // up right
-        if(x>0 && y<0){
-
+        if (x > 0 && y < 0) {
+            i = start.getX();
+            j = start.getY();
+            while (isOnTheBoard(i, j) && board.getBox(i, j).getPiece() != null){
+                i++;
+                j--;
+            }
         }
         // down right
-        if(x<0 && y<0){
-
+        if (x < 0 && y < 0) {
+            i = start.getX();
+            j = start.getY();
+            while (isOnTheBoard(i, j) && board.getBox(i, j).getPiece() != null){
+                i--;
+                j--;
+            }
         }
-
         return true;
     }
 
     @Override
     public String toString() {
-        if(this.isWhite()){
+        if (this.isWhite()) {
             return BLACK + "♗";
         } else {
             return WHITE + "♗";
