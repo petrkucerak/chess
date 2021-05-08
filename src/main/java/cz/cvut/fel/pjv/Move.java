@@ -45,4 +45,24 @@ public class Move {
     public Piece getPieceKilled() {
         return pieceKilled;
     }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public void setStart(Spot start) {
+        this.start = start;
+    }
+
+    public void setEnd(Spot end) {
+        this.end = end;
+    }
+
+    public void setPieceMoved(Piece pieceMoved) {
+        this.pieceMoved = pieceMoved;
+    }
+
+    public void setPieceKilled(Piece pieceKilled) {
+        this.pieceKilled = pieceKilled;
+    }
 }
