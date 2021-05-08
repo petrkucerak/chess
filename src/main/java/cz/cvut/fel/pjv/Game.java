@@ -1,5 +1,6 @@
 package cz.cvut.fel.pjv;
 
+import cz.cvut.fel.pjv.Piece.King;
 import cz.cvut.fel.pjv.Piece.Piece;
 import cz.cvut.fel.pjv.Player.Player;
 
@@ -69,6 +70,41 @@ public class Game {
         if(!sourcePiece.canMove(board, move.getStart(), move.getEnd())){
             return false;
         }
+
+        // kill
+        Piece destPiece = move.getStart().getPiece();
+        if(destPiece != null){
+            destPiece.setKilled(true);
+            move.setPieceKilled(destPiece);
+        }
+
+        // castling
+        // TODO: ...
+
+        // store the move
+        movesPlayed.add(move);
+
+        // move piece from the start box to end box
+        move.getEnd().setPiece(move.getStart().getPiece());
+        move.getStart().setPiece(null);
+
+        // check win situation
+        if (destPiece != null && destPiece instanceof King){
+            if(player.isWhiteSide()){
+                this.setStatus(GameStatus.WHITE_WIN);
+            } else {
+                this.setStatus(GameStatus.BLACK_WIN);
+            }
+        }
+
+        // set current turn to the other player
+        if(this.currentTurn == players[0]){
+            this.currentTurn = players[1];
+        } else {
+            this.currentTurn = players[0];
+        }
+
+        return true;
     }
 
     public enum GameStatus {
