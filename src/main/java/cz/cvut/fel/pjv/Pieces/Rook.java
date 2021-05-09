@@ -5,13 +5,32 @@ import cz.cvut.fel.pjv.Spot;
 
 public class Rook extends Piece {
     private boolean castlingDone;
+    private boolean wasMoved;
 
     public Rook(boolean white) {
         super(white);
         this.castlingDone = false;
+        this.wasMoved = false; // for check is possible do castling
     }
 
     // ToDo: Castling
+
+
+    public void setCastlingDone(boolean castlingDone) {
+        this.castlingDone = castlingDone;
+    }
+
+    public void setWasMoved(boolean wasMoved) {
+        this.wasMoved = wasMoved;
+    }
+
+    public boolean isCastlingDone() {
+        return castlingDone;
+    }
+
+    public boolean isWasMoved() {
+        return wasMoved;
+    }
 
     @Override
     public boolean canMove(Board board, Spot start, Spot end) throws Exception {
