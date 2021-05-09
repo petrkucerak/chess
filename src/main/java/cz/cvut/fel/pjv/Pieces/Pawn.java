@@ -21,6 +21,7 @@ public class Pawn extends Piece {
         }
 
         int x;
+        // check move direction
         if (start.getPiece().isWhite()) {
             x = end.getX() - start.getX();
         } else {
@@ -63,7 +64,10 @@ public class Pawn extends Piece {
             // check if move is diagonal
             if (x == 1 && y == 1) {
                 // check if last move was Pawn super jump
-
+                if (board.getBox(end.getX() - 1, end.getY()).getPiece() instanceof Pawn) {
+                    System.out.println("Player use 'El passant' move");
+                    return true;
+                }
             }
         }
 
