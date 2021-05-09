@@ -30,6 +30,14 @@ public class Bishop extends Piece {
         return false;
     }
 
+    /**
+     * Check bishop way.
+     * @param board
+     * @param start
+     * @param end
+     * @return
+     * @throws Exception
+     */
     private boolean isNotPiecesOnTheWay(Board board, Spot start, Spot end) throws Exception {
         // terminate arrow
         int x = start.getX() - end.getX();
@@ -39,41 +47,56 @@ public class Bishop extends Piece {
 
         // upper left
         if (x > 0 && y > 0) {
-            i = start.getX();
-            j = start.getY();
-            while (isOnTheBoard(i, j) && board.getBox(i, j).getPiece() != null){
-                i++;
-                j++;
+            i = start.getX() - 1;
+            j = start.getY() - 1;
+            while (isOnTheBoard(i, j) && board.getBox(i, j).getPiece() == null) {
+                i--;
+                j--;
+
+                if (i == end.getX() && j == end.getY()) {
+                    return true;
+                }
             }
         }
         // down left
         if (x < 0 && y > 0) {
-            i = start.getX();
-            j = start.getY();
-            while (isOnTheBoard(i, j) && board.getBox(i, j).getPiece() != null){
-                i--;
-                j++;
+            i = start.getX() + 1;
+            j = start.getY() - 1;
+            while (isOnTheBoard(i, j) && board.getBox(i, j).getPiece() == null) {
+                i++;
+                j--;
+
+                if (i == end.getX() && j == end.getY()) {
+                    return true;
+                }
             }
         }
         // up right
         if (x > 0 && y < 0) {
-            i = start.getX();
-            j = start.getY();
-            while (isOnTheBoard(i, j) && board.getBox(i, j).getPiece() != null){
-                i++;
-                j--;
+            i = start.getX() - 1;
+            j = start.getY() + 1;
+            while (isOnTheBoard(i, j) && board.getBox(i, j).getPiece() == null) {
+                i--;
+                j++;
+                if (i == end.getX() && j == end.getY()) {
+                    return true;
+                }
             }
         }
         // down right
         if (x < 0 && y < 0) {
-            i = start.getX();
-            j = start.getY();
-            while (isOnTheBoard(i, j) && board.getBox(i, j).getPiece() != null){
-                i--;
-                j--;
+            i = start.getX() + 1;
+            j = start.getY() + 1;
+            while (isOnTheBoard(i, j) && board.getBox(i, j).getPiece() == null) {
+                i++;
+                j++;
+                if (i == end.getX() && j == end.getY()) {
+                    return true;
+                }
             }
         }
-        return true;
+        System.err.println("The way is not clear!");
+        return false;
     }
 
     @Override
