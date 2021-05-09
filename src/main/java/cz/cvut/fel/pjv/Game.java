@@ -113,7 +113,7 @@ public class Game {
             destPiece.setKilled(true);
             move.setPieceKilled(destPiece);
         }
-        // ToDo: implementation of killing by el passant ins't function
+        // ToDo: implementation of killing by el passant isn't function
         // kill opponent because 'El passant'
         if(sourcePiece instanceof Pawn && ((Pawn) sourcePiece).isDidElPassant()){
             Piece victim = board.getBox(move.getEnd().getX()-1,move.getEnd().getY()).getPiece();
@@ -121,9 +121,6 @@ public class Game {
             move.setPieceKilled(victim);
             ((Pawn) sourcePiece).setDidElPassant(false);
         }
-
-        // castling
-        // TODO: add more specific moves
 
         // store the move
         movesPlayed.add(move);
