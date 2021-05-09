@@ -1,6 +1,7 @@
 package cz.cvut.fel.pjv.Pieces;
 
 import cz.cvut.fel.pjv.Board;
+import cz.cvut.fel.pjv.Move;
 import cz.cvut.fel.pjv.Spot;
 
 public class Pawn extends Piece {
@@ -13,7 +14,7 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public boolean canMove(Board board, Spot start, Spot end) throws Exception {
+    public boolean canMove(Board board, Spot start, Spot end, Move move) throws Exception {
 
         // protect spot with same color piece
         if (isMyPieceInTheWay(end)) {
@@ -66,6 +67,13 @@ public class Pawn extends Piece {
                 // check if last move was Pawn super jump
                 if (board.getBox(end.getX() - 1, end.getY()).getPiece() instanceof Pawn) {
                     System.out.println("Player use 'El passant' move");
+
+                    // kill opponent piece
+                    Piece destPiece = board.getBox(end.getX() - 1, end.getY()).getPiece();
+
+                    destPiece.setKilled(true);
+                    // setPieceKilled(destPiece);
+
                     return true;
                 }
             }
