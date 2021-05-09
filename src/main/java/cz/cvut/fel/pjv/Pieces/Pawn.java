@@ -92,7 +92,12 @@ public class Pawn extends Piece {
             }
         }
 
-        // ToDo add 'Promotion'
+        // Implementation 'Promotion'
+        // check situation for activate this mode
+        if(end.getX() == 0 && end.getX() == 7){
+            System.out.println("Piece promotion!");
+            // ToDo add 'runPromotion'
+        }
 
         return false;
     }
