@@ -78,6 +78,7 @@ public abstract class Piece {
 
     /**
      * Is position on the chessboard
+     *
      * @param x
      * @param y
      * @return
@@ -86,6 +87,138 @@ public abstract class Piece {
         if (x >= 0 && y >= 0 && x < 8 && y < 8) {
             return true;
         }
+        return false;
+    }
+
+    /**
+     * Check bishop way.
+     *
+     * @param board
+     * @param start
+     * @param end
+     * @return
+     * @throws Exception
+     */
+    boolean isNotPiecesOnTheWayBishop(Board board, Spot start, Spot end) throws Exception {
+        // terminate arrow
+        int x = start.getX() - end.getX();
+        int y = start.getY() - end.getY();
+
+        int i, j;
+
+        // upper left
+        if (x > 0 && y > 0) {
+            i = start.getX();
+            j = start.getY();
+            do {
+                i--;
+                j--;
+                if (i == end.getX() && j == end.getY()) {
+                    return true;
+                }
+            } while (isOnTheBoard(i, j) && board.getBox(i, j).getPiece() == null);
+        }
+        // down left
+        if (x < 0 && y > 0) {
+            i = start.getX();
+            j = start.getY();
+            do {
+                i++;
+                j--;
+                if (i == end.getX() && j == end.getY()) {
+                    return true;
+                }
+            } while (isOnTheBoard(i, j) && board.getBox(i, j).getPiece() == null);
+        }
+        // up right
+        if (x > 0 && y < 0) {
+            i = start.getX();
+            j = start.getY();
+            do {
+                i--;
+                j++;
+                if (i == end.getX() && j == end.getY()) {
+                    return true;
+                }
+            } while (isOnTheBoard(i, j) && board.getBox(i, j).getPiece() == null);
+        }
+        // down right
+        if (x < 0 && y < 0) {
+            i = start.getX();
+            j = start.getY();
+            do {
+                i++;
+                j++;
+                if (i == end.getX() && j == end.getY()) {
+                    return true;
+                }
+            } while (isOnTheBoard(i, j) && board.getBox(i, j).getPiece() == null);
+        }
+        System.err.println("The way is not clear!");
+        return false;
+    }
+
+    /**
+     * Check the rook way.
+     *
+     * @param board
+     * @param start
+     * @param end
+     * @return
+     * @throws Exception
+     */
+    boolean isNotPiecesOnTheWayRook(Board board, Spot start, Spot end) throws Exception {
+        // terminate arrow
+        int x = start.getX() - end.getX();
+        int y = start.getY() - end.getY();
+
+        int i;
+
+        // down
+        if (x < 0) {
+            i = start.getX();
+            do {
+                i++;
+                if (i == end.getX()) {
+                    return true;
+                }
+            }
+            while (isOnTheBoard(i, start.getY()) && board.getBox(i, start.getY()).getPiece() == null);
+        }
+        // up
+        if (x > 0) {
+            i = start.getX();
+            do {
+                i--;
+                if (i == end.getX()) {
+                    return true;
+                }
+            }
+            while (isOnTheBoard(i, start.getY()) && board.getBox(i, start.getY()).getPiece() == null);
+        }
+        // right
+        if (y < 0) {
+            i = start.getY();
+            do {
+                i++;
+                if (i == end.getY()) {
+                    return true;
+                }
+            }
+            while (isOnTheBoard(start.getX(), i) && board.getBox(start.getX(), i).getPiece() == null);
+        }
+        // left
+        if (y > 0) {
+            i = start.getY();
+            do {
+                i--;
+                if (i == end.getY()) {
+                    return true;
+                }
+            }
+            while (isOnTheBoard(start.getX(), i) && board.getBox(start.getX(), i).getPiece() == null);
+        }
+        System.err.println("The way is not clear!");
         return false;
     }
 }
