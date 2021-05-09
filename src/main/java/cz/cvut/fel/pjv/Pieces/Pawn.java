@@ -6,10 +6,28 @@ import cz.cvut.fel.pjv.Spot;
 public class Pawn extends Piece {
 
     private boolean wasLastSuperJump;
+    private boolean didElPassant;
 
     public Pawn(boolean white) {
         super(white);
         this.wasLastSuperJump = false;
+        this.didElPassant = false;
+    }
+
+    public void setDidElPassant(boolean didElPassant) {
+        this.didElPassant = didElPassant;
+    }
+
+    public boolean isDidElPassant() {
+        return didElPassant;
+    }
+
+    public boolean isWasLastSuperJump() {
+        return wasLastSuperJump;
+    }
+
+    public void setWasLastSuperJump(boolean wasLastSuperJump) {
+        this.wasLastSuperJump = wasLastSuperJump;
     }
 
     @Override
@@ -33,6 +51,7 @@ public class Pawn extends Piece {
         if (isColorPiecesSame(start, end) || end.getPiece() == null) {
             // classic pawn move
             if (x == 1 && y == 0) {
+                this.wasLastSuperJump = false;
                 return true;
             }
 
@@ -53,11 +72,11 @@ public class Pawn extends Piece {
         // if is opponent piece
         if (!isColorPiecesSame(start, end) && end.getPiece() != null) {
             if (x == 1 && y == 1) {
+                this.wasLastSuperJump = false;
                 return true;
             }
         }
 
-        // ToDo add 'El passant'
         // Implementation 'El passant'
         // spot shut be empty
         if (end.getPiece() == null) {
@@ -67,6 +86,7 @@ public class Pawn extends Piece {
                 if (board.getBox(end.getX() - 1, end.getY()).getPiece() instanceof Pawn) {
                     System.out.println("Player use 'El passant' move");
                     // kill opponent piece in game file
+                    this.didElPassant = true;
                     return true;
                 }
             }
