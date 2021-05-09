@@ -34,6 +34,14 @@ public class Rook extends Piece {
         return false;
     }
 
+    /**
+     * Check the rook way.
+     * @param board
+     * @param start
+     * @param end
+     * @return
+     * @throws Exception
+     */
     private boolean isNotPiecesOnTheWay(Board board, Spot start, Spot end) throws Exception {
         // terminate arrow
         int x = start.getX() - end.getX();
