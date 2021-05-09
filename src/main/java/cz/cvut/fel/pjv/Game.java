@@ -1,6 +1,7 @@
 package cz.cvut.fel.pjv;
 
 import cz.cvut.fel.pjv.Pieces.King;
+import cz.cvut.fel.pjv.Pieces.Pawn;
 import cz.cvut.fel.pjv.Pieces.Piece;
 import cz.cvut.fel.pjv.Player.Player;
 
@@ -111,6 +112,14 @@ public class Game {
         if(destPiece != null){
             destPiece.setKilled(true);
             move.setPieceKilled(destPiece);
+        }
+        // ToDo: implementation of killing by el passant ins't function
+        // kill opponent because 'El passant'
+        if(sourcePiece instanceof Pawn && ((Pawn) sourcePiece).isDidElPassant()){
+            Piece victim = board.getBox(move.getEnd().getX()-1,move.getEnd().getY()).getPiece();
+            victim.setKilled(true);
+            move.setPieceKilled(victim);
+            ((Pawn) sourcePiece).setDidElPassant(false);
         }
 
         // castling
