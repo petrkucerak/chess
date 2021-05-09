@@ -4,10 +4,14 @@ import cz.cvut.fel.pjv.Board;
 import cz.cvut.fel.pjv.Spot;
 
 public class Rook extends Piece {
+    private boolean castlingDone;
 
     public Rook(boolean white) {
         super(white);
+        this.castlingDone = false;
     }
+
+    // ToDo: Castling
 
     @Override
     public boolean canMove(Board board, Spot start, Spot end) throws Exception {

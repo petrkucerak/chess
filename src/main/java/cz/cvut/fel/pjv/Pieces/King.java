@@ -10,7 +10,7 @@ public class King extends Piece {
         super(white);
         this.castlingDone = false;
     }
-
+    // ToDo: Castling
     public boolean isCastlingDone() {
         return castlingDone;
     }
