@@ -5,10 +5,12 @@ import cz.cvut.fel.pjv.Spot;
 
 public class King extends Piece {
     private boolean castlingDone;
+    private boolean wasMoved;
 
     public King(boolean white) {
         super(white);
         this.castlingDone = false;
+        this.wasMoved = false; // for check is possible do castling
     }
     // ToDo: Castling
     public boolean isCastlingDone() {
@@ -17,6 +19,14 @@ public class King extends Piece {
 
     public void setCastlingDone(boolean castlingDone) {
         this.castlingDone = castlingDone;
+    }
+
+    public void setWasMoved(boolean wasMoved) {
+        this.wasMoved = wasMoved;
+    }
+
+    public boolean isWasMoved() {
+        return wasMoved;
     }
 
     @Override
