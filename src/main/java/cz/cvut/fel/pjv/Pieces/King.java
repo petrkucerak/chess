@@ -12,7 +12,7 @@ public class King extends Piece {
         this.castlingDone = false;
         this.wasMoved = false; // for check is possible do castling
     }
-    // ToDo: Castling
+
     public boolean isCastlingDone() {
         return castlingDone;
     }
@@ -37,6 +37,24 @@ public class King extends Piece {
             return false;
         }
 
+        int x = Math.abs(start.getX() - end.getX());
+        int y = Math.abs(start.getY() - end.getY());
+
+        // standard King move
+        if ((x == 1 && y == 1) || (x == 0 && y == 1) || (x == 1 && y == 0)){
+            return true;
+        }
+
+        // check conditions for Castling
+        if(wasMoved == false && castlingDone == false){
+            if(longCastling(board, start, end)){
+                return true;
+            }
+            if(shortCastling(board, start, end)){
+                return true;
+            }
+        }
+
         return false;
     }
     @Override
@@ -46,5 +64,15 @@ public class King extends Piece {
         } else {
             return WHITE + "♔";
         }
+    }
+
+    private boolean longCastling(Board board, Spot start, Spot end){
+        // ToDo: implements algorithm
+        return false;
+    }
+
+    private boolean shortCastling(Board board, Spot start, Spot end){
+        // ToDo: implements algorithm
+        return false;
     }
 }
