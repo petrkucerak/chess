@@ -1,7 +1,6 @@
 package cz.cvut.fel.pjv.Pieces;
 
 import cz.cvut.fel.pjv.Board;
-import cz.cvut.fel.pjv.Move;
 import cz.cvut.fel.pjv.Spot;
 
 public class King extends Piece {
@@ -21,7 +20,7 @@ public class King extends Piece {
     }
 
     @Override
-    public boolean canMove(Board board, Spot start, Spot end, Move move) {
+    public boolean canMove(Board board, Spot start, Spot end) {
 
         // protect spot with same color piece
         if(isMyPieceInTheWay(end)){

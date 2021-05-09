@@ -2,7 +2,6 @@ package cz.cvut.fel.pjv.Pieces;
 
 
 import cz.cvut.fel.pjv.Board;
-import cz.cvut.fel.pjv.Move;
 import cz.cvut.fel.pjv.Spot;
 
 /**
@@ -43,7 +42,7 @@ public abstract class Piece {
         this.white = white;
     }
 
-    public abstract boolean canMove(Board board, Spot start, Spot end, Move move) throws Exception;
+    public abstract boolean canMove(Board board, Spot start, Spot end) throws Exception;
 
     /**
      * Protect spot with same color piece

@@ -1,7 +1,6 @@
 package cz.cvut.fel.pjv.Pieces;
 
 import cz.cvut.fel.pjv.Board;
-import cz.cvut.fel.pjv.Move;
 import cz.cvut.fel.pjv.Spot;
 
 public class Rook extends Piece {
@@ -15,7 +14,7 @@ public class Rook extends Piece {
     // ToDo: Castling
 
     @Override
-    public boolean canMove(Board board, Spot start, Spot end, Move move) throws Exception {
+    public boolean canMove(Board board, Spot start, Spot end) throws Exception {
 
         // protect spot with same color piece
         if (isMyPieceInTheWay(end)) {

@@ -100,7 +100,7 @@ public class Game {
 
         // valid move
         // TODO: create rules for all pieces
-        if(!sourcePiece.canMove(board, move.getStart(), move.getEnd(), move)){
+        if(!sourcePiece.canMove(board, move.getStart(), move.getEnd())){
             System.err.println("The move isn't possible!");
             return false;
         }
