@@ -22,7 +22,7 @@ public class Bishop extends Piece {
 
         if (x == y) {
             // check no piece between start and end position
-            if (isNotPiecesOnTheWay(board, start, end)) {
+            if (isNotPiecesOnTheWayBishop(board, start, end)) {
                 return true;
             }
         }
@@ -39,7 +39,7 @@ public class Bishop extends Piece {
      * @return
      * @throws Exception
      */
-    private boolean isNotPiecesOnTheWay(Board board, Spot start, Spot end) throws Exception {
+    boolean isNotPiecesOnTheWayBishop(Board board, Spot start, Spot end) throws Exception {
         // terminate arrow
         int x = start.getX() - end.getX();
         int y = start.getY() - end.getY();

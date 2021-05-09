@@ -26,7 +26,7 @@ public class Rook extends Piece {
 
         if ((x == 0 && y > 0) || (x > 0 && y == 0)) {
             // check no piece between start and end position
-            if (isNotPiecesOnTheWay(board, start, end)) {
+            if (isNotPiecesOnTheWayRook(board, start, end)) {
                 return true;
             }
         }
@@ -42,7 +42,7 @@ public class Rook extends Piece {
      * @return
      * @throws Exception
      */
-    private boolean isNotPiecesOnTheWay(Board board, Spot start, Spot end) throws Exception {
+    boolean isNotPiecesOnTheWayRook(Board board, Spot start, Spot end) throws Exception {
         // terminate arrow
         int x = start.getX() - end.getX();
         int y = start.getY() - end.getY();
