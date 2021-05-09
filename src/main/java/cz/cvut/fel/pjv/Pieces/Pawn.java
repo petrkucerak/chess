@@ -5,8 +5,11 @@ import cz.cvut.fel.pjv.Spot;
 
 public class Pawn extends Piece {
 
+    private boolean wasLastSuperJump;
+
     public Pawn(boolean white) {
         super(white);
+        this.wasLastSuperJump = false;
     }
 
     @Override
@@ -32,13 +35,15 @@ public class Pawn extends Piece {
                 return true;
             }
 
-            // first pawn move
+            // first pawn move (super jump)
             if (x == 2 && y == 0) {
                 // check if spot on the way is empty & position is initialization
                 if (start.getX() == 1 && board.getBox(2, start.getY()).getPiece() == null) {
+                    this.wasLastSuperJump = true;
                     return true;
                 }
                 if (start.getX() == 6 && board.getBox(5, start.getY()).getPiece() == null) {
+                    this.wasLastSuperJump = true;
                     return true;
                 }
             }
@@ -52,6 +57,16 @@ public class Pawn extends Piece {
         }
 
         // ToDo add 'El passant'
+        // Implementation 'El passant'
+        // spot shut be empty
+        if (end.getPiece() == null) {
+            // check if move is diagonal
+            if (x == 1 && y == 1) {
+                // check if last move was Pawn super jump
+
+            }
+        }
+
         // ToDo add 'Promotion'
 
         return false;
