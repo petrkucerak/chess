@@ -132,7 +132,7 @@ public class Game {
         }
 
         // promotion
-        if(sourcePiece instanceof Pawn && ((Pawn) sourcePiece).isPromotion()){
+        if (sourcePiece instanceof Pawn && ((Pawn) sourcePiece).isPromotion()) {
             // select type of new piece
             // now generate automatically Queen
             move.getStart().setPiece(new Queen(sourcePiece.isWhite()));
@@ -141,28 +141,28 @@ public class Game {
         }
 
         // castling
-        if(sourcePiece instanceof King){
+        if (sourcePiece instanceof King) {
             // long castling
-            if(((King) sourcePiece).isLongCastlingMove()){
+            if (((King) sourcePiece).isLongCastlingMove()) {
                 // save record
                 move.setLongCastlingMove(true);
                 // move with Rook
                 // get Rook
-                Piece rook = board.getBox(move.getStart().getX(),move.getStart().getY() - 4).getPiece();
-                board.getBox(move.getStart().getX(),move.getStart().getY() - 4).setPiece(null);
+                Piece rook = board.getBox(move.getStart().getX(), move.getStart().getY() - 4).getPiece();
+                board.getBox(move.getStart().getX(), move.getStart().getY() - 4).setPiece(null);
                 // set new Rook's position
-                board.getBox(move.getStart().getX(),move.getStart().getY() - 1).setPiece(rook);
+                board.getBox(move.getStart().getX(), move.getStart().getY() - 1).setPiece(rook);
             }
             // short castling
-            if(((King) sourcePiece).isShortCastlingMove()){
+            if (((King) sourcePiece).isShortCastlingMove()) {
                 // save record
                 move.setShortCastlingMove(true);
                 // move with Rook
                 // get Rook
-                Piece rook = board.getBox(move.getStart().getX(),move.getStart().getY() + 3).getPiece();
-                board.getBox(move.getStart().getX(),move.getStart().getY() + 3).setPiece(null);
+                Piece rook = board.getBox(move.getStart().getX(), move.getStart().getY() + 3).getPiece();
+                board.getBox(move.getStart().getX(), move.getStart().getY() + 3).setPiece(null);
                 // set new Rook's position
-                board.getBox(move.getStart().getX(),move.getStart().getY() + 1).setPiece(rook);
+                board.getBox(move.getStart().getX(), move.getStart().getY() + 1).setPiece(rook);
             }
         }
 

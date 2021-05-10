@@ -21,9 +21,10 @@ public class Move {
 
     /**
      * Create move object
+     *
      * @param player
-     * @param start spot
-     * @param end spot
+     * @param start  spot
+     * @param end    spot
      */
     public Move(Player player, Spot start, Spot end) {
         this.player = player;
