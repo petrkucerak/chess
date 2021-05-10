@@ -40,7 +40,7 @@ public class Pawn extends Piece {
 
         int x;
         // check move direction
-        if (start.getPiece().isWhite()) {
+        if (!start.getPiece().isWhite()) {
             x = end.getX() - start.getX();
         } else {
             x = start.getX() - end.getX();
