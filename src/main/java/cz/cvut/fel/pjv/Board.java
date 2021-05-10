@@ -53,7 +53,7 @@ public class Board {
     /**
      * Initialization new chessboard with classic pieces position
      */
-    public void newBoard() {
+    private void newBoard() {
         this.boxes = new Spot[8][8];
         // place white pieces to spots
         boxes[0][0] = new Spot(new Rook(false), 0, 0);
@@ -88,7 +88,7 @@ public class Board {
 
     }
 
-    public void testBoardPromotion() {
+    private void testBoardPromotion() {
         this.boxes = new Spot[8][8];
         // place other spots as null
         for (int i = 0; i < 8; i++) {
@@ -106,7 +106,7 @@ public class Board {
 
     }
 
-    public void testBoardCastling() {
+    private void testBoardCastling() {
         this.boxes = new Spot[8][8];
         // place white pieces to spots
         boxes[0][0] = new Spot(new Rook(false), 0, 0);
