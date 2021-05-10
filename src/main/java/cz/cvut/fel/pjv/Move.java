@@ -17,6 +17,7 @@ public class Move {
     private boolean shortCastlingMove;
     private boolean longCastlingMove;
     private boolean elPassant;
+    private boolean promotion;
 
     /**
      * Create move object
@@ -33,6 +34,15 @@ public class Move {
         this.shortCastlingMove = false;
         this.longCastlingMove = false;
         this.elPassant = false;
+        this.promotion = false;
+    }
+
+    public void setPromotion(boolean promotion) {
+        this.promotion = promotion;
+    }
+
+    public boolean isPromotion() {
+        return promotion;
     }
 
     public void setShortCastlingMove(boolean shortCastlingMove) {
