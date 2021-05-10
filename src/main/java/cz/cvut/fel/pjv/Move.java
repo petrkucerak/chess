@@ -14,7 +14,8 @@ public class Move {
     private Piece pieceKilled;
 
     // specific move
-    private boolean castlingMove = false;
+    private boolean shortCastlingMove = false;
+    private boolean longCastlingMove = false;
 
     /**
      * Create move object
@@ -29,12 +30,20 @@ public class Move {
         this.pieceMoved = start.getPiece();
     }
 
-    public boolean isCastlingMove() {
-        return castlingMove;
+    public void setShortCastlingMove(boolean shortCastlingMove) {
+        this.shortCastlingMove = shortCastlingMove;
     }
 
-    public void setCastlingMove(boolean castlingMove) {
-        this.castlingMove = castlingMove;
+    public void setLongCastlingMove(boolean longCastlingMove) {
+        this.longCastlingMove = longCastlingMove;
+    }
+
+    public boolean isShortCastlingMove() {
+        return shortCastlingMove;
+    }
+
+    public boolean isLongCastlingMove() {
+        return longCastlingMove;
     }
 
     public Player getPlayer() {
