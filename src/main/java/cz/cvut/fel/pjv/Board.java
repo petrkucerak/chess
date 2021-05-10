@@ -15,11 +15,12 @@ public class Board {
      * For create new chessboard use newBoard function
      */
     public Board() {
-        this.newBoard();
+        this.testBoardPromotion();
     }
 
     /**
      * Return spot on chessboard if exist
+     *
      * @param x coordinate
      * @param y coordinate
      * @return
@@ -66,6 +67,24 @@ public class Board {
             for (int j = 0; j < boxes[i].length; j++) {
                 boxes[i][j] = new Spot(null, i, j);
             }
+        }
+
+    }
+
+    public void testBoardPromotion() {
+        this.boxes = new Spot[8][8];
+        // place other spots as null
+        for (int i = 0; i < 8; i++) {
+            if (i == 1) {
+                for (int j = 0; j < boxes[i].length; j++) {
+                    boxes[i][j] = new Spot((new Pawn(true)), i, j);
+                }
+            } else {
+                for (int j = 0; j < boxes[i].length; j++) {
+                    boxes[i][j] = new Spot(null, i, j);
+                }
+            }
+
         }
 
     }
