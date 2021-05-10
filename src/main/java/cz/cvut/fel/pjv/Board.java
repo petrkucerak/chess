@@ -34,6 +34,23 @@ public class Board {
     }
 
     /**
+     * Equal pieces in 2 chessboards
+     * @param board
+     * @return
+     * @throws Exception
+     */
+    public boolean isBoardEqual(Board board) throws Exception {
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                if(!this.getBox(i,j).getPiece().getClass().equals(board.getBox(i,j).getPiece().getClass())){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
      * Initialization new chessboard with classic pieces position
      */
     public void newBoard() {
