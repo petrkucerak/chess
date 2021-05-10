@@ -103,7 +103,7 @@ public class Pawn extends Piece {
         // check situation for activate this mode
         if (end.getX() == 0 && end.getX() == 7) {
             System.out.println("Piece promotion!");
-
+            isPromotion = true;
         }
 
         return false;
