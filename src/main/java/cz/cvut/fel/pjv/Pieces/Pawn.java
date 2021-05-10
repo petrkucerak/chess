@@ -7,11 +7,13 @@ public class Pawn extends Piece {
 
     private boolean wasLastSuperJump;
     private boolean didElPassant;
+    private boolean isPromotion;
 
     public Pawn(boolean white) {
         super(white);
         this.wasLastSuperJump = false;
         this.didElPassant = false;
+        this.isPromotion = false;
     }
 
     public void setDidElPassant(boolean didElPassant) {
@@ -101,7 +103,7 @@ public class Pawn extends Piece {
         // check situation for activate this mode
         if (end.getX() == 0 && end.getX() == 7) {
             System.out.println("Piece promotion!");
-            // ToDo add 'runPromotion'
+
         }
 
         return false;
