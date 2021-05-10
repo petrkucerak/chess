@@ -19,7 +19,8 @@ public class Game {
     private Player currentTurn;
     private GameStatus status;
     private int gameRound;
-    private List<Move> movesPlayed;
+    private ArrayList<Move> movesPlayed;
+    private ArrayList<Board> gameBoards;
 
     /**
      * Initialization game
@@ -43,6 +44,9 @@ public class Game {
         }
         this.movesPlayed = new ArrayList<Move>();
         movesPlayed.clear();
+        this.gameBoards = new ArrayList<Board>();
+        gameBoards.clear();
+        gameBoards.add(this.board);
     }
 
     public boolean isEnd() {
@@ -173,6 +177,13 @@ public class Game {
         move.getEnd().setPiece(move.getStart().getPiece());
         move.getStart().setPiece(null);
 
+        // check 3-fold repetition situation
+        // ToDo: needs to be implemented
+        checkThreeFoldRepetition(gameBoards);
+        // store the board
+        gameBoards.add(board);
+
+
         // check win situation
         if (destPiece != null && destPiece instanceof King) {
             if (player.isWhiteSide()) {
@@ -194,6 +205,19 @@ public class Game {
         return true;
     }
 
+    private void checkThreeFoldRepetition(ArrayList<Board> gameBoards) throws Exception {
+        int countSameBoards = 0;
+        for (Board gameBoard : gameBoards) {
+            if (this.board.isBoardEqual(gameBoard)){
+                System.out.println("This board has been displayed " + countSameBoards + "times");
+                countSameBoards++;
+            }
+            if (countSameBoards == 3) {
+                this.setStatus(GameStatus.DRAW);
+            }
+        }
+    }
+
     /**
      * Print game info
      */
@@ -210,6 +234,8 @@ public class Game {
         ACTIVE,
         BLACK_WIN,
         WHITE_WIN,
+        CHECK,
+        DRAW,
         FORFEIT,
         STALEMATE,
         RESIGNATION
