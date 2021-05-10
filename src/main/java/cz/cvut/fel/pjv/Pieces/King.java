@@ -4,13 +4,13 @@ import cz.cvut.fel.pjv.Board;
 import cz.cvut.fel.pjv.Spot;
 
 public class King extends Piece {
-    private boolean wasMoved;
+    private boolean moved;
     private boolean isLongCastlingMove;
     private boolean isShortCastlingMove;
 
     public King(boolean white) {
         super(white);
-        this.wasMoved = false; // for check is possible do castling
+        this.moved = false; // for check is possible do castling
         this.isLongCastlingMove = false;
         this.isShortCastlingMove = false;
     }
@@ -31,12 +31,12 @@ public class King extends Piece {
         return isShortCastlingMove;
     }
 
-    public void setWasMoved(boolean wasMoved) {
-        this.wasMoved = wasMoved;
+    public void setMoved(boolean moved) {
+        this.moved = moved;
     }
 
-    public boolean isWasMoved() {
-        return wasMoved;
+    public boolean isMoved() {
+        return moved;
     }
 
     @Override
@@ -52,12 +52,12 @@ public class King extends Piece {
 
         // standard King move
         if ((x == 1 && y == 1) || (x == 0 && y == 1) || (x == 1 && y == 0)) {
-            wasMoved = true;
+            moved = true;
             return true;
         }
 
         // check conditions for Castling
-        if (!wasMoved) {
+        if (!moved) {
             if (longCastling(board, start, end)) {
                 return true;
             }
@@ -87,17 +87,21 @@ public class King extends Piece {
                 if (board.getBox(start.getX(), start.getY() - i).getPiece() != null) {
                     return false;
                 }
-                if(board.getBox(start.getX(), start.getY() - 4).getPiece() instanceof Rook) {
-                    wasMoved = true;
-                    isLongCastlingMove = true;
-
-                    System.out.println("Long castling!");
-                    return true;
+                // check the rook position and move status
+                if (board.getBox(start.getX(), start.getY() - 4).getPiece() instanceof Rook) {
+                    System.err.println("Rook was already moving!");
+                    return false;
                 }
+                moved = true;
+                isLongCastlingMove = true;
+
+                System.out.println("Long castling!");
+                return true;
             }
         }
         return false;
     }
+
 
     private boolean shortCastling(Board board, Spot start, Spot end) throws Exception {
         // validate short castling
@@ -108,8 +112,13 @@ public class King extends Piece {
                 if (board.getBox(start.getX(), start.getY() + i).getPiece() != null) {
                     return false;
                 }
-                if (board.getBox(start.getX(), start.getY() + 3).getPiece() instanceof Rook){
-                    wasMoved = true;
+                // check the rook position and move status
+                if (board.getBox(start.getX(), start.getY() + 3).getPiece() instanceof Rook) {
+                    if (((Rook) board.getBox(start.getX(), start.getY() + 3).getPiece()).isMoved()) {
+                        System.err.println("Rook was already moving!");
+                        return false;
+                    }
+                    moved = true;
                     isShortCastlingMove = true;
 
                     System.out.println("Short castling!");
