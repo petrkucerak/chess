@@ -108,7 +108,7 @@ public class Game {
 
         // MOVES
         // kill opponent piece
-        Piece destPiece = move.getStart().getPiece();
+        Piece destPiece = move.getEnd().getPiece();
         if(destPiece != null){
             destPiece.setKilled(true);
             move.setPieceKilled(destPiece);
