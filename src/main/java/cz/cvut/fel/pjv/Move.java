@@ -14,8 +14,8 @@ public class Move {
     private Piece pieceKilled;
 
     // specific move
-    private boolean shortCastlingMove = false;
-    private boolean longCastlingMove = false;
+    private boolean shortCastlingMove;
+    private boolean longCastlingMove;
 
     /**
      * Create move object
@@ -28,6 +28,9 @@ public class Move {
         this.start = start;
         this.end = end;
         this.pieceMoved = start.getPiece();
+
+        this.shortCastlingMove = false;
+        this.longCastlingMove = false;
     }
 
     public void setShortCastlingMove(boolean shortCastlingMove) {
