@@ -4,32 +4,20 @@ import cz.cvut.fel.pjv.Board;
 import cz.cvut.fel.pjv.Spot;
 
 public class Rook extends Piece {
-    private boolean castlingDone;
-    private boolean wasMoved;
+    private boolean moved;
 
     public Rook(boolean white) {
         super(white);
-        this.castlingDone = false;
-        this.wasMoved = false; // for check is possible do castling
+        this.moved = false; // for check is possible do castling
     }
 
-    // ToDo: Castling
-
-
-    public void setCastlingDone(boolean castlingDone) {
-        this.castlingDone = castlingDone;
+    public void setMoved(boolean moved) {
+        this.moved = moved;
     }
 
-    public void setWasMoved(boolean wasMoved) {
-        this.wasMoved = wasMoved;
-    }
 
-    public boolean isCastlingDone() {
-        return castlingDone;
-    }
-
-    public boolean isWasMoved() {
-        return wasMoved;
+    public boolean isMoved() {
+        return moved;
     }
 
     @Override
@@ -46,6 +34,7 @@ public class Rook extends Piece {
         if ((x == 0 && y > 0) || (x > 0 && y == 0)) {
             // check no piece between start and end position
             if (isNotPiecesOnTheWayRook(board, start, end)) {
+                moved = true;
                 return true;
             }
         }
