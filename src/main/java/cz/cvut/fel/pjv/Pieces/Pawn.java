@@ -81,9 +81,14 @@ public class Pawn extends Piece {
         // spot shut be empty
         if (end.getPiece() == null) {
             // check if move is diagonal
+            x = Math.abs(start.getX() - end.getX());
+            y = Math.abs(start.getY() - end.getY());
             if (x == 1 && y == 1) {
+                // check color
+                int colorRegulator = colorRegulator(start.getPiece());
                 // check if last move was Pawn super jump
-                if (board.getBox(end.getX() - 1, end.getY()).getPiece() instanceof Pawn) {
+                Piece victim = board.getBox(end.getX() + colorRegulator, end.getY()).getPiece();
+                if (victim instanceof Pawn && ((Pawn) victim).isWasLastSuperJump()) {
                     System.out.println("Player use 'El passant' move");
                     // kill opponent piece in game file
                     this.didElPassant = true;
@@ -94,12 +99,19 @@ public class Pawn extends Piece {
 
         // Implementation 'Promotion'
         // check situation for activate this mode
-        if(end.getX() == 0 && end.getX() == 7){
+        if (end.getX() == 0 && end.getX() == 7) {
             System.out.println("Piece promotion!");
             // ToDo add 'runPromotion'
         }
 
         return false;
+    }
+
+    public static int colorRegulator(Piece piece) {
+        if (piece.isWhite()) {
+            return 1;
+        }
+        return -1;
     }
 
     @Override

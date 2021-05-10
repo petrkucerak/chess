@@ -22,10 +22,11 @@ public class Game {
 
     /**
      * Initialization game
+     *
      * @param p1 player
      * @param p2 player
      */
-    public void initGame(Player p1, Player p2){
+    public void initGame(Player p1, Player p2) {
         this.players = new Player[2];
         players[0] = p1;
         players[1] = p2;
@@ -34,7 +35,7 @@ public class Game {
 
         this.board = new Board();
 
-        if(p1.isWhiteSide()){
+        if (p1.isWhiteSide()) {
             this.currentTurn = p1;
         } else {
             this.currentTurn = p2;
@@ -43,7 +44,7 @@ public class Game {
         movesPlayed.clear();
     }
 
-    public boolean isEnd(){
+    public boolean isEnd() {
         return this.getStatus() != GameStatus.ACTIVE;
     }
 
@@ -57,6 +58,7 @@ public class Game {
 
     /**
      * Do player move
+     *
      * @param player
      * @param startX
      * @param startY
@@ -74,6 +76,7 @@ public class Game {
 
     /**
      * Process move on the chessboard
+     *
      * @param move
      * @param player
      * @return
@@ -83,25 +86,25 @@ public class Game {
         Piece sourcePiece = move.getStart().getPiece();
 
         // check if piece exist
-        if (sourcePiece == null){
+        if (sourcePiece == null) {
             System.err.println("The piece doesn't exist!");
             return false;
         }
 
         // valid player
-        if(player != currentTurn){
+        if (player != currentTurn) {
             System.err.println("The player is not on the move!");
             return false;
         }
         // validate if color of piece is same as player color
-        if(sourcePiece.isWhite() != player.isWhiteSide()){
+        if (sourcePiece.isWhite() != player.isWhiteSide()) {
             System.err.println("The piece color isn't same as a paler color!");
             return false;
         }
 
         // valid move
         // TODO: create rules for all pieces
-        if(!sourcePiece.canMove(board, move.getStart(), move.getEnd())){
+        if (!sourcePiece.canMove(board, move.getStart(), move.getEnd())) {
             System.err.println("The move isn't possible!");
             return false;
         }
@@ -109,17 +112,22 @@ public class Game {
         // MOVES
         // kill opponent piece
         Piece destPiece = move.getEnd().getPiece();
-        if(destPiece != null){
+        if (destPiece != null) {
             destPiece.setKilled(true);
             move.setPieceKilled(destPiece);
         }
         // ToDo: implementation of killing by el passant isn't function
         // kill opponent because 'El passant'
-        if(sourcePiece instanceof Pawn && ((Pawn) sourcePiece).isDidElPassant()){
-            Piece victim = board.getBox(move.getEnd().getX()-1,move.getEnd().getY()).getPiece();
+        if (sourcePiece instanceof Pawn && ((Pawn) sourcePiece).isDidElPassant()) {
+            // get piece
+            int colorRegulator = Pawn.colorRegulator(move.getStart().getPiece());
+            Piece victim = board.getBox(move.getEnd().getX() + colorRegulator, move.getEnd().getY()).getPiece();
+            // set killed
             victim.setKilled(true);
+            move.setElPassant(true);
             move.setPieceKilled(victim);
-            ((Pawn) sourcePiece).setDidElPassant(false);
+            // remove killed piece
+            board.getBox(move.getEnd().getX() + colorRegulator, move.getEnd().getY()).setPiece(null);
         }
 
         // store the move
@@ -130,8 +138,8 @@ public class Game {
         move.getStart().setPiece(null);
 
         // check win situation
-        if (destPiece != null && destPiece instanceof King){
-            if(player.isWhiteSide()){
+        if (destPiece != null && destPiece instanceof King) {
+            if (player.isWhiteSide()) {
                 this.setStatus(GameStatus.WHITE_WIN);
             } else {
                 this.setStatus(GameStatus.BLACK_WIN);
@@ -139,7 +147,7 @@ public class Game {
         }
 
         // set current turn to the other player
-        if(this.currentTurn == players[0]){
+        if (this.currentTurn == players[0]) {
             this.currentTurn = players[1];
         } else {
             this.currentTurn = players[0];
@@ -153,7 +161,7 @@ public class Game {
     /**
      * Print game info
      */
-    public void printGameInfo(){
+    public void printGameInfo() {
         System.out.println("Round: " + gameRound);
         System.out.println("Status: " + status);
         board.printBoard();
