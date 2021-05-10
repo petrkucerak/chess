@@ -6,6 +6,10 @@ import cz.cvut.fel.pjv.Player.Player;
 
 import java.util.Scanner;
 
+import static cz.cvut.fel.pjv.Pieces.Piece.BLACK;
+import static cz.cvut.fel.pjv.Pieces.Piece.RESET;
+import static cz.cvut.fel.pjv.Pieces.Piece.WHITE;
+
 public class Main {
     static public void main(String[] args) throws Exception {
         System.out.println("Testing has been started!");
@@ -29,7 +33,7 @@ public class Main {
 
             // play white
             while (!clearMove) {
-                System.out.println("WHITE MOVE");
+                System.out.println(BLACK + "WHITE MOVE" + RESET);
                 System.out.println("Set origin coords");
                 System.out.println("x:");
                 startX = sc.nextInt();
@@ -51,7 +55,7 @@ public class Main {
             clearMove = false;
             // play black player
             while (!clearMove) {
-                System.out.println("BLACK MOVE");
+                System.out.println(WHITE + "BLACK MOVE" + RESET);
                 System.out.println("Set origin coords");
                 System.out.println("x:");
                 startX = sc.nextInt();
