@@ -16,6 +16,7 @@ public class Move {
     // specific move
     private boolean shortCastlingMove;
     private boolean longCastlingMove;
+    private boolean elPassant;
 
     /**
      * Create move object
@@ -31,6 +32,7 @@ public class Move {
 
         this.shortCastlingMove = false;
         this.longCastlingMove = false;
+        this.elPassant = false;
     }
 
     public void setShortCastlingMove(boolean shortCastlingMove) {
@@ -47,6 +49,14 @@ public class Move {
 
     public boolean isLongCastlingMove() {
         return longCastlingMove;
+    }
+
+    public void setElPassant(boolean elPassant) {
+        this.elPassant = elPassant;
+    }
+
+    public boolean isElPassant() {
+        return elPassant;
     }
 
     public Player getPlayer() {
