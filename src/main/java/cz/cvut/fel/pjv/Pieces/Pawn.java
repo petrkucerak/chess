@@ -48,6 +48,13 @@ public class Pawn extends Piece {
             return false;
         }
 
+        // Implementation 'Promotion'
+        // check situation for activate this mode
+        if (end.getX() == 0 || end.getX() == 7) {
+            System.out.println("Piece promotion!");
+            isPromotion = true;
+        }
+
         int x;
         // check move direction
         if (!start.getPiece().isWhite()) {
@@ -105,13 +112,6 @@ public class Pawn extends Piece {
                     return true;
                 }
             }
-        }
-
-        // Implementation 'Promotion'
-        // check situation for activate this mode
-        if (end.getX() == 0 && end.getX() == 7) {
-            System.out.println("Piece promotion!");
-            isPromotion = true;
         }
 
         return false;

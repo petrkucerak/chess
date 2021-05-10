@@ -3,6 +3,7 @@ package cz.cvut.fel.pjv;
 import cz.cvut.fel.pjv.Pieces.King;
 import cz.cvut.fel.pjv.Pieces.Pawn;
 import cz.cvut.fel.pjv.Pieces.Piece;
+import cz.cvut.fel.pjv.Pieces.Queen;
 import cz.cvut.fel.pjv.Player.Player;
 
 import java.util.ArrayList;
@@ -116,7 +117,7 @@ public class Game {
             destPiece.setKilled(true);
             move.setPieceKilled(destPiece);
         }
-        // ToDo: implementation of killing by el passant isn't function
+
         // kill opponent because 'El passant'
         if (sourcePiece instanceof Pawn && ((Pawn) sourcePiece).isDidElPassant()) {
             // get piece
@@ -128,6 +129,15 @@ public class Game {
             move.setPieceKilled(victim);
             // remove killed piece
             board.getBox(move.getEnd().getX() + colorRegulator, move.getEnd().getY()).setPiece(null);
+        }
+
+        // promotion
+        if(sourcePiece instanceof Pawn && ((Pawn) sourcePiece).isPromotion()){
+            // select type of new piece
+            // now generate automatically Queen
+            move.getStart().setPiece(new Queen(sourcePiece.isWhite()));
+            move.setPromotion(true);
+            // ToDo: need implement a graphic piece choose
         }
 
         // store the move
