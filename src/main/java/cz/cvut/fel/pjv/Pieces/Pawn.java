@@ -24,6 +24,14 @@ public class Pawn extends Piece {
         return didElPassant;
     }
 
+    public void setPromotion(boolean promotion) {
+        isPromotion = promotion;
+    }
+
+    public boolean isPromotion() {
+        return isPromotion;
+    }
+
     public boolean isWasLastSuperJump() {
         return wasLastSuperJump;
     }
