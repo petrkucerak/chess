@@ -117,6 +117,11 @@ public class Pawn extends Piece {
         return false;
     }
 
+    @Override
+    public boolean isKingInDanger(Board board, Spot piecePosition, Boolean kingColor) throws Exception {
+        return false;
+    }
+
     public static int colorRegulator(Piece piece) {
         if (piece.isWhite()) {
             return 1;
