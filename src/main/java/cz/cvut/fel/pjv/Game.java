@@ -176,17 +176,17 @@ public class Game {
         move.getEnd().setPiece(move.getStart().getPiece());
         move.getStart().setPiece(null);
 
+        // pinned piece
+        if (isKingInDanger(move.getPlayer().isWhiteSide())) {
+            System.err.println("King is in the danger!");
+            // ToDo: implement move annulation
+            return false;
+        }
+
         // check 3-fold repetition situation
         checkThreeFoldRepetition(gameBoards);
         // store the board
         gameBoards.add(new Board(board.getBoxes()));
-
-        // pinned piece
-        // ToDo: implement
-        if (isKingInDanger(move.getPlayer().isWhiteSide())) {
-            System.err.println("King is in the danger!");
-            return false;
-        }
 
 
         // check win situation
