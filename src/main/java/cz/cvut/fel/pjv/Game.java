@@ -113,14 +113,6 @@ public class Game {
             return false;
         }
 
-        // pinned piece
-        // ToDo: implement
-        if (isKingInDanger(move.getPlayer().isWhiteSide())) {
-            System.err.println("King is in the danger!");
-            return false;
-        }
-
-
         // MOVES
         // kill opponent piece
         Piece destPiece = move.getEnd().getPiece();
@@ -188,6 +180,13 @@ public class Game {
         checkThreeFoldRepetition(gameBoards);
         // store the board
         gameBoards.add(new Board(board.getBoxes()));
+
+        // pinned piece
+        // ToDo: implement
+        if (isKingInDanger(move.getPlayer().isWhiteSide())) {
+            System.err.println("King is in the danger!");
+            return false;
+        }
 
 
         // check win situation
