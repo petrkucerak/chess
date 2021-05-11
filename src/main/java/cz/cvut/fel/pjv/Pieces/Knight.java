@@ -26,11 +26,6 @@ public class Knight extends Piece {
     }
 
     @Override
-    public boolean isKingInDanger(Board board, Spot piecePosition, Boolean kingColor) throws Exception {
-        return false;
-    }
-
-    @Override
     public String toString() {
         if (this.isWhite()) {
             return BLACK + "♘";
