@@ -15,7 +15,7 @@ public class Board {
      * For create new chessboard use newBoard function
      */
     public Board() {
-        this.testRepetition();
+        this.testKingInDanger();
     }
 
     public Board(Spot[][] board) {
@@ -186,6 +186,25 @@ public class Board {
             }
             boxes[1][6] = new Spot(new Queen(true), 1, 6);
             boxes[1][7] = new Spot(new Queen(false), 1, 7);
+
+        }
+
+    }
+    public void testKingInDanger() {
+        this.boxes = new Spot[8][8];
+        // place other spots as null
+        for (int i = 0; i < 8; i++) {
+            if (i == 1) {
+                for (int j = 0; j < boxes[i].length - 2; j++) {
+                    boxes[i][j] = new Spot(null, i, j);
+                }
+            } else {
+                for (int j = 0; j < boxes[i].length; j++) {
+                    boxes[i][j] = new Spot(null, i, j);
+                }
+            }
+            boxes[1][6] = new Spot(new King(true), 1, 6);
+            boxes[1][7] = new Spot(new Bishop(false), 1, 7);
 
         }
 
