@@ -38,6 +38,17 @@ public class Spot {
         this.piece = piece;
     }
 
+    /**
+     * If the spot is empty, return true
+     * @return
+     */
+    public boolean isSpotNull(){
+        if(this.piece == null){
+            return true;
+        }
+        return false;
+    }
+
     public void setX(int x) {
         this.x = x;
     }
