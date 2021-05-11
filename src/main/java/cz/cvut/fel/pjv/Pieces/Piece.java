@@ -44,7 +44,7 @@ public abstract class Piece {
 
     public abstract boolean canMove(Board board, Spot start, Spot end) throws Exception;
 
-    public abstract boolean isKingInDanger(Board board, Boolean kingColor);
+    public abstract boolean isKingInDanger(Board board, Spot piecePosition, Boolean kingColor);
 
     /**
      * Protect spot with same color piece

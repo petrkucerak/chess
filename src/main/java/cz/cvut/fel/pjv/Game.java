@@ -243,7 +243,7 @@ public class Game {
                     // check valid opponent piece
                     Piece destPiece = board.getBox(i,j).getPiece();
                     if(destPiece.isWhite() != isWhiteSide){
-                        if(destPiece.isKingInDanger(board, isWhiteSide)){
+                        if(destPiece.isKingInDanger(board, board.getBox(i,j), isWhiteSide)){
                             return true;
                         }
                     }
