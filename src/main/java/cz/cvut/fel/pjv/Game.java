@@ -46,7 +46,6 @@ public class Game {
         movesPlayed.clear();
         this.gameBoards = new ArrayList<Board>();
         gameBoards.clear();
-        gameBoards.add(this.board);
     }
 
     public boolean isEnd() {
@@ -178,10 +177,9 @@ public class Game {
         move.getStart().setPiece(null);
 
         // check 3-fold repetition situation
-        // ToDo: needs to be implemented
         checkThreeFoldRepetition(gameBoards);
         // store the board
-        gameBoards.add(board);
+        gameBoards.add(new Board(board.getBoxes()));
 
 
         // check win situation
@@ -205,15 +203,20 @@ public class Game {
         return true;
     }
 
+    /**
+     * Function for check tree fold repetition
+     * @param gameBoards
+     * @throws Exception
+     */
     private void checkThreeFoldRepetition(ArrayList<Board> gameBoards) throws Exception {
         int countSameBoards = 0;
-        for (Board gameBoard : gameBoards) {
-            if (this.board.isBoardEqual(gameBoard)){
-                System.out.println("This board has been displayed " + countSameBoards + "times");
+        for (int i = 0; i < gameBoards.size();i++) {
+            if (this.board.isBoardEqual(gameBoards.get(i))) {
                 countSameBoards++;
             }
-            if (countSameBoards == 3) {
+            if (countSameBoards == 2) {
                 this.setStatus(GameStatus.DRAW);
+                break;
             }
         }
     }

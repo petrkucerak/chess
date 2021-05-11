@@ -17,8 +17,18 @@ public class Board {
     public Board() {
         this.testRepetition();
     }
+
     public Board(Spot[][] board) {
-        this.boxes = board;
+        this.boxes = new Spot[8][8];
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (board[i][j].getPiece() == null) {
+                    this.boxes[i][j] = new Spot(null, i, j);
+                } else {
+                    this.boxes[i][j] = new Spot(board[i][j].getPiece(), i, j);
+                }
+            }
+        }
     }
 
     public Spot[][] getBoxes() {
@@ -46,6 +56,7 @@ public class Board {
 
     /**
      * Equal pieces in 2 chessboards
+     *
      * @param board
      * @return
      * @throws Exception
@@ -53,9 +64,13 @@ public class Board {
     public boolean isBoardEqual(Board board) throws Exception {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (this.boxes[i][j].getPiece() == null && board.getBox(i,j).getPiece() == null) {
+                if (this.boxes[i][j].getPiece() == null && board.getBox(i, j).getPiece() == null) {
                     continue;
-                } else if (this.boxes[i][j].getPiece().getClass().getName().equals(board.getBox(i,j).getPiece().getClass().getName())) {
+                } else if (this.boxes[i][j].getPiece() == null && board.getBox(i, j).getPiece() != null) {
+                    return false;
+                } else if (this.boxes[i][j].getPiece() != null && board.getBox(i, j).getPiece() == null) {
+                    return false;
+                } else if (this.boxes[i][j].getPiece().getClass().getName().equals(board.getBox(i, j).getPiece().getClass().getName())) {
                     continue;
                 } else {
                     return false;
