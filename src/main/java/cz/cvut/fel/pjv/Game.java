@@ -113,6 +113,14 @@ public class Game {
             return false;
         }
 
+        // pinned piece
+        // ToDo: implement
+        if (isKingInDanger(move.getPlayer().isWhiteSide())) {
+            System.err.println("King is in the danger!");
+            return false;
+        }
+
+
         // MOVES
         // kill opponent piece
         Piece destPiece = move.getEnd().getPiece();
@@ -205,12 +213,13 @@ public class Game {
 
     /**
      * Function for check tree fold repetition
+     *
      * @param gameBoards
      * @throws Exception
      */
     private void checkThreeFoldRepetition(ArrayList<Board> gameBoards) throws Exception {
         int countSameBoards = 0;
-        for (int i = 0; i < gameBoards.size();i++) {
+        for (int i = 0; i < gameBoards.size(); i++) {
             if (this.board.isBoardEqual(gameBoards.get(i))) {
                 countSameBoards++;
             }
@@ -219,6 +228,29 @@ public class Game {
                 break;
             }
         }
+    }
+
+    /**
+     * Interacts all opponent pieces and call function to check if the piece does not threaten the king
+     * @param isWhiteSide
+     * @return
+     */
+    private boolean isKingInDanger(boolean isWhiteSide) throws Exception {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                // check if on this position isn't null
+                if(!board.getBox(i,j).isSpotNull()){
+                    // check valid opponent piece
+                    Piece destPiece = board.getBox(i,j).getPiece();
+                    if(destPiece.isWhite() != isWhiteSide){
+                        if(destPiece.isKingInDanger(board, isWhiteSide)){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**
