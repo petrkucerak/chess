@@ -15,7 +15,18 @@ public class Board {
      * For create new chessboard use newBoard function
      */
     public Board() {
-        this.newBoard();
+        this.testRepetition();
+    }
+    public Board(Spot[][] board) {
+        this.boxes = board;
+    }
+
+    public Spot[][] getBoxes() {
+        return boxes;
+    }
+
+    public void setBoxes(Spot[][] boxes) {
+        this.boxes = boxes;
     }
 
     /**
@@ -40,9 +51,13 @@ public class Board {
      * @throws Exception
      */
     public boolean isBoardEqual(Board board) throws Exception {
-        for(int i = 0; i < 8; i++){
-            for(int j = 0; j < 8; j++){
-                if(!this.getBox(i,j).getPiece().getClass().equals(board.getBox(i,j).getPiece().getClass())){
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (this.boxes[i][j].getPiece() == null && board.getBox(i,j).getPiece() == null) {
+                    continue;
+                } else if (this.boxes[i][j].getPiece().getClass().getName().equals(board.getBox(i,j).getPiece().getClass().getName())) {
+                    continue;
+                } else {
                     return false;
                 }
             }
@@ -137,6 +152,26 @@ public class Board {
             for (int j = 0; j < boxes[i].length; j++) {
                 boxes[i][j] = new Spot(null, i, j);
             }
+        }
+
+    }
+
+    public void testRepetition() {
+        this.boxes = new Spot[8][8];
+        // place other spots as null
+        for (int i = 0; i < 8; i++) {
+            if (i == 1) {
+                for (int j = 0; j < boxes[i].length - 2; j++) {
+                    boxes[i][j] = new Spot(null, i, j);
+                }
+            } else {
+                for (int j = 0; j < boxes[i].length; j++) {
+                    boxes[i][j] = new Spot(null, i, j);
+                }
+            }
+            boxes[1][6] = new Spot(new Queen(true), 1, 6);
+            boxes[1][7] = new Spot(new Queen(false), 1, 7);
+
         }
 
     }
