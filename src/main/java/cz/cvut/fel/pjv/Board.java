@@ -194,9 +194,9 @@ public class Board {
     public void testKingInDanger() {
         this.boxes = new Spot[8][8];
         // place other spots as null
-        boxes[2][6] = new Spot(new Queen(true), 1, 5);
-        boxes[1][7] = new Spot(new King(true), 1, 6);
-        boxes[3][5] = new Spot(new Bishop(false), 1, 7);
+        boxes[2][6] = new Spot(new Queen(true), 2, 6);
+        boxes[1][7] = new Spot(new King(true), 1, 7);
+        boxes[3][5] = new Spot(new Bishop(false), 3, 5);
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if(boxes[i][j] == null){
