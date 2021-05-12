@@ -74,7 +74,7 @@ public class ChessBoardController {
     private void addPiece(int colIndex, int rowIndex, String name) throws Exception {
         Text piece = new Text();
         piece.setText(name);
-        piece.setStyle("-fx-font-size: 30px;");
+        piece.setStyle("-fx-font-size: 40px;");
 
         piece.setOnMouseClicked(e -> {
             System.out.printf("Mouse enetered cell [%d, %d]%n", colIndex, rowIndex);
