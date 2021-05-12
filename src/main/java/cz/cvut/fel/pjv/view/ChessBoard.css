@@ -1,1 +1,25 @@
 /* styles for chessboard*/
+
+/* chessboard*/
+.blackSpot {
+    -fx-background-color: #774E24;
+}
+
+.whiteSpot {
+    -fx-background-color: #F3EACF;
+}
+
+.main {
+    -fx-background-color: #111111;
+}
+
+.button{
+    -fx-background-color: #111111;
+    -fx-text-fill: #F3EACF;
+    -fx-border-color: #F3EACF;
+    -fx-cursor: pointer;
+}
+
+.text {
+    -fx-text-fill: #F3EACF;
+}

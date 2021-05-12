@@ -15,7 +15,7 @@ public class Board {
      * For create new chessboard use newBoard function
      */
     public Board() {
-        this.testKingInDanger();
+        this.newBoard();
     }
 
     public Board(Spot[][] board) {
