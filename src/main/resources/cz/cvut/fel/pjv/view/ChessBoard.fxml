@@ -7,8 +7,10 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="20" styleClass="main" stylesheets="@ChessBoard.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.control.Label?>
+<VBox alignment="CENTER" spacing="20" styleClass="main" stylesheets="@ChessBoard.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="cz.cvut.fel.pjv.ChessBoardController">
     <children>
+        <Label text="Chess" />
         <GridPane hgap="2.0" layoutX="126.0" layoutY="19.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" styleClass="GridPanel" vgap="2.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -97,7 +99,7 @@
                 <Pane prefHeight="100.0" prefWidth="100.0" styleClass="whiteSpot" GridPane.columnIndex="7" GridPane.rowIndex="7" />
             </children>
         </GridPane>
-        <Button layoutX="28.0" layoutY="89.0" mnemonicParsing="false" text="NOVA HRA" textAlignment="CENTER" />
+        <Button fx:id="startButton" layoutX="28.0" layoutY="89.0" mnemonicParsing="false" onAction="#newGame" text="NOVA HRA" textAlignment="CENTER" />
         <Button layoutX="25.0" layoutY="161.0" mnemonicParsing="false" text="ULOŽIT HRU" textAlignment="CENTER" />
         <Button layoutX="24.0" layoutY="233.0" mnemonicParsing="false" text="NAČÍST HRU" textAlignment="CENTER" />
     </children>
