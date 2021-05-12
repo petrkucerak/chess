@@ -2,6 +2,6 @@ module org.example {
     requires javafx.controls;
     requires javafx.fxml;
 
-    opens org.example to javafx.fxml;
-    exports org.example;
+    opens cz.cvut.fel.pjv to javafx.fxml;
+    exports cz.cvut.fel.pjv;
 }

@@ -1,4 +1,4 @@
-package org.example;
+package cz.cvut.fel.pjv;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
