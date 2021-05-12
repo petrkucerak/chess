@@ -3,9 +3,6 @@ package cz.cvut.fel.pjv;
 import cz.cvut.fel.pjv.model.Board;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 
