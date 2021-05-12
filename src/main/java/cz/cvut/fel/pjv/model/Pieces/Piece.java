@@ -242,4 +242,6 @@ public abstract class Piece {
 
         return false;
     }
+
+    public abstract String getPieceSymbol();
 }

@@ -185,11 +185,14 @@ public class Game {
         move.getStart().setPiece(null);
 
         // pinned piece
+        board.setActiveCheckingIsKingInDanger(true);
         if (isKingInDanger(move.getPlayer().isWhiteSide())) {
             System.err.println("King is in the danger!");
+            board.setActiveCheckingIsKingInDanger(false);
             // ToDo: implement move annulation
             return false;
         }
+        board.setActiveCheckingIsKingInDanger(false);
 
         // check 3-fold repetition situation
         checkThreeFoldRepetition(gameBoards);
@@ -283,4 +286,51 @@ public class Game {
         RESIGNATION
     }
 
+    public void setPlayers(Player[] players) {
+        this.players = players;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public void setCurrentTurn(Player currentTurn) {
+        this.currentTurn = currentTurn;
+    }
+
+    public void setGameRound(int gameRound) {
+        this.gameRound = gameRound;
+    }
+
+    public void setMovesPlayed(ArrayList<Move> movesPlayed) {
+        this.movesPlayed = movesPlayed;
+    }
+
+    public void setGameBoards(ArrayList<Board> gameBoards) {
+        this.gameBoards = gameBoards;
+    }
+
+    public Player[] getPlayers() {
+        return players;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public Player getCurrentTurn() {
+        return currentTurn;
+    }
+
+    public int getGameRound() {
+        return gameRound;
+    }
+
+    public ArrayList<Move> getMovesPlayed() {
+        return movesPlayed;
+    }
+
+    public ArrayList<Board> getGameBoards() {
+        return gameBoards;
+    }
 }

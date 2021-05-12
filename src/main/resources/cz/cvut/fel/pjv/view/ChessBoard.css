@@ -23,3 +23,7 @@
 .text {
     -fx-text-fill: #F3EACF;
 }
+
+.GridPanel{
+    -fx-max-width: 1000;
+}

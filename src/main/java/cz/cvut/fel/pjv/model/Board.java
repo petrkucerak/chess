@@ -10,12 +10,22 @@ import static cz.cvut.fel.pjv.model.Pieces.Piece.RESET;
  */
 public class Board {
     Spot[][] boxes;
+    private boolean activeCheckingIsKingInDanger;
 
     /**
      * For create new chessboard use newBoard function
      */
     public Board() {
         this.newBoard();
+        this.activeCheckingIsKingInDanger = false;
+    }
+
+    public void setActiveCheckingIsKingInDanger(boolean activeCheckingIsKingInDanger) {
+        this.activeCheckingIsKingInDanger = activeCheckingIsKingInDanger;
+    }
+
+    public boolean isActiveCheckingIsKingInDanger() {
+        return activeCheckingIsKingInDanger;
     }
 
     public Board(Spot[][] board) {

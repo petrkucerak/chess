@@ -50,9 +50,11 @@ public class Pawn extends Piece {
 
         // Implementation 'Promotion'
         // check situation for activate this mode
-        if (end.getX() == 0 || end.getX() == 7) {
-            System.out.println("Piece promotion!");
-            isPromotion = true;
+        if(!board.isActiveCheckingIsKingInDanger()) {
+            if (end.getX() == 0 || end.getX() == 7) {
+                System.out.println("Piece promotion!");
+                isPromotion = true;
+            }
         }
 
         int x;
@@ -115,6 +117,11 @@ public class Pawn extends Piece {
         }
 
         return false;
+    }
+
+    @Override
+    public String getPieceSymbol() {
+        return "♟";
     }
 
     public static int colorRegulator(Piece piece) {
