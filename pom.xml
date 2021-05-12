@@ -41,7 +41,7 @@
                         <!-- Usage: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>cz.cvut.fel.pjv.App</mainClass>
+                            <mainClass>cz.cvut.fel.pjv.MainApp</mainClass>
                         </configuration>
                     </execution>
                 </executions>
