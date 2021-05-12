@@ -52,7 +52,7 @@ public class ChessBoardController {
         } else {
             pane.setStyle("-fx-background-color: #774E24;");
         }
-        pane.setOnMouseEntered(e -> {
+        pane.setOnMouseClicked(e ->{
             System.out.printf("Mouse enetered cell [%d, %d]%n", colIndex, rowIndex);
         });
         grid.add(pane, colIndex, rowIndex);
