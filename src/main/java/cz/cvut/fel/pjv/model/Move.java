@@ -1,7 +1,7 @@
-package cz.cvut.fel.pjv;
+package cz.cvut.fel.pjv.model;
 
-import cz.cvut.fel.pjv.Pieces.Piece;
-import cz.cvut.fel.pjv.Player.Player;
+import cz.cvut.fel.pjv.model.Pieces.Piece;
+import cz.cvut.fel.pjv.model.Player.Player;
 
 /**
  * Class definition move of player

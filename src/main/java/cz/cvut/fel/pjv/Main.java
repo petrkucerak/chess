@@ -1,14 +1,15 @@
 package cz.cvut.fel.pjv;
 
-import cz.cvut.fel.pjv.Player.ComputerPlayer;
-import cz.cvut.fel.pjv.Player.HumanPlayer;
-import cz.cvut.fel.pjv.Player.Player;
+import cz.cvut.fel.pjv.model.Game;
+import cz.cvut.fel.pjv.model.Player.ComputerPlayer;
+import cz.cvut.fel.pjv.model.Player.HumanPlayer;
+import cz.cvut.fel.pjv.model.Player.Player;
 
 import java.util.Scanner;
 
-import static cz.cvut.fel.pjv.Pieces.Piece.BLACK;
-import static cz.cvut.fel.pjv.Pieces.Piece.RESET;
-import static cz.cvut.fel.pjv.Pieces.Piece.WHITE;
+import static cz.cvut.fel.pjv.model.Pieces.Piece.BLACK;
+import static cz.cvut.fel.pjv.model.Pieces.Piece.RESET;
+import static cz.cvut.fel.pjv.model.Pieces.Piece.WHITE;
 
 public class Main {
     static public void main(String[] args) throws Exception {

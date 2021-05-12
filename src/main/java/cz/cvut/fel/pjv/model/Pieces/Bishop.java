@@ -1,23 +1,12 @@
-package cz.cvut.fel.pjv.Pieces;
+package cz.cvut.fel.pjv.model.Pieces;
 
-import cz.cvut.fel.pjv.Board;
-import cz.cvut.fel.pjv.Spot;
+import cz.cvut.fel.pjv.model.Board;
+import cz.cvut.fel.pjv.model.Spot;
 
-public class Rook extends Piece {
-    private boolean moved;
+public class Bishop extends Piece {
 
-    public Rook(boolean white) {
+    public Bishop(boolean white) {
         super(white);
-        this.moved = false; // for check is possible do castling
-    }
-
-    public void setMoved(boolean moved) {
-        this.moved = moved;
-    }
-
-
-    public boolean isMoved() {
-        return moved;
     }
 
     @Override
@@ -31,10 +20,9 @@ public class Rook extends Piece {
         int x = Math.abs(start.getX() - end.getX());
         int y = Math.abs(start.getY() - end.getY());
 
-        if ((x == 0 && y > 0) || (x > 0 && y == 0)) {
+        if (x == y) {
             // check no piece between start and end position
-            if (isNotPiecesOnTheWayRook(board, start, end)) {
-                moved = true;
+            if (isNotPiecesOnTheWayBishop(board, start, end)) {
                 return true;
             }
         }
@@ -45,9 +33,10 @@ public class Rook extends Piece {
     @Override
     public String toString() {
         if (this.isWhite()) {
-            return BLACK + "♖";
+            return BLACK + "♗";
         } else {
-            return WHITE + "♖";
+            return WHITE + "♗";
         }
     }
+
 }

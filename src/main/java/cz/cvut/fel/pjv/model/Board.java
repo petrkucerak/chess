@@ -1,9 +1,9 @@
-package cz.cvut.fel.pjv;
+package cz.cvut.fel.pjv.model;
 
-import cz.cvut.fel.pjv.Pieces.*;
+import cz.cvut.fel.pjv.model.Pieces.*;
 
-import static cz.cvut.fel.pjv.Pieces.Piece.BACK;
-import static cz.cvut.fel.pjv.Pieces.Piece.RESET;
+import static cz.cvut.fel.pjv.model.Pieces.Piece.BACK;
+import static cz.cvut.fel.pjv.model.Pieces.Piece.RESET;
 
 /**
  * Class representations Chessboard and support methods

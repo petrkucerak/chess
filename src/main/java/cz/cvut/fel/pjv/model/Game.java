@@ -1,14 +1,12 @@
-package cz.cvut.fel.pjv;
+package cz.cvut.fel.pjv.model;
 
-import cz.cvut.fel.pjv.Pieces.King;
-import cz.cvut.fel.pjv.Pieces.Pawn;
-import cz.cvut.fel.pjv.Pieces.Piece;
-import cz.cvut.fel.pjv.Pieces.Queen;
-import cz.cvut.fel.pjv.Player.Player;
+import cz.cvut.fel.pjv.model.Pieces.King;
+import cz.cvut.fel.pjv.model.Pieces.Pawn;
+import cz.cvut.fel.pjv.model.Pieces.Piece;
+import cz.cvut.fel.pjv.model.Pieces.Queen;
+import cz.cvut.fel.pjv.model.Player.Player;
 
 import java.util.ArrayList;
-
-import java.util.List;
 
 /**
  * The main mechanism of game

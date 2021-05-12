@@ -1,8 +1,8 @@
-package cz.cvut.fel.pjv.Pieces;
+package cz.cvut.fel.pjv.model.Pieces;
 
 
-import cz.cvut.fel.pjv.Board;
-import cz.cvut.fel.pjv.Spot;
+import cz.cvut.fel.pjv.model.Board;
+import cz.cvut.fel.pjv.model.Spot;
 
 /**
  * Abstract class for define pieces and support methods for piece

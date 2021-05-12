@@ -1,6 +1,6 @@
-package cz.cvut.fel.pjv;
+package cz.cvut.fel.pjv.model;
 
-import cz.cvut.fel.pjv.Pieces.Piece;
+import cz.cvut.fel.pjv.model.Pieces.Piece;
 
 /**
  * Represent a cell on the chess board

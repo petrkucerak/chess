@@ -1,4 +1,4 @@
-package cz.cvut.fel.pjv.Player;
+package cz.cvut.fel.pjv.model.Player;
 
 public class ComputerPlayer extends Player {
 
