@@ -44,10 +44,20 @@ public class Game {
         movesPlayed.clear();
         this.gameBoards = new ArrayList<Board>();
         gameBoards.clear();
+
+        this.setStatus(GameStatus.ACTIVE);
     }
 
+    /**
+     * Check if is end of the game
+     * @return
+     */
     public boolean isEnd() {
-        return this.getStatus() != GameStatus.ACTIVE;
+        if(this.getStatus() != GameStatus.ACTIVE && this.getStatus() != GameStatus.CHECK
+                && this.getStatus() != GameStatus.RESIGNATION){
+            return true;
+        }
+        return false;
     }
 
     public GameStatus getStatus() {
