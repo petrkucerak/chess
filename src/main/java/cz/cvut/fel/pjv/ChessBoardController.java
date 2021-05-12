@@ -1,6 +1,7 @@
 package cz.cvut.fel.pjv;
 
 import cz.cvut.fel.pjv.model.Board;
+import cz.cvut.fel.pjv.model.Game;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.*;
@@ -11,9 +12,11 @@ import java.io.IOException;
 public class ChessBoardController {
 
     @FXML
-    private GridPane grid ;
+    private GridPane grid;
 
-    public void initialize() {
+
+    public void initialize() throws Exception {
+
         int numCols = 8 ;
         int numRows = 8 ;
 
@@ -34,6 +37,8 @@ public class ChessBoardController {
                 addPane(i, j);
             }
         }
+        setChessBoard();
+
     }
 
     private void addPane(int colIndex, int rowIndex) {
@@ -49,11 +54,11 @@ public class ChessBoardController {
         grid.add(pane, colIndex, rowIndex);
     }
 
-    public void setChessBoard(Board board) throws Exception {
+    public void setChessBoard() throws Exception {
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
-                if(!board.getBox(j,i).isSpotNull()) {
-                    String name = board.getBox(j, i).getPiece().toString();
+                if(!MainApp.getGame().getBoard().getBox(j,i).isSpotNull()) {
+                    String name = MainApp.getGame().getBoard().getBox(j, i).getPiece().toString();
                     Text piece = new Text();
                     piece.setText(name);
                     grid.add(piece, i, j);
