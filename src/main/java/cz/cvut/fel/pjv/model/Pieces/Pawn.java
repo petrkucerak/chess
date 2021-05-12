@@ -119,6 +119,11 @@ public class Pawn extends Piece {
         return false;
     }
 
+    @Override
+    public String getPieceSymbol() {
+        return "♟";
+    }
+
     public static int colorRegulator(Piece piece) {
         if (piece.isWhite()) {
             return 1;

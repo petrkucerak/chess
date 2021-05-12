@@ -26,6 +26,11 @@ public class Knight extends Piece {
     }
 
     @Override
+    public String getPieceSymbol() {
+        return "♞";
+    }
+
+    @Override
     public String toString() {
         if (this.isWhite()) {
             return BLACK + "♘";
