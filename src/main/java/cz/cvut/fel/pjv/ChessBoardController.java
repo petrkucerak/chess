@@ -2,6 +2,7 @@ package cz.cvut.fel.pjv;
 
 import cz.cvut.fel.pjv.model.Board;
 import cz.cvut.fel.pjv.model.Game;
+import cz.cvut.fel.pjv.model.Player.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.*;
@@ -53,7 +54,11 @@ public class ChessBoardController {
             pane.setStyle("-fx-background-color: #774E24;");
         }
         pane.setOnMouseClicked(e -> {
-            System.out.printf("Mouse enetered cell [%d, %d]%n", colIndex, rowIndex);
+            try {
+                playerMove(colIndex, rowIndex);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
         });
         pane.setMaxSize(70, 70);
         pane.setMinSize(70, 70);
@@ -77,7 +82,11 @@ public class ChessBoardController {
         piece.setStyle("-fx-font-size: 40px;");
 
         piece.setOnMouseClicked(e -> {
-            System.out.printf("Mouse enetered cell [%d, %d]%n", colIndex, rowIndex);
+            try {
+                playerMove(colIndex, rowIndex);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
         });
 
         if (MainApp.getGame().getBoard().getBox(rowIndex, colIndex).getPiece().isWhite()) {
@@ -89,6 +98,13 @@ public class ChessBoardController {
         }
         grid.add(piece, colIndex, rowIndex);
 
+    }
+
+    // ToDo: valide move
+    private void playerMove(int startX, int startY) throws Exception {
+        System.out.printf("Mouse enetered cell [%d, %d]%n", startX, startY);
+        Player player = MainApp.getGame().getCurrentTurn();
+        MainApp.getGame().playerMove(player, startX, startY, startX, startY);
     }
 
     @FXML
@@ -105,4 +121,6 @@ public class ChessBoardController {
     private void loadGame(ActionEvent actionEvent) throws IOException {
         System.out.println("LOAD GAME");
     }
+
+
 }

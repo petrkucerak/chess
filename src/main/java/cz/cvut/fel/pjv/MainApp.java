@@ -47,9 +47,6 @@ public class MainApp extends Application {
         stage.setScene(scene);
         stage.show();
 
-        sleep(100);
-
-
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
