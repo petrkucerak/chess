@@ -185,11 +185,14 @@ public class Game {
         move.getStart().setPiece(null);
 
         // pinned piece
+        board.setActiveCheckingIsKingInDanger(true);
         if (isKingInDanger(move.getPlayer().isWhiteSide())) {
             System.err.println("King is in the danger!");
+            board.setActiveCheckingIsKingInDanger(false);
             // ToDo: implement move annulation
             return false;
         }
+        board.setActiveCheckingIsKingInDanger(false);
 
         // check 3-fold repetition situation
         checkThreeFoldRepetition(gameBoards);
