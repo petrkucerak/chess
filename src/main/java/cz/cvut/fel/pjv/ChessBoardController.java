@@ -1,23 +1,17 @@
 package cz.cvut.fel.pjv;
 
+import cz.cvut.fel.pjv.model.Board;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 
 public class ChessBoardController {
-
-    @FXML
-    private void mouseEntered(MouseEvent e) {
-        Node source = (Node)e.getSource() ;
-        Integer colIndex = GridPane.getColumnIndex(source);
-        Integer rowIndex = GridPane.getRowIndex(source);
-        System.out.printf("Mouse entered cell [%d, %d]%n", colIndex.intValue(), rowIndex.intValue());
-    }
 
     @FXML
     private GridPane grid ;
@@ -56,6 +50,19 @@ public class ChessBoardController {
             System.out.printf("Mouse enetered cell [%d, %d]%n", colIndex, rowIndex);
         });
         grid.add(pane, colIndex, rowIndex);
+    }
+
+    public void setChessBoard(Board board) throws Exception {
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                if(!board.getBox(j,i).isSpotNull()) {
+                    String name = board.getBox(j, i).getPiece().toString();
+                    Text piece = new Text();
+                    piece.setText(name);
+                    grid.add(piece, i, j);
+                }
+            }
+        }
     }
 
     @FXML
