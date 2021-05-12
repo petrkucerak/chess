@@ -196,6 +196,7 @@ public class Game {
         // store the board
         gameBoards.add(new Board(board.getBoxes()));
 
+        // ToDO: implemented - check the status check to the text game
 
         // check win situation
         if (destPiece != null && destPiece instanceof King) {
