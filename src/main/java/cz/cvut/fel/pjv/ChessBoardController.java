@@ -53,6 +53,7 @@ public class ChessBoardController {
         } else {
             pane.setStyle("-fx-background-color: #774E24;");
         }
+        // listen to user event
         pane.setOnMouseClicked(e -> {
             try {
                 playerMove(colIndex, rowIndex);
@@ -80,7 +81,7 @@ public class ChessBoardController {
         Text piece = new Text();
         piece.setText(name);
         piece.setStyle("-fx-font-size: 40px;");
-
+        // listen to user event
         piece.setOnMouseClicked(e -> {
             try {
                 playerMove(colIndex, rowIndex);
