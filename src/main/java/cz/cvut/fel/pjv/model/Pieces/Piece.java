@@ -154,7 +154,7 @@ public abstract class Piece {
                 }
             } while (isOnTheBoard(i, j) && board.getBox(i, j).getPiece() == null);
         }
-        System.err.println("The way is not clear!");
+        // System.err.println("The way is not clear!");
         return false;
     }
 
@@ -218,7 +218,7 @@ public abstract class Piece {
             }
             while (isOnTheBoard(start.getX(), i) && board.getBox(start.getX(), i).getPiece() == null);
         }
-        System.err.println("The way is not clear!");
+        // System.err.println("The way is not clear!");
         return false;
     }
 
