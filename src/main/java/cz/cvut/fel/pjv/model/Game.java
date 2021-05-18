@@ -8,6 +8,8 @@ import cz.cvut.fel.pjv.model.Player.Player;
 
 import java.util.ArrayList;
 
+import static cz.cvut.fel.pjv.model.Pieces.Piece.*;
+
 /**
  * The main mechanism of game
  */
@@ -50,11 +52,12 @@ public class Game {
 
     /**
      * Check if is end of the game
+     *
      * @return
      */
     public boolean isEnd() {
-        if(this.getStatus() != GameStatus.ACTIVE && this.getStatus() != GameStatus.CHECK
-                && this.getStatus() != GameStatus.RESIGNATION){
+        if (this.getStatus() != GameStatus.ACTIVE && this.getStatus() != GameStatus.CHECK
+                && this.getStatus() != GameStatus.RESIGNATION) {
             return true;
         }
         return false;
@@ -242,6 +245,7 @@ public class Game {
 
     /**
      * Interacts all opponent pieces and call function to check if the piece does not threaten the king
+     *
      * @param isWhiteSide
      * @return
      */
@@ -249,11 +253,11 @@ public class Game {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 // check if on this position isn't null
-                if(!board.getBox(i,j).isSpotNull()){
+                if (!board.getBox(i, j).isSpotNull()) {
                     // check valid opponent piece
-                    Piece destPiece = board.getBox(i,j).getPiece();
-                    if(destPiece.isWhite() != isWhiteSide){
-                        if(destPiece.isKingInDanger(board, board.getBox(i,j), isWhiteSide)){
+                    Piece destPiece = board.getBox(i, j).getPiece();
+                    if (destPiece.isWhite() != isWhiteSide) {
+                        if (destPiece.isKingInDanger(board, board.getBox(i, j), isWhiteSide)) {
                             return true;
                         }
                     }
@@ -269,6 +273,11 @@ public class Game {
     public void printGameInfo() {
         System.out.println("Round: " + gameRound);
         System.out.println("Status: " + status);
+        if (currentTurn.isWhiteSide()) {
+            System.out.println("On the order is: " + BLACK + "player" + RESET);
+        } else {
+            System.out.println("On the order is: " + WHITE + "player" + RESET);
+        }
         board.printBoard();
     }
 
