@@ -3,9 +3,16 @@ package cz.cvut.fel.pjv.model.Pieces;
 import cz.cvut.fel.pjv.model.Board;
 import cz.cvut.fel.pjv.model.Spot;
 
+/**
+ * Class representation of the queen piece
+ */
 public class Rook extends Piece {
     private boolean moved;
 
+    /**
+     * Create rook piece
+     * @param white
+     */
     public Rook(boolean white) {
         super(white);
         this.moved = false; // for check is possible do castling
@@ -20,6 +27,14 @@ public class Rook extends Piece {
         return moved;
     }
 
+    /**
+     * Methode to validate if the move is possible.
+     * @param board
+     * @param start
+     * @param end
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean canMove(Board board, Spot start, Spot end) throws Exception {
 
@@ -42,11 +57,21 @@ public class Rook extends Piece {
         return false;
     }
 
+    /**
+     * Method to get a symbol of the piece for print on board.
+     *
+     * @return
+     */
     @Override
     public String getPieceSymbol() {
         return "♜";
     }
 
+    /**
+     * Method to get a symbol of the piece for print on console board.
+     *
+     * @return
+     */
     @Override
     public String toString() {
         if (this.isWhite()) {
