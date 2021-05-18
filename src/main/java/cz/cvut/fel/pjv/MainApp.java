@@ -25,11 +25,23 @@ public class MainApp extends Application {
     private static Game game;
     private static Stage stage;
 
+    /**
+     * Void launches game.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         // launch visible scene
         launch();
     }
 
+    /**
+     * Void launches stage with chessboard.
+     *
+     * @param stage
+     * @throws IOException
+     * @throws InterruptedException
+     */
     @Override
     public void start(Stage stage) throws IOException, InterruptedException {
 
@@ -42,6 +54,13 @@ public class MainApp extends Application {
 
     }
 
+    /**
+     * Method to load FXML file.
+     *
+     * @param fxml
+     * @return
+     * @throws IOException
+     */
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("view/" + fxml + ".fxml"));
         return fxmlLoader.load();
@@ -71,12 +90,22 @@ public class MainApp extends Application {
         MainApp.stage = stage;
     }
 
+    /**
+     * Methode to update scene on stage.
+     *
+     * @throws IOException
+     */
     public static void updateScene() throws IOException {
         stage.setScene(new Scene(loadFXML("ChessBoard"), 640, 800));
         stage.show();
         game.printGameInfo();
     }
 
+    /**
+     * Methode to start new game.
+     *
+     * @throws IOException
+     */
     public static void newGame() throws IOException {
         game = new Game();
         Player human = new HumanPlayer(true);
