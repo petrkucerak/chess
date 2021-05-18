@@ -164,7 +164,10 @@ public class ChessBoardController {
 
     @FXML
     private void newGame() throws IOException {
+        System.out.println("\n ==================================== \n\n");
         System.out.println("NEW GAME");
+        MainApp.newGame();
+        MainApp.updateScene();
     }
 
     @FXML
