@@ -1,5 +1,8 @@
 package cz.cvut.fel.pjv.model.Player;
 
+/**
+ * Class representation of the computer player.
+ */
 public class ComputerPlayer extends Player {
 
     public ComputerPlayer(boolean whiteSide) {
