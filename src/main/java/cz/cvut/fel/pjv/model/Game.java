@@ -124,7 +124,6 @@ public class Game {
         }
 
         // valid move
-        // TODO: create rules for all pieces
         if (!sourcePiece.canMove(board, move.getStart(), move.getEnd())) {
             System.err.println("The move isn't possible!");
             return false;
@@ -198,7 +197,6 @@ public class Game {
         if (isKingInDanger(move.getPlayer().isWhiteSide())) {
             System.err.println("King is in the danger!");
             board.setActiveCheckingIsKingInDanger(false);
-            // ToDo: implement move annulation
             unStepMove(movesPlayed.get(movesPlayed.size() - 1));
             return false;
         }
