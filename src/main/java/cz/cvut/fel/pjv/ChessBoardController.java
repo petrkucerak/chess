@@ -101,9 +101,9 @@ public class ChessBoardController {
 
     }
 
-    // ToDo: valide move
+    // ToDo: validate move
     private void playerMove(int startX, int startY) throws Exception {
-        System.out.printf("Mouse enetered cell [%d, %d]%n", startX, startY);
+        System.out.printf("Mouse entered cell [%d, %d]%n", startX, startY);
         Player player = MainApp.getGame().getCurrentTurn();
         MainApp.getGame().playerMove(player, startX, startY, startX, startY);
     }
