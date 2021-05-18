@@ -50,16 +50,23 @@ public class ChessBoardController {
         @Override
         public void handle(MouseEvent mouseEvent) {
             System.out.println(mouseEvent.getSource());
+            PanePiece pane = (PanePiece) mouseEvent.getSource();
+            System.out.println(pane.getX() + " " + pane.getY());
         }
     };
 
     private void addPane(int colIndex, int rowIndex) {
+        // create custom pane with info about coords
         PanePiece pane = new PanePiece(colIndex, rowIndex);
+        // set style of pane
         if ((colIndex % 2 == 0 && rowIndex % 2 == 0) || (colIndex % 2 == 1 && rowIndex % 2 == 1)) {
             pane.setStyle("-fx-background-color: #F3EACF;");
         } else {
             pane.setStyle("-fx-background-color: #774E24;");
         }
+        pane.setMaxSize(70, 70);
+        pane.setMinSize(70, 70);
+        // add event
         pane.addEventFilter(MouseEvent.MOUSE_CLICKED, pieceClickHandler);
         // listen to user event
         /*pane.setOnMouseClicked(e -> {
@@ -69,8 +76,6 @@ public class ChessBoardController {
                 exception.printStackTrace();
             }
         });*/
-        pane.setMaxSize(70, 70);
-        pane.setMinSize(70, 70);
         grid.add(pane, colIndex, rowIndex);
     }
 
