@@ -71,6 +71,11 @@ public class ChessBoardController {
                     e.printStackTrace();
                 }
                 annularMovesArray();
+                try {
+                    MainApp.updateScene();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     };
@@ -93,6 +98,11 @@ public class ChessBoardController {
                     e.printStackTrace();
                 }
                 annularMovesArray();
+                try {
+                    MainApp.updateScene();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     };
@@ -172,6 +182,5 @@ public class ChessBoardController {
             turnPositions[i] = -1;
         }
     }
-
 
 }

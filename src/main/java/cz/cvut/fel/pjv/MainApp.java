@@ -23,6 +23,7 @@ public class MainApp extends Application {
 
     private static Scene scene;
     private static Game game;
+    private static Stage stage;
 
     public static void main(String[] args) {
         // launch visible scene
@@ -32,6 +33,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws IOException, InterruptedException {
 
+        this.stage = stage;
         // set game parameters
         System.out.println("Testing has been started!");
 
@@ -43,9 +45,9 @@ public class MainApp extends Application {
 
         game.printGameInfo();
 
-        scene = new Scene(loadFXML("ChessBoard"), 640, 800);
-        stage.setScene(scene);
-        stage.show();
+        //scene = new Scene(loadFXML("ChessBoard"), 640, 800);
+        this.stage.setScene(new Scene(loadFXML("ChessBoard"), 640, 800));
+        this.stage.show();
 
     }
 
@@ -68,5 +70,19 @@ public class MainApp extends Application {
 
     public static void setGame(Game game) {
         MainApp.game = game;
+    }
+
+    public static Stage getStage() {
+        return stage;
+    }
+
+    public static void setStage(Stage stage) {
+        MainApp.stage = stage;
+    }
+
+    public static void updateScene() throws IOException {
+        stage.setScene(new Scene(loadFXML("ChessBoard"), 640, 800));
+        stage.show();
+        game.printGameInfo();
     }
 }
