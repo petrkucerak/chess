@@ -355,6 +355,11 @@ public class Game {
         return gameBoards;
     }
 
+    /**
+     * Method to return the move back.
+     *
+     * @param move
+     */
     private void unStepMove(Move move) {
         move.getStart().setPiece(move.getEnd().getPiece());
         move.getEnd().setPiece(null);
