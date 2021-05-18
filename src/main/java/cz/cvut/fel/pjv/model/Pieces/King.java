@@ -3,11 +3,19 @@ package cz.cvut.fel.pjv.model.Pieces;
 import cz.cvut.fel.pjv.model.Board;
 import cz.cvut.fel.pjv.model.Spot;
 
+/**
+ * Class representation of the king piece.
+ */
 public class King extends Piece {
     private boolean moved;
     private boolean isLongCastlingMove;
     private boolean isShortCastlingMove;
 
+    /**
+     * Create king piece
+     *
+     * @param white
+     */
     public King(boolean white) {
         super(white);
         this.moved = false; // for check is possible do castling
@@ -39,6 +47,15 @@ public class King extends Piece {
         return moved;
     }
 
+    /**
+     * Methode to validate if the move is possible.
+     *
+     * @param board
+     * @param start
+     * @param end
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean canMove(Board board, Spot start, Spot end) throws Exception {
 
@@ -69,11 +86,21 @@ public class King extends Piece {
         return false;
     }
 
+    /**
+     * Method to get a symbol of the piece for print on board.
+     *
+     * @return
+     */
     @Override
     public String getPieceSymbol() {
         return "♚";
     }
 
+    /**
+     * Method to get a symbol of the piece for print on console board.
+     *
+     * @return
+     */
     @Override
     public String toString() {
         if (this.isWhite()) {
@@ -83,6 +110,15 @@ public class King extends Piece {
         }
     }
 
+    /**
+     * Method checks if is possible to do long castling.
+     *
+     * @param board
+     * @param start
+     * @param end
+     * @return
+     * @throws Exception
+     */
     private boolean longCastling(Board board, Spot start, Spot end) throws Exception {
         // validate short castling
         int y = start.getY() - end.getY();
@@ -107,7 +143,15 @@ public class King extends Piece {
         return false;
     }
 
-
+    /**
+     * Method checks if is possible to do short castling.
+     *
+     * @param board
+     * @param start
+     * @param end
+     * @return
+     * @throws Exception
+     */
     private boolean shortCastling(Board board, Spot start, Spot end) throws Exception {
         // validate short castling
         int y = start.getY() - end.getY();
