@@ -37,17 +37,8 @@ public class MainApp extends Application {
         // set game parameters
         System.out.println("Testing has been started!");
 
-        // init game
-        game = new Game();
-        Player human = new HumanPlayer(true);
-        Player computer = new ComputerPlayer(false);
-        game.initGame(human, computer);
-
-        game.printGameInfo();
-
-        //scene = new Scene(loadFXML("ChessBoard"), 640, 800);
-        this.stage.setScene(new Scene(loadFXML("ChessBoard"), 640, 800));
-        this.stage.show();
+        newGame();
+        updateScene();
 
     }
 
@@ -85,4 +76,12 @@ public class MainApp extends Application {
         stage.show();
         game.printGameInfo();
     }
+
+    public static void newGame() throws IOException {
+        game = new Game();
+        Player human = new HumanPlayer(true);
+        Player computer = new ComputerPlayer(false);
+        game.initGame(human, computer);
+    }
+
 }
