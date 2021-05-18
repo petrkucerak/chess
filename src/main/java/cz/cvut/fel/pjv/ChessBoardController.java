@@ -1,5 +1,7 @@
 package cz.cvut.fel.pjv;
 
+import cz.cvut.fel.pjv.ControlerUtils.PanePiece;
+import cz.cvut.fel.pjv.ControlerUtils.TextPiece;
 import cz.cvut.fel.pjv.model.Player.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -7,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
 
@@ -55,17 +56,39 @@ public class ChessBoardController {
     /**
      * Action when user click on the pane with the piece
      */
-    EventHandler<MouseEvent> pieceClickHandler = new EventHandler<MouseEvent>() {
+    EventHandler<MouseEvent> piecePaneClickHandler = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent mouseEvent) {
             PanePiece pane = (PanePiece) mouseEvent.getSource();
-            System.out.println(pane.getX() + " " + pane.getY());
+            System.out.println(pane.getCordX() + " " + pane.getCordY());
             if (turnPositions[0] == -1) {
-                turnPositions[0] = pane.getX();
-                turnPositions[1] = pane.getY();
+                turnPositions[0] = pane.getCordX();
+                turnPositions[1] = pane.getCordY();
             } else {
                 try {
-                    playerMove(turnPositions[0], turnPositions[1], pane.getX(), pane.getY());
+                    playerMove(turnPositions[0], turnPositions[1], pane.getCordX(), pane.getCordY());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                annularMovesArray();
+            }
+        }
+    };
+
+    /**
+     * Action when user click on the text element with piece
+     */
+    EventHandler<MouseEvent> pieceTextClickHandler = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent mouseEvent) {
+            TextPiece piece = (TextPiece) mouseEvent.getSource();
+            System.out.println(piece.getCordX() + " " + piece.getCordY());
+            if (turnPositions[0] == -1) {
+                turnPositions[0] = piece.getCordX();
+                turnPositions[1] = piece.getCordY();
+            } else {
+                try {
+                    playerMove(turnPositions[0], turnPositions[1], piece.getCordX(), piece.getCordY());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -86,8 +109,8 @@ public class ChessBoardController {
         pane.setMaxSize(70, 70);
         pane.setMinSize(70, 70);
         // add event
-        pane.addEventFilter(MouseEvent.MOUSE_CLICKED, pieceClickHandler);
-        // add pane to grid
+        pane.addEventFilter(MouseEvent.MOUSE_CLICKED, piecePaneClickHandler);
+        // add pane to the grid
         grid.add(pane, colIndex, rowIndex);
     }
 
@@ -103,18 +126,11 @@ public class ChessBoardController {
     }
 
     private void addPiece(int colIndex, int rowIndex, String name) throws Exception {
-        Text piece = new Text();
+        // create custom text instance
+        TextPiece piece = new TextPiece(name, rowIndex, colIndex);
         piece.setText(name);
+        // format
         piece.setStyle("-fx-font-size: 40px;");
-        // listen to user event
-        /*piece.setOnMouseClicked(e -> {
-            try {
-                playerMove(colIndex, rowIndex);
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        });*/
-
         if (MainApp.getGame().getBoard().getBox(rowIndex, colIndex).getPiece().isWhite()) {
             piece.setFill(Color.GREEN);
             piece.setStroke(Color.BLACK);
@@ -122,6 +138,9 @@ public class ChessBoardController {
             piece.setFill(Color.RED);
             piece.setStroke(Color.BLACK);
         }
+        // add event
+        piece.addEventFilter(MouseEvent.MOUSE_CLICKED, pieceTextClickHandler);
+        // add pane to the grid
         grid.add(piece, colIndex, rowIndex);
 
     }
