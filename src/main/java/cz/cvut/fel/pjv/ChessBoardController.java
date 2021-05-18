@@ -145,7 +145,6 @@ public class ChessBoardController {
 
     }
 
-    // ToDo: validate move
     private void playerMove(int startX, int startY, int endX, int endY) throws Exception {
         System.out.println("All move is: " + startX + " " + startY + " " + endX + " " + endY);
 
