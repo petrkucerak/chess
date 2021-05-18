@@ -1,7 +1,7 @@
 package cz.cvut.fel.pjv.model.Player;
 
 /**
- * Create a random computer player.
+ * Class representation abstract definition of players.
  */
 public abstract class Player {
     public boolean whiteSide;
