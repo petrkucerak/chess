@@ -5,7 +5,7 @@ import cz.cvut.fel.pjv.model.Board;
 import cz.cvut.fel.pjv.model.Spot;
 
 /**
- * Abstract class for define pieces and support methods for piece
+ * Abstract class for define pieces & support methods for piece
  */
 public abstract class Piece {
     private boolean killed = false;
@@ -42,6 +42,15 @@ public abstract class Piece {
         this.white = white;
     }
 
+    /**
+     * Methode to validate if the move is possible.
+     *
+     * @param board
+     * @param start
+     * @param end
+     * @return
+     * @throws Exception
+     */
     public abstract boolean canMove(Board board, Spot start, Spot end) throws Exception;
 
     /**
@@ -222,6 +231,15 @@ public abstract class Piece {
         return false;
     }
 
+    /**
+     * Check if the king is in the danger after the user move.
+     *
+     * @param board
+     * @param piecePosition
+     * @param kingColor
+     * @return
+     * @throws Exception
+     */
     public boolean isKingInDanger(Board board, Spot piecePosition, Boolean kingColor) throws Exception {
 
         for (int i = 0; i < 8; i++) {
@@ -243,5 +261,10 @@ public abstract class Piece {
         return false;
     }
 
+    /**
+     * Method to get a symbol of the piece for print on board.
+     *
+     * @return
+     */
     public abstract String getPieceSymbol();
 }
