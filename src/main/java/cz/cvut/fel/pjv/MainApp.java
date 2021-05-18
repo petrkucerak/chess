@@ -35,7 +35,7 @@ public class MainApp extends Application {
         // set game parameters
         System.out.println("Testing has been started!");
 
-        // inti game
+        // init game
         game = new Game();
         Player human = new HumanPlayer(true);
         Player computer = new ComputerPlayer(false);
