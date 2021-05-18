@@ -12,6 +12,7 @@ public class Spot {
 
     /**
      * Create object of spot
+     *
      * @param piece
      * @param x
      * @param y
@@ -40,10 +41,11 @@ public class Spot {
 
     /**
      * If the spot is empty, return true
+     *
      * @return
      */
-    public boolean isSpotNull(){
-        if(this.piece == null){
+    public boolean isSpotNull() {
+        if (this.piece == null) {
             return true;
         }
         return false;
