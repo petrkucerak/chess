@@ -1,7 +1,5 @@
 package cz.cvut.fel.pjv;
 
-import cz.cvut.fel.pjv.model.Board;
-import cz.cvut.fel.pjv.model.Game;
 import cz.cvut.fel.pjv.model.Player.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -51,12 +49,12 @@ public class ChessBoardController {
     EventHandler<MouseEvent> pieceClickHandler = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent mouseEvent) {
-            System.out.println(mouseEvent.getX());
+            System.out.println(mouseEvent.getSource());
         }
     };
 
     private void addPane(int colIndex, int rowIndex) {
-        Pane pane = new Pane();
+        PanePiece pane = new PanePiece(colIndex, rowIndex);
         if ((colIndex % 2 == 0 && rowIndex % 2 == 0) || (colIndex % 2 == 1 && rowIndex % 2 == 1)) {
             pane.setStyle("-fx-background-color: #F3EACF;");
         } else {
@@ -71,7 +69,6 @@ public class ChessBoardController {
                 exception.printStackTrace();
             }
         });*/
-        pane.setOnMouseClicked(e ->{});
         pane.setMaxSize(70, 70);
         pane.setMinSize(70, 70);
         grid.add(pane, colIndex, rowIndex);
