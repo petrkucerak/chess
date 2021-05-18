@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 import static cz.cvut.fel.pjv.model.Pieces.Piece.BLACK;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Testing king valid moves.
+ */
 class KnightTest {
 
     private final Knight kingDark = new Knight(false);

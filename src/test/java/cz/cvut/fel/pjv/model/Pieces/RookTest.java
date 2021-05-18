@@ -8,6 +8,10 @@ import org.junit.jupiter.api.Test;
 
 import static cz.cvut.fel.pjv.model.Pieces.Piece.BLACK;
 import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * Testing rook valid moves.
+ */
 class RookTest {
 
     private final Rook rookDark = new Rook(false);
