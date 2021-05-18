@@ -16,7 +16,7 @@ public class Board {
      * For create new chessboard use newBoard function
      */
     public Board() {
-        this.testRepetition();
+        this.newBoard();
         this.activeCheckingIsKingInDanger = false;
     }
 
