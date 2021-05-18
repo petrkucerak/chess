@@ -12,6 +12,9 @@ import javafx.scene.paint.Color;
 
 import java.io.IOException;
 
+/**
+ * Class to representation game controller.
+ */
 public class ChessBoardController {
 
     private int[] turnPositions;
@@ -19,7 +22,11 @@ public class ChessBoardController {
     @FXML
     private GridPane grid;
 
-
+    /**
+     * Initialize windows with the Chess
+     *
+     * @throws Exception
+     */
     public void initialize() throws Exception {
 
         // init array with turn position
@@ -54,7 +61,7 @@ public class ChessBoardController {
     }
 
     /**
-     * Action when user click on the pane with the piece
+     * Action when user click on the pane with the piece.
      */
     EventHandler<MouseEvent> piecePaneClickHandler = new EventHandler<MouseEvent>() {
         @Override
@@ -81,7 +88,7 @@ public class ChessBoardController {
     };
 
     /**
-     * Action when user click on the text element with piece
+     * Action when user click on the text element with piece.
      */
     EventHandler<MouseEvent> pieceTextClickHandler = new EventHandler<MouseEvent>() {
         @Override
@@ -107,6 +114,12 @@ public class ChessBoardController {
         }
     };
 
+    /**
+     * Add custom pane with cords to grid.
+     *
+     * @param colIndex
+     * @param rowIndex
+     */
     private void addPane(int colIndex, int rowIndex) {
         // create custom pane with info about coords
         PanePiece pane = new PanePiece(rowIndex, colIndex);
@@ -124,6 +137,11 @@ public class ChessBoardController {
         grid.add(pane, colIndex, rowIndex);
     }
 
+    /**
+     * Methode sets icons of pieces to the chessboard.
+     *
+     * @throws Exception
+     */
     public void setChessBoard() throws Exception {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -135,6 +153,14 @@ public class ChessBoardController {
         }
     }
 
+    /**
+     * Methode add current piece with color formate into the chessboard with event handler.
+     *
+     * @param colIndex
+     * @param rowIndex
+     * @param name
+     * @throws Exception
+     */
     private void addPiece(int colIndex, int rowIndex, String name) throws Exception {
         // create custom text instance
         TextPiece piece = new TextPiece(name, rowIndex, colIndex);
@@ -155,6 +181,14 @@ public class ChessBoardController {
 
     }
 
+    /**
+     * Method processed player move.
+     * @param startX
+     * @param startY
+     * @param endX
+     * @param endY
+     * @throws Exception
+     */
     private void playerMove(int startX, int startY, int endX, int endY) throws Exception {
         System.out.println("All move is: " + startX + " " + startY + " " + endX + " " + endY);
 
@@ -162,6 +196,10 @@ public class ChessBoardController {
         MainApp.getGame().playerMove(player, startX, startY, endX, endY);
     }
 
+    /**
+     * Button to start new game.
+     * @throws IOException
+     */
     @FXML
     private void newGame() throws IOException {
         System.out.println("\n ==================================== \n\n");
@@ -180,8 +218,11 @@ public class ChessBoardController {
         System.out.println("LOAD GAME");
     }
 
-    private void annularMovesArray(){
-        for(int i = 0; i < turnPositions.length; i++){
+    /**
+     * Internal support methode for annulation tmp string with moves.
+     */
+    private void annularMovesArray() {
+        for (int i = 0; i < turnPositions.length; i++) {
             turnPositions[i] = -1;
         }
     }
