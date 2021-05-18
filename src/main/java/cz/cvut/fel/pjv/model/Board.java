@@ -28,6 +28,11 @@ public class Board {
         return activeCheckingIsKingInDanger;
     }
 
+    /**
+     * Create new chessboard.
+     *
+     * @param board
+     */
     public Board(Spot[][] board) {
         this.boxes = new Spot[8][8];
         for (int i = 0; i < 8; i++) {
@@ -50,7 +55,7 @@ public class Board {
     }
 
     /**
-     * Return spot on chessboard if exist
+     * Return spot on chessboard if exist.
      *
      * @param x coordinate
      * @param y coordinate
@@ -65,7 +70,7 @@ public class Board {
     }
 
     /**
-     * Equal pieces in 2 chessboards
+     * Equal pieces in 2 chessboards.
      *
      * @param board
      * @return
@@ -91,7 +96,7 @@ public class Board {
     }
 
     /**
-     * Initialization new chessboard with classic pieces position
+     * Initialization new chessboard with classic pieces position.
      */
     private void newBoard() {
         this.boxes = new Spot[8][8];
@@ -209,7 +214,7 @@ public class Board {
         boxes[3][5] = new Spot(new Bishop(false), 3, 5);
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if(boxes[i][j] == null){
+                if (boxes[i][j] == null) {
                     boxes[i][j] = new Spot(null, i, j);
                 }
             }
