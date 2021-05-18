@@ -83,6 +83,12 @@ public class Game {
      * @throws Exception
      */
     public boolean playerMove(Player player, int startX, int startY, int endX, int endY) throws Exception {
+
+        if(isEnd()){
+            System.err.println("End of the game!");
+            return false;
+        }
+
         Spot startBox = board.getBox(startX, startY);
         Spot endBox = board.getBox(endX, endY);
         Move move = new Move(player, startBox, endBox);
