@@ -13,11 +13,17 @@ import java.io.IOException;
 
 public class ChessBoardController {
 
+    private int[] turnPositions;
+
     @FXML
     private GridPane grid;
 
 
     public void initialize() throws Exception {
+
+        // init array with turn position
+        turnPositions = new int[4];
+        annularMovesArray();
 
         int numCols = 8;
         int numRows = 8;
@@ -46,18 +52,31 @@ public class ChessBoardController {
 
     }
 
+    /**
+     * Action when user click on the pane with the piece
+     */
     EventHandler<MouseEvent> pieceClickHandler = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent mouseEvent) {
-            System.out.println(mouseEvent.getSource());
             PanePiece pane = (PanePiece) mouseEvent.getSource();
             System.out.println(pane.getX() + " " + pane.getY());
+            if (turnPositions[0] == -1) {
+                turnPositions[0] = pane.getX();
+                turnPositions[1] = pane.getY();
+            } else {
+                try {
+                    playerMove(turnPositions[0], turnPositions[1], pane.getX(), pane.getY());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                annularMovesArray();
+            }
         }
     };
 
     private void addPane(int colIndex, int rowIndex) {
         // create custom pane with info about coords
-        PanePiece pane = new PanePiece(colIndex, rowIndex);
+        PanePiece pane = new PanePiece(rowIndex, colIndex);
         // set style of pane
         if ((colIndex % 2 == 0 && rowIndex % 2 == 0) || (colIndex % 2 == 1 && rowIndex % 2 == 1)) {
             pane.setStyle("-fx-background-color: #F3EACF;");
@@ -68,14 +87,7 @@ public class ChessBoardController {
         pane.setMinSize(70, 70);
         // add event
         pane.addEventFilter(MouseEvent.MOUSE_CLICKED, pieceClickHandler);
-        // listen to user event
-        /*pane.setOnMouseClicked(e -> {
-            try {
-                playerMove(colIndex, rowIndex);
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        });*/
+        // add pane to grid
         grid.add(pane, colIndex, rowIndex);
     }
 
@@ -95,13 +107,13 @@ public class ChessBoardController {
         piece.setText(name);
         piece.setStyle("-fx-font-size: 40px;");
         // listen to user event
-        piece.setOnMouseClicked(e -> {
+        /*piece.setOnMouseClicked(e -> {
             try {
                 playerMove(colIndex, rowIndex);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
-        });
+        });*/
 
         if (MainApp.getGame().getBoard().getBox(rowIndex, colIndex).getPiece().isWhite()) {
             piece.setFill(Color.GREEN);
@@ -115,11 +127,11 @@ public class ChessBoardController {
     }
 
     // ToDo: validate move
-    private void playerMove(int startX, int startY) throws Exception {
-        System.out.printf("Mouse entered cell [%d, %d]%n", startX, startY);
+    private void playerMove(int startX, int startY, int endX, int endY) throws Exception {
+        System.out.println("All move is: " + startX + " " + startY + " " + endX + " " + endY);
 
         Player player = MainApp.getGame().getCurrentTurn();
-        MainApp.getGame().playerMove(player, startX, startY, startX, startY);
+        MainApp.getGame().playerMove(player, startX, startY, endX, endY);
     }
 
     @FXML
@@ -135,6 +147,12 @@ public class ChessBoardController {
     @FXML
     private void loadGame(ActionEvent actionEvent) throws IOException {
         System.out.println("LOAD GAME");
+    }
+
+    private void annularMovesArray(){
+        for(int i = 0; i < turnPositions.length; i++){
+            turnPositions[i] = -1;
+        }
     }
 
 
