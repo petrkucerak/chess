@@ -17,14 +17,6 @@ class RookTest {
     private final Rook rookDark = new Rook(false);
     private final Rook rookWhite = new Rook(true);
 
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
-
     @Test
     void canMove() throws Exception {
         assertEquals(false, rookWhite.canMove(new Board(), new Spot(new Rook(true), 0,0), new Spot(null, 0, 5)));
