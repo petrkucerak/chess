@@ -8,6 +8,8 @@ import cz.cvut.fel.pjv.model.Player.Player;
 
 import java.util.ArrayList;
 
+import java.util.logging.*;
+
 import static cz.cvut.fel.pjv.model.Pieces.Piece.*;
 
 /**
@@ -21,6 +23,8 @@ public class Game {
     private int gameRound;
     private ArrayList<Move> movesPlayed;
     private ArrayList<Board> gameBoards;
+
+    private static final Logger LOG = Logger.getLogger(Game.class.getName());
 
     /**
      * Initialization game
@@ -83,12 +87,6 @@ public class Game {
      * @throws Exception
      */
     public boolean playerMove(Player player, int startX, int startY, int endX, int endY) throws Exception {
-
-        if (isEnd()) {
-            System.err.println("End of the game!");
-            return false;
-        }
-
         Spot startBox = board.getBox(startX, startY);
         Spot endBox = board.getBox(endX, endY);
         Move move = new Move(player, startBox, endBox);
@@ -104,28 +102,37 @@ public class Game {
      * @throws Exception
      */
     private boolean makeMove(Move move, Player player) throws Exception {
+        // set logger levels
+        Logger.getLogger("").setLevel(Level.INFO);
+        Logger.getLogger("").getHandlers()[0].setLevel(Level.INFO);
+
+        if (isEnd()) {
+            LOG.info("End of the game!");
+            return false;
+        }
+
         Piece sourcePiece = move.getStart().getPiece();
 
         // check if piece exist
         if (sourcePiece == null) {
-            System.err.println("The piece doesn't exist!");
+            LOG.warning("The piece doesn't exist!");
             return false;
         }
 
         // valid player
         if (player != currentTurn) {
-            System.err.println("The player is not on the move!");
+            LOG.warning("The player is not on the move!");
             return false;
         }
         // validate if color of piece is same as player color
         if (sourcePiece.isWhite() != player.isWhiteSide()) {
-            System.err.println("The piece color isn't same as a paler color!");
+            LOG.warning("The piece color isn't same as a paler color!");
             return false;
         }
 
         // valid move
         if (!sourcePiece.canMove(board, move.getStart(), move.getEnd())) {
-            System.err.println("The move isn't possible!");
+            LOG.warning("The move isn't possible!");
             return false;
         }
 
@@ -195,7 +202,7 @@ public class Game {
         // pinned piece
         board.setActiveCheckingIsKingInDanger(true);
         if (isKingInDanger(move.getPlayer().isWhiteSide())) {
-            System.err.println("King is in the danger!");
+            LOG.warning("The king is in the danger!");
             board.setActiveCheckingIsKingInDanger(false);
             unStepMove(movesPlayed.get(movesPlayed.size() - 1));
             return false;
