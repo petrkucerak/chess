@@ -3,12 +3,20 @@ package cz.cvut.fel.pjv.model.Pieces;
 import cz.cvut.fel.pjv.model.Board;
 import cz.cvut.fel.pjv.model.Spot;
 
+/**
+ * Class representation of the pawn piece.
+ */
 public class Pawn extends Piece {
 
     private boolean wasLastSuperJump;
     private boolean didElPassant;
     private boolean isPromotion;
 
+    /**
+     * Create pawn piece
+     *
+     * @param white
+     */
     public Pawn(boolean white) {
         super(white);
         this.wasLastSuperJump = false;
@@ -40,6 +48,15 @@ public class Pawn extends Piece {
         this.wasLastSuperJump = wasLastSuperJump;
     }
 
+    /**
+     * Methode to validate if the move is possible.
+     *
+     * @param board
+     * @param start
+     * @param end
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean canMove(Board board, Spot start, Spot end) throws Exception {
 
@@ -50,7 +67,7 @@ public class Pawn extends Piece {
 
         // Implementation 'Promotion'
         // check situation for activate this mode
-        if(!board.isActiveCheckingIsKingInDanger()) {
+        if (!board.isActiveCheckingIsKingInDanger()) {
             if (end.getX() == 0 || end.getX() == 7) {
                 System.out.println("Piece promotion!");
                 isPromotion = true;
@@ -119,11 +136,22 @@ public class Pawn extends Piece {
         return false;
     }
 
+    /**
+     * Method to get a symbol of the piece for print on board.
+     *
+     * @return
+     */
     @Override
     public String getPieceSymbol() {
         return "♟";
     }
 
+    /**
+     * Internal method to determine board orientation.
+     *
+     * @param piece
+     * @return
+     */
     public static int colorRegulator(Piece piece) {
         if (piece.isWhite()) {
             return 1;
@@ -131,6 +159,11 @@ public class Pawn extends Piece {
         return -1;
     }
 
+    /**
+     * Method to get a symbol of the piece for print on console board.
+     *
+     * @return
+     */
     @Override
     public String toString() {
         if (this.isWhite()) {
