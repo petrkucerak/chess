@@ -84,7 +84,7 @@ public class Game {
      */
     public boolean playerMove(Player player, int startX, int startY, int endX, int endY) throws Exception {
 
-        if(isEnd()){
+        if (isEnd()) {
             System.err.println("End of the game!");
             return false;
         }
@@ -199,6 +199,7 @@ public class Game {
             System.err.println("King is in the danger!");
             board.setActiveCheckingIsKingInDanger(false);
             // ToDo: implement move annulation
+            unStepMove(movesPlayed.get(movesPlayed.size() - 1));
             return false;
         }
         board.setActiveCheckingIsKingInDanger(false);
@@ -347,5 +348,10 @@ public class Game {
 
     public ArrayList<Board> getGameBoards() {
         return gameBoards;
+    }
+
+    private void unStepMove(Move move) {
+        move.getStart().setPiece(move.getEnd().getPiece());
+        move.getEnd().setPiece(null);
     }
 }
