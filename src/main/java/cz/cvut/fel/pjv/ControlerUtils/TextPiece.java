@@ -2,6 +2,9 @@ package cz.cvut.fel.pjv.ControlerUtils;
 
 import javafx.scene.text.Text;
 
+/**
+ * Special class to create JavaFX text with cords position on the chessboard.
+ */
 public class TextPiece extends Text {
     private int cordX;
     private int cordY;

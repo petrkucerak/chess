@@ -3,6 +3,9 @@ package cz.cvut.fel.pjv.ControlerUtils;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
+/**
+ * Special class to create JavaFX pane with cords position on the chessboard.
+ */
 public class PanePiece extends Pane {
     private int cordX;
     private int cordY;
