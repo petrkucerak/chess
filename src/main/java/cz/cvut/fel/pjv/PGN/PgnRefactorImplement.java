@@ -25,8 +25,8 @@ public class PgnRefactorImplement implements PgnRefactor {
         SimpleDateFormat dataFormat = new SimpleDateFormat(PgnFormats.DATEFORMAT_PGN);
 
         // create meatheads info
-        appendPgnHeader(pgn, "Event", "Computer game");
-        appendPgnHeader(pgn, "Site", "On the computer");
+        appendPgnHeader(pgn, "Event", "The epic chess game");
+        appendPgnHeader(pgn, "Site", "Prague, Czech Republic");
         appendPgnHeader(pgn, "Date", dataFormat.format(game.getStartDate()));
         appendPgnHeader(pgn, "Round", String.valueOf(game.getGameRound()));
         appendPgnHeader(pgn, "White", game.getPlayers()[0].toString());
@@ -80,6 +80,13 @@ public class PgnRefactorImplement implements PgnRefactor {
         return pgn.toString();
     }
 
+    /**
+     * Method to append PGN header.
+     *
+     * @param text
+     * @param name
+     * @param value
+     */
     private void appendPgnHeader(StringBuilder text, String name, String value) {
         text.append("[");
         text.append(name);
@@ -88,5 +95,22 @@ public class PgnRefactorImplement implements PgnRefactor {
         text.append("\"");
         text.append("]");
         text.append("\n");
+    }
+
+    /**
+     * Method to return PGN style of cords.
+     *
+     * @param x
+     * @param y
+     * @return
+     */
+    private String returnPgnPosition(int x, int y) {
+        char[] cordY = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+        char[] cordX = {'1', '2', '3', '4', '5', '6', '7', '8'};
+        String ret = "";
+        ret += cordY[y];
+        ret += cordX[x];
+        return ret;
+
     }
 }
