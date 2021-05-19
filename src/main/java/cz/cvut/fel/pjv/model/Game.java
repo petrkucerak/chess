@@ -1,5 +1,6 @@
 package cz.cvut.fel.pjv.model;
 
+import cz.cvut.fel.pjv.TimeClock.TheClock;
 import cz.cvut.fel.pjv.model.Pieces.King;
 import cz.cvut.fel.pjv.model.Pieces.Pawn;
 import cz.cvut.fel.pjv.model.Pieces.Piece;
@@ -17,6 +18,7 @@ import static cz.cvut.fel.pjv.model.Pieces.Piece.*;
  */
 public class Game {
     private Player[] players;
+    private int[] timeLefts;
     private Board board;
     private Player currentTurn;
     private GameStatus status;
@@ -51,7 +53,26 @@ public class Game {
         this.gameBoards = new ArrayList<Board>();
         gameBoards.clear();
 
+        this.timeLefts = new int[2];
+        timeLefts[0] = -1;
+        timeLefts[1] = -1;
         this.setStatus(GameStatus.ACTIVE);
+    }
+
+    public void setTimeLefts(int timeLefts) {
+        this.timeLefts[0] = timeLefts;
+        this.timeLefts[1] = timeLefts;
+    }
+    public void setTimeLefts(int timeLefts, int index) {
+        this.timeLefts[index] = timeLefts;
+    }
+
+    public int[] getTimeLefts() {
+        return timeLefts;
+    }
+
+    public static Logger getLOG() {
+        return LOG;
     }
 
     /**

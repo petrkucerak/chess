@@ -13,6 +13,5 @@ public class TimeClockLogic {
         //thread2.setDaemon(true);
 
         thread1.start();
-        thread2.start();
     }
 }

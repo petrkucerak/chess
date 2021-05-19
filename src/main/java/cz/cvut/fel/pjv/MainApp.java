@@ -1,6 +1,6 @@
 package cz.cvut.fel.pjv;
 
-import cz.cvut.fel.pjv.model.Board;
+import cz.cvut.fel.pjv.TimeClock.TheClock;
 import cz.cvut.fel.pjv.model.Game;
 import cz.cvut.fel.pjv.model.Player.ComputerPlayer;
 import cz.cvut.fel.pjv.model.Player.HumanPlayer;
@@ -9,7 +9,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -24,6 +23,8 @@ public class MainApp extends Application {
     private static Scene scene;
     private static Game game;
     private static Stage stage;
+    private static TheClock timer;
+    private static Thread time;
 
     /**
      * Void launches game.
@@ -99,6 +100,7 @@ public class MainApp extends Application {
         stage.setScene(new Scene(loadFXML("ChessBoard"), 640, 800));
         stage.show();
         game.printGameInfo();
+        changeTimer();
     }
 
     /**
@@ -111,6 +113,39 @@ public class MainApp extends Application {
         Player human = new HumanPlayer(true);
         Player computer = new ComputerPlayer(false);
         game.initGame(human, computer);
+        game.setTimeLefts(100000);
+
+    }
+
+    public static void changeTimer() {
+        // if process in progress, kill it
+        if (time != null) {
+            if (time.isAlive()) {
+                if(game.getGameRound() % 2 == 1){
+                    game.setTimeLefts(timer.getTimeLefts(), 1);
+                } else {
+                    game.setTimeLefts(timer.getTimeLefts(), 0);
+                }
+                timer.setTimeLefts(-1);
+
+            }
+        }
+
+        // get current time value
+        int timeLefts;
+        if (game.getGameRound() % 2 == 1) {
+            timeLefts = game.getTimeLefts()[0];
+        } else {
+            timeLefts = game.getTimeLefts()[1];
+        }
+
+        if(timeLefts > 0) {
+            // init chess clock
+            timer = new TheClock(timeLefts);
+            time = new Thread(timer);
+            time.setDaemon(true);
+            time.start();
+        }
     }
 
 }

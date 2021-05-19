@@ -4,20 +4,36 @@ import static java.lang.Thread.sleep;
 
 public class TheClock implements Runnable {
 
-    private int timeLets;
+    private int timeLefts;
     Thread thr = null;
     boolean threadSuspended;
 
-    public void setTimeLets(int timeLets) {
-        this.timeLets = timeLets;
+    public void setTimeLefts(int timeLefts) {
+        this.timeLefts = timeLefts;
     }
 
-    public int getTimeLets() {
-        return timeLets;
+    public void setThr(Thread thr) {
+        this.thr = thr;
+    }
+
+    public void setThreadSuspended(boolean threadSuspended) {
+        this.threadSuspended = threadSuspended;
+    }
+
+    public Thread getThr() {
+        return thr;
+    }
+
+    public boolean isThreadSuspended() {
+        return threadSuspended;
+    }
+
+    public int getTimeLefts() {
+        return timeLefts;
     }
 
     public TheClock(int timeLets) {
-        this.timeLets = timeLets;
+        this.timeLefts = timeLets;
     }
 
     public void start() {
@@ -41,10 +57,10 @@ public class TheClock implements Runnable {
     }
 
     private void changeTime(int time) {
-        if (timeLets > 0) {
-            timeLets -= time;
+        if (timeLefts > 0) {
+            timeLefts -= time;
         } else {
-            System.err.println("End of timer!");
+            // System.err.println("End of timer!");
             thr.run();
         }
     }
@@ -53,7 +69,9 @@ public class TheClock implements Runnable {
     public void run() {
         try {
             while (true) {
-                System.out.println("Time lefts: " + timeLets);
+                if (timeLefts > 0) {
+                    System.out.println("Time lefts: " + timeLefts);
+                }
                 if (threadSuspended) {
                     synchronized (this) {
                         while (threadSuspended) {
@@ -61,8 +79,8 @@ public class TheClock implements Runnable {
                         }
                     }
                 }
-                changeTime(1000);
-                thr.sleep(1000);
+                changeTime(5000);
+                thr.sleep(5000);
             }
         } catch (Exception e) {
 
@@ -70,7 +88,7 @@ public class TheClock implements Runnable {
     }
 
     public boolean isClockEnded() {
-        if (timeLets > 0) {
+        if (timeLefts > 0) {
             return false;
         } else {
             return true;
