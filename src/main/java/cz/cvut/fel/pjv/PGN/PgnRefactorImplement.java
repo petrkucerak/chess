@@ -2,23 +2,54 @@ package cz.cvut.fel.pjv.PGN;
 
 import cz.cvut.fel.pjv.model.Game;
 import cz.cvut.fel.pjv.model.Move;
+import cz.cvut.fel.pjv.model.Pieces.Piece;
+import cz.cvut.fel.pjv.model.Spot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class PgnRefactorImplement implements PgnRefactor {
+public class PgnRefactorImplement {
     public PgnRefactorImplement() {
     }
 
-    @Override
-    public Collection<String> convertMoveToPgn(ArrayList<Move> movesPlayed) {
+    public ArrayList<String> convertMoveToPgn(ArrayList<Move> movesPlayed) {
+        ArrayList<String> pngMoves = new ArrayList<String>();
+        for (Move move : movesPlayed) {
+            // create tmp string
+            String tmp = "";
 
-        return null;
+            // check castling
+            if (move.isLongCastlingMove()) {
+                tmp += PgnFormats.PGN_CASTLE_Q;
+                pngMoves.add(tmp);
+                continue;
+            }
+            if (move.isShortCastlingMove()) {
+                tmp += PgnFormats.PGN_CASTLE_K;
+                pngMoves.add(tmp);
+                continue;
+            }
+
+            // add type of piece
+            if(getSymbolOfPiece(move) != 'f') {
+                tmp += getSymbolOfPiece(move);
+            }
+            // add killing status
+            if(move.getPieceKilled() != null){
+                tmp += "x";
+            }
+            // add coords
+            int x = move.getEnd().getX();
+            int y = move.getEnd().getY();
+            tmp += returnPgnPosition(x, y);
+
+            // add tmp to arraylist
+            pngMoves.add(tmp);
+        }
+        return pngMoves;
     }
 
-
-    @Override
     public String exportGame(Game game) {
         // create String builder
         StringBuilder pgn = new StringBuilder();
@@ -54,16 +85,14 @@ public class PgnRefactorImplement implements PgnRefactor {
         pgn.append("\n");
 
         // create moves info
+        ArrayList<String> pngMoves = new ArrayList<String>();
+        pngMoves = convertMoveToPgn(game.getMovesPlayed());
 
         StringBuilder line = new StringBuilder();
-        int index = 0;
+        int index = 1;
 
-        /*for (String move : moves) {
-            if (index % 2 == 0) {
-                line.append(index / 2);
-                line.append(". ");
-            }
-
+        for (String move : pngMoves) {
+            line.append(index + ". ");
             line.append(move);
             line.append(' ');
 
@@ -72,10 +101,11 @@ public class PgnRefactorImplement implements PgnRefactor {
                 pgn.append("\n");
                 line.setLength(0);
             }
+            index++;
         }
 
         pgn.append(line);
-        pgn.append("\n");*/
+        pgn.append("\n");
 
         return pgn.toString();
     }
@@ -112,5 +142,32 @@ public class PgnRefactorImplement implements PgnRefactor {
         ret += cordX[x];
         return ret;
 
+    }
+
+    /**
+     * Return symbol of piece
+     * @param move
+     * @return
+     */
+    private char getSymbolOfPiece(Move move) {
+        String name;
+        if(move.getEnd().getPiece() != null){
+            name = move.getEnd().getPiece().getClass().getSimpleName();
+        } else {
+            name = move.getPieceMoved().getClass().getSimpleName();
+        }
+        switch (name) {
+            case "King":
+                return 'K';
+            case "Queen":
+                return 'Q';
+            case "Rook":
+                return 'R';
+            case "Bishop":
+                return 'B';
+            case "Knight":
+                return 'N';
+        }
+        return 'f'; // f like f*ck
     }
 }
