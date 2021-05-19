@@ -38,6 +38,22 @@ public class Move {
         this.promotion = false;
     }
 
+    /**
+     * Create move object
+     * @param move
+     */
+    public Move(Move move){
+        this.player = move.player;
+        this.start = move.start;
+        this.end = move.end;
+        this.pieceMoved = move.start.getPiece();
+
+        this.shortCastlingMove = move.shortCastlingMove;
+        this.longCastlingMove = move.longCastlingMove;
+        this.elPassant = move.elPassant;
+        this.promotion = move.promotion;
+    }
+
     public void setPromotion(boolean promotion) {
         this.promotion = promotion;
     }
