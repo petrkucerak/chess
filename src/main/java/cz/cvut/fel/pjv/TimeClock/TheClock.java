@@ -44,7 +44,8 @@ public class TheClock implements Runnable {
         if (timeLets > 0) {
             timeLets -= time;
         } else {
-            System.err.println("Time < 0!");
+            System.err.println("End of timer!");
+            thr.run();
         }
     }
 
