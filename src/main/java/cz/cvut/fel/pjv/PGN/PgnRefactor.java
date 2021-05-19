@@ -1,5 +1,6 @@
 package cz.cvut.fel.pjv.PGN;
 
+import cz.cvut.fel.pjv.MainApp;
 import cz.cvut.fel.pjv.model.Game;
 import cz.cvut.fel.pjv.model.Move;
 import cz.cvut.fel.pjv.model.Pieces.Piece;
@@ -9,8 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class PgnRefactorImplement {
-    public PgnRefactorImplement() {
+public class PgnRefactor {
+    public PgnRefactor() {
     }
 
     public ArrayList<String> convertMoveToPgn(ArrayList<Move> movesPlayed) {
@@ -44,6 +45,12 @@ public class PgnRefactorImplement {
             int y = move.getEnd().getY();
             tmp += returnPgnPosition(x, y);
 
+            // ToDO: check checking move
+            // check checkmating move
+            if(MainApp.getGame().getStatus() == Game.GameStatus.BLACK_WIN
+                    || MainApp.getGame().getStatus() == Game.GameStatus.BLACK_WIN){
+                tmp += "#";
+            }
             // add tmp to arraylist
             pngMoves.add(tmp);
         }

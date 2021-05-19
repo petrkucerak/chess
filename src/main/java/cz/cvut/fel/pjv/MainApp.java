@@ -1,7 +1,6 @@
 package cz.cvut.fel.pjv;
 
-import cz.cvut.fel.pjv.PGN.PgnFormats;
-import cz.cvut.fel.pjv.PGN.PgnRefactorImplement;
+import cz.cvut.fel.pjv.PGN.PgnRefactor;
 import cz.cvut.fel.pjv.TimeClock.TheClock;
 import cz.cvut.fel.pjv.model.Game;
 import cz.cvut.fel.pjv.model.Player.ComputerPlayer;
@@ -152,7 +151,7 @@ public class MainApp extends Application {
 
     public static void exportPgn(){
         // testing pgn event
-        PgnRefactorImplement pgn = new PgnRefactorImplement();
+        PgnRefactor pgn = new PgnRefactor();
         System.out.println(pgn.exportGame(game));
     }
 
