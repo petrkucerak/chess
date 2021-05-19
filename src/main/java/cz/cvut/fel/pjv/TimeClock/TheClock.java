@@ -1,7 +1,5 @@
 package cz.cvut.fel.pjv.TimeClock;
 
-import static java.lang.Thread.sleep;
-
 public class TheClock implements Runnable {
 
     private int timeLefts;
