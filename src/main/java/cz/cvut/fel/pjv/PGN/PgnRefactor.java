@@ -33,12 +33,22 @@ public class PgnRefactor {
             }
 
             // add type of piece
-            if(getSymbolOfPiece(move) != 'f') {
+            if (getSymbolOfPiece(move) != 'f') {
                 tmp += getSymbolOfPiece(move);
+            } else {
+                // special pawn killing
+                if (move.getEnd().getPiece() != null) {
+                    if (move.getEnd().getPiece().isKilled()) {
+                        tmp += returnPgnPosition(move.getStart().getY());
+                    }
+                }
             }
+            // ToDO: problem with killing none pawn piecessn
             // add killing status
-            if(move.getPieceKilled() != null){
-                tmp += "x";
+            if (move.getEnd().getPiece() != null) {
+                if (move.getEnd().getPiece().isKilled()) {
+                    tmp += "x";
+                }
             }
             // add coords
             int x = move.getEnd().getX();
@@ -47,8 +57,8 @@ public class PgnRefactor {
 
             // ToDO: check checking move
             // check checkmating move
-            if(MainApp.getGame().getStatus() == Game.GameStatus.BLACK_WIN
-                    || MainApp.getGame().getStatus() == Game.GameStatus.BLACK_WIN){
+            if (MainApp.getGame().getStatus() == Game.GameStatus.BLACK_WIN
+                    || MainApp.getGame().getStatus() == Game.GameStatus.BLACK_WIN) {
                 tmp += "#";
             }
             // add tmp to arraylist
@@ -96,12 +106,17 @@ public class PgnRefactor {
         pngMoves = convertMoveToPgn(game.getMovesPlayed());
 
         StringBuilder line = new StringBuilder();
-        int index = 1;
+        int index = 2;
 
         for (String move : pngMoves) {
-            line.append(index + ". ");
+            if (index % 2 == 0) {
+                line.append(index / 2);
+                line.append(". ");
+            }
+
             line.append(move);
             line.append(' ');
+
 
             if (line.length() > 70) {
                 pgn.append(line);
@@ -143,25 +158,39 @@ public class PgnRefactor {
      */
     private String returnPgnPosition(int x, int y) {
         char[] cordY = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
-        char[] cordX = {'1', '2', '3', '4', '5', '6', '7', '8'};
+        char[] cordX = {'8', '7', '6', '5', '4', '3', '2', '1'};
         String ret = "";
         ret += cordY[y];
         ret += cordX[x];
         return ret;
+    }
 
+    /**
+     * Method to return PGN style of Y cords.
+     *
+     * @param y
+     * @return
+     */
+    private String returnPgnPosition(int y) {
+        char[] cordY = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+        String ret = "";
+        ret += cordY[y];
+        return ret;
     }
 
     /**
      * Return symbol of piece
+     *
      * @param move
      * @return
      */
     private char getSymbolOfPiece(Move move) {
         String name;
-        if(move.getEnd().getPiece() != null){
+        if (move.getEnd().getPiece() != null) {
             name = move.getEnd().getPiece().getClass().getSimpleName();
         } else {
             name = move.getPieceMoved().getClass().getSimpleName();
+            // name = move.getStart().getPiece().getClass().getSimpleName();
         }
         switch (name) {
             case "King":

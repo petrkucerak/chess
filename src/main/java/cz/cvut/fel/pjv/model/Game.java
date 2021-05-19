@@ -234,7 +234,8 @@ public class Game {
         }
 
         // store the move
-        movesPlayed.add(move);
+        movesPlayed.add(new Move(move));
+
 
         // move piece from the start box to end box
         move.getEnd().setPiece(move.getStart().getPiece());
