@@ -149,10 +149,4 @@ public class MainApp extends Application {
         }
     }
 
-    public static void exportPgn(){
-        // testing pgn event
-        PgnRefactor pgn = new PgnRefactor();
-        System.out.println(pgn.exportGame(game));
-    }
-
 }

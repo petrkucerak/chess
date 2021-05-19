@@ -2,6 +2,7 @@ package cz.cvut.fel.pjv;
 
 import cz.cvut.fel.pjv.ControlerUtils.PanePiece;
 import cz.cvut.fel.pjv.ControlerUtils.TextPiece;
+import cz.cvut.fel.pjv.PGN.PgnFileSaver;
 import cz.cvut.fel.pjv.model.Player.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -211,7 +212,7 @@ public class ChessBoardController {
     @FXML
     private void saveGame(ActionEvent actionEvent) throws IOException {
         System.out.println("SAVE GAME");
-        MainApp.exportPgn();
+        PgnFileSaver.saveGame();
     }
 
     @FXML
