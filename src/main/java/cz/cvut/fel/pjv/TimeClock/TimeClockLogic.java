@@ -1,7 +1,7 @@
 package cz.cvut.fel.pjv.TimeClock;
 
 /**
- * Implementations of custom Timeclock
+ * Test implementations of custom Timeclock
  */
 public class TimeClockLogic {
     public static void main(String[]args) {
