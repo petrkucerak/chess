@@ -1,14 +1,19 @@
 package cz.cvut.fel.pjv.model;
 
+import cz.cvut.fel.pjv.PGN.PgnFormats;
 import cz.cvut.fel.pjv.TimeClock.TheClock;
 import cz.cvut.fel.pjv.model.Pieces.King;
 import cz.cvut.fel.pjv.model.Pieces.Pawn;
 import cz.cvut.fel.pjv.model.Pieces.Piece;
 import cz.cvut.fel.pjv.model.Pieces.Queen;
 import cz.cvut.fel.pjv.model.Player.Player;
+import javafx.scene.input.DataFormat;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
+import java.util.Date;
 import java.util.logging.*;
 
 import static cz.cvut.fel.pjv.model.Pieces.Piece.*;
@@ -25,6 +30,7 @@ public class Game {
     private int gameRound;
     private ArrayList<Move> movesPlayed;
     private ArrayList<Board> gameBoards;
+    private Date startDate;
 
     private static final Logger LOG = Logger.getLogger(Game.class.getName());
 
@@ -57,6 +63,20 @@ public class Game {
         timeLefts[0] = -1;
         timeLefts[1] = -1;
         this.setStatus(GameStatus.ACTIVE);
+
+        this.startDate = new Date();
+    }
+
+    public void setTimeLefts(int[] timeLefts) {
+        this.timeLefts = timeLefts;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     public void setTimeLefts(int timeLefts) {
