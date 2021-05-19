@@ -43,7 +43,7 @@ public class PgnRefactor {
                     }
                 }
             }
-            // ToDO: problem with killing none pawn piecessn
+            // ToDO: problem with killing none pawn pieces
             // add killing status
             if (move.getEnd().getPiece() != null) {
                 if (move.getEnd().getPiece().isKilled()) {
