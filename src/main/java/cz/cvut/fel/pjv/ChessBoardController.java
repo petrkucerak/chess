@@ -211,6 +211,7 @@ public class ChessBoardController {
     @FXML
     private void saveGame(ActionEvent actionEvent) throws IOException {
         System.out.println("SAVE GAME");
+        MainApp.exportPgn();
     }
 
     @FXML
