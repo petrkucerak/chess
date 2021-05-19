@@ -44,8 +44,8 @@ public class Move {
      */
     public Move(Move move){
         this.player = move.player;
-        this.start = move.start;
-        this.end = move.end;
+        this.start = new Spot(move.start);
+        this.end = new Spot(move.end);
         this.pieceMoved = move.start.getPiece();
 
         this.shortCastlingMove = move.shortCastlingMove;

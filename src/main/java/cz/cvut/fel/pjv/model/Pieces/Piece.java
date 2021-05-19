@@ -25,6 +25,9 @@ public abstract class Piece {
     public Piece(boolean white) {
         this.white = white;
     }
+    public Piece(Piece piece){
+        this.white = piece.white;
+    }
 
     public boolean isKilled() {
         return killed;

@@ -22,6 +22,11 @@ public class Spot {
         this.x = x;
         this.y = y;
     }
+    public Spot(Spot spot){
+        this.piece = spot.piece;
+        this.x = spot.x;
+        this.y = spot.y;
+    }
 
     public Piece getPiece() {
         return piece;
