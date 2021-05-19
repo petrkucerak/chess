@@ -4,12 +4,11 @@ import cz.cvut.fel.pjv.model.Game;
 import cz.cvut.fel.pjv.model.Move;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public interface PgnRefactor {
 
-    String convertMoveToPgn(ArrayList<Move> movesPlayed);
-
-    String exportMetadata(Game game);
+    Collection<String> convertMoveToPgn(ArrayList<Move> movesPlayed);
 
     String exportGame(Game game);
 
