@@ -12,6 +12,6 @@ public class ComputerPlayer extends Player {
 
     @Override
     public String toString() {
-        return "ComputerPlayer";
+        return "Computer, Player";
     }
 }
