@@ -57,7 +57,7 @@ public class TheClock implements Runnable {
     }
 
     private void changeTime(int time) {
-        if (timeLefts > 0) {
+        if (!isClockEnded()) {
             timeLefts -= time;
         } else {
             // System.err.println("End of timer!");
@@ -69,8 +69,8 @@ public class TheClock implements Runnable {
     public void run() {
         try {
             while (true) {
-                if (timeLefts > 0) {
-                    System.out.println("Time lefts: " + timeLefts);
+                if (!isClockEnded()) {
+                    displayTime(timeLefts);
                 }
                 if (threadSuspended) {
                     synchronized (this) {
@@ -93,5 +93,15 @@ public class TheClock implements Runnable {
         } else {
             return true;
         }
+    }
+    private void displayTime(int timeLefts){
+        timeLefts = timeLefts / 1000;
+        int hour = timeLefts / 3600;
+        timeLefts -= hour * 3600;
+        int min = timeLefts / 60;
+        timeLefts -= min * 60;
+        int sec = timeLefts;
+
+        System.out.println("Time lefts: " + hour + "h " + min + "m " + sec + "s");
     }
 }
