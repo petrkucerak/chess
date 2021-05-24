@@ -9,9 +9,8 @@ public class PGNFormatter {
     public static final String PGN_CASTLE_K = "O-O";
     public static final String PGN_CASTLE_Q = "O-O-O";
 
-    static void updatePgnHeader() {
+    public static void updatePgnHeader() {
         Game game = MainApp.getGame();
-
 
         // create String builder
         StringBuilder pgnHeader = new StringBuilder();
@@ -47,6 +46,16 @@ public class PGNFormatter {
 
         game.setPgnHeader(pgnHeader.toString());
         System.out.println(game.getPgnHeader());
+    }
+
+    public static void updatePgnMoves(){
+        Game game = MainApp.getGame();
+        String out = "";
+        if(game.getGameRound() > 0 && game.getGameRound() % 2 == 1){
+            out += game.getGameRound() / 2;
+        }
+        game.appendPgnMoves(out);
+        System.out.println(game.getPgnMoves());
     }
 
     /**
