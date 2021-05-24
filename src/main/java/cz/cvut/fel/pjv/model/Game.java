@@ -259,6 +259,7 @@ public class Game implements Serializable {
         move.getStart().setPiece(null);
 
         // pinned piece
+        // ToDo: fix bug, when king in this mode do more killing moves
         board.setActiveCheckingIsKingInDanger(true);
         if (isKingInDanger(move.getPlayer().isWhiteSide())) {
             LOG.warning("The king is in the danger!");
