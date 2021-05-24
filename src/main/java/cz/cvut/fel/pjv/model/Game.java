@@ -85,6 +85,7 @@ public class Game implements Serializable {
         this.gameRound = 0;
         PGNFormatter.updatePgnHeader();
         this.gameRound = 1;
+        pgnMoves = "";
     }
 
     public void setTimeLefts(double[] timeLefts) {
@@ -288,6 +289,7 @@ public class Game implements Serializable {
         }
 
         PGNFormatter.updatePgnHeader();
+        PGNFormatter.updatePgnMoves();
 
         // set current turn to the other player
         if (this.currentTurn == players[0]) {
