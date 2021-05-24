@@ -4,10 +4,12 @@ package cz.cvut.fel.pjv.model.Pieces;
 import cz.cvut.fel.pjv.model.Board;
 import cz.cvut.fel.pjv.model.Spot;
 
+import java.io.Serializable;
+
 /**
  * Abstract class for define pieces & support methods for piece
  */
-public abstract class Piece {
+public abstract class Piece implements Serializable {
     private boolean killed = false;
     private boolean white = false;
 

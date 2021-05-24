@@ -3,10 +3,12 @@ package cz.cvut.fel.pjv.model;
 import cz.cvut.fel.pjv.model.Pieces.Piece;
 import cz.cvut.fel.pjv.model.Player.Player;
 
+import java.io.Serializable;
+
 /**
  * Class definition move of player
  */
-public class Move {
+public class Move implements Serializable {
     private Player player;
     private Spot start;
     private Spot end;

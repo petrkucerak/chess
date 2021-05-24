@@ -2,10 +2,12 @@ package cz.cvut.fel.pjv.model;
 
 import cz.cvut.fel.pjv.model.Pieces.Piece;
 
+import java.io.Serializable;
+
 /**
  * Represent a cell on the chess board
  */
-public class Spot {
+public class Spot implements Serializable {
     private Piece piece;
     private int x;
     private int y;

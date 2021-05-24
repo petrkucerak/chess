@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import static java.lang.Thread.sleep;
 

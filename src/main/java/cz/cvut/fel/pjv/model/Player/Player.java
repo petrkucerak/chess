@@ -1,9 +1,11 @@
 package cz.cvut.fel.pjv.model.Player;
 
+import java.io.Serializable;
+
 /**
  * Class representation abstract definition of players.
  */
-public abstract class Player {
+public abstract class Player implements Serializable {
     public boolean whiteSide;
     public boolean humanPlayer;
 

@@ -2,13 +2,15 @@ package cz.cvut.fel.pjv.model;
 
 import cz.cvut.fel.pjv.model.Pieces.*;
 
+import java.io.Serializable;
+
 import static cz.cvut.fel.pjv.model.Pieces.Piece.BACK;
 import static cz.cvut.fel.pjv.model.Pieces.Piece.RESET;
 
 /**
  * Class representations Chessboard and support methods
  */
-public class Board {
+public class Board implements Serializable {
     Spot[][] boxes;
     private boolean activeCheckingIsKingInDanger;
 

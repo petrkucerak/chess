@@ -6,6 +6,7 @@ import cz.cvut.fel.pjv.model.Pieces.Piece;
 import cz.cvut.fel.pjv.model.Pieces.Queen;
 import cz.cvut.fel.pjv.model.Player.Player;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import java.util.Date;
@@ -16,7 +17,7 @@ import static cz.cvut.fel.pjv.model.Pieces.Piece.*;
 /**
  * The main mechanism of game
  */
-public class Game {
+public class Game implements Serializable {
     private Player[] players;
     private double[] timeLefts;
     private Board board;
