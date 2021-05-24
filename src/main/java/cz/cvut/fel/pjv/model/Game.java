@@ -30,6 +30,22 @@ public class Game implements Serializable {
     private String pgnHeader;
     private String pgnMoves;
 
+    public void setPgnHeader(String pgnHeader) {
+        this.pgnHeader = pgnHeader;
+    }
+
+    public void setPgnMoves(String pgnMoves) {
+        this.pgnMoves = pgnMoves;
+    }
+
+    public String getPgnHeader() {
+        return pgnHeader;
+    }
+
+    public String getPgnMoves() {
+        return pgnMoves;
+    }
+
     private static final Logger LOG = Logger.getLogger(Game.class.getName());
 
     /**
