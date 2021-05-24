@@ -219,7 +219,9 @@ public class ChessBoardController {
     @FXML
     private void loadGame(ActionEvent actionEvent) throws IOException {
         System.out.println("LOAD GAME");
-        Utilities.loadChessboard("game.bin");
+        MainApp.setGame(Utilities.loadChessboard("game.bin"));
+        MainApp.updateScene();
+        System.out.println("The game data has been success loaded!");
     }
 
     /**

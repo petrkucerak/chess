@@ -9,7 +9,7 @@ public class Utilities {
         try (OutputStream fos = new FileOutputStream(filepath);
              ObjectOutputStream out = new ObjectOutputStream(fos)) {
             out.writeObject(game);
-            System.out.println("Serialized data is saved in" + filepath);
+            System.out.println("Game data has been saved into: " + filepath);
         } catch (IOException e) {
             System.err.println("Serialization error " + e);
         }
