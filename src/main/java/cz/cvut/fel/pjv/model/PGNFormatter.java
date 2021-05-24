@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 
 public class PGNFormatter {
     public static final String DATEFORMAT_PGN = "yyyy.MM.dd";
+    public static final String PGN_CASTLE_K = "O-O";
+    public static final String PGN_CASTLE_Q = "O-O-O";
 
     static void updatePgnHeader() {
         Game game = MainApp.getGame();
@@ -63,4 +65,6 @@ public class PGNFormatter {
         text.append("]");
         text.append("\n");
     }
+
+
 }
