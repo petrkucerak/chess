@@ -37,6 +37,9 @@ public class Game implements Serializable {
     public void setPgnMoves(String pgnMoves) {
         this.pgnMoves = pgnMoves;
     }
+    public void appendPgnMoves(String pgnMoves){
+        this.pgnMoves += pgnMoves;
+    }
 
     public String getPgnHeader() {
         return pgnHeader;
