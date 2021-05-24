@@ -9,6 +9,7 @@ public class TheClock implements Runnable {
     private long endTime;
     Thread thr = null;
     boolean threadSuspended;
+    private boolean isActive;
 
     public void setTimeLefts(int timeLefts) {
         this.timeLefts = timeLefts;
@@ -48,6 +49,7 @@ public class TheClock implements Runnable {
         this.timeLefts = timeLets;
         setActualEndTime();
         setActualStartTime();
+        this.isActive = true;
     }
 
     public void start() {
@@ -83,6 +85,10 @@ public class TheClock implements Runnable {
     public void run() {
         try {
             while (true) {
+                if(isClockEnded() && isActive != false){
+                    isActive = false;
+                    System.err.println("The time has been expired!");
+                }
                 if (!isClockEnded()) {
                     displayTime(timeLefts);
                 }
