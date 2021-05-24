@@ -27,6 +27,8 @@ public class Game implements Serializable {
     private ArrayList<Move> movesPlayed;
     private ArrayList<Board> gameBoards;
     private Date startDate;
+    private String pgnHeader;
+    private String pgnMoves;
 
     private static final Logger LOG = Logger.getLogger(Game.class.getName());
 
