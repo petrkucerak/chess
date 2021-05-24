@@ -1,16 +1,11 @@
 package cz.cvut.fel.pjv.model;
 
-import cz.cvut.fel.pjv.PGN.PgnFormats;
-import cz.cvut.fel.pjv.TimeClock.TheClock;
 import cz.cvut.fel.pjv.model.Pieces.King;
 import cz.cvut.fel.pjv.model.Pieces.Pawn;
 import cz.cvut.fel.pjv.model.Pieces.Piece;
 import cz.cvut.fel.pjv.model.Pieces.Queen;
 import cz.cvut.fel.pjv.model.Player.Player;
-import javafx.scene.input.DataFormat;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import java.util.Date;
@@ -23,7 +18,7 @@ import static cz.cvut.fel.pjv.model.Pieces.Piece.*;
  */
 public class Game {
     private Player[] players;
-    private int[] timeLefts;
+    private double[] timeLefts;
     private Board board;
     private Player currentTurn;
     private GameStatus status;
@@ -59,7 +54,7 @@ public class Game {
         this.gameBoards = new ArrayList<Board>();
         gameBoards.clear();
 
-        this.timeLefts = new int[2];
+        this.timeLefts = new double[2];
         timeLefts[0] = -1;
         timeLefts[1] = -1;
         this.setStatus(GameStatus.ACTIVE);
@@ -67,7 +62,7 @@ public class Game {
         this.startDate = new Date();
     }
 
-    public void setTimeLefts(int[] timeLefts) {
+    public void setTimeLefts(double[] timeLefts) {
         this.timeLefts = timeLefts;
     }
 
@@ -83,11 +78,11 @@ public class Game {
         this.timeLefts[0] = timeLefts;
         this.timeLefts[1] = timeLefts;
     }
-    public void setTimeLefts(int timeLefts, int index) {
+    public void setTimeLefts(double timeLefts, int index) {
         this.timeLefts[index] = timeLefts;
     }
 
-    public int[] getTimeLefts() {
+    public double[] getTimeLefts() {
         return timeLefts;
     }
 

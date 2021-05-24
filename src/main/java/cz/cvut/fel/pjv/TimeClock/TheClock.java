@@ -1,8 +1,12 @@
 package cz.cvut.fel.pjv.TimeClock;
 
+import java.util.Date;
+
 public class TheClock implements Runnable {
 
-    private int timeLefts;
+    private double timeLefts;
+    private long startTime;
+    private long endTime;
     Thread thr = null;
     boolean threadSuspended;
 
@@ -26,12 +30,24 @@ public class TheClock implements Runnable {
         return threadSuspended;
     }
 
-    public int getTimeLefts() {
+    public double getTimeLefts() {
         return timeLefts;
     }
 
-    public TheClock(int timeLets) {
+    private void setActualStartTime(){
+        startTime = System.nanoTime();
+    }
+    private void setActualEndTime(){
+        endTime = System.nanoTime();
+    }
+    private double timeDifferent(){
+        return (endTime - startTime) / 1e6;
+    }
+
+    public TheClock(double timeLets) {
         this.timeLefts = timeLets;
+        setActualEndTime();
+        setActualStartTime();
     }
 
     public void start() {
@@ -54,7 +70,7 @@ public class TheClock implements Runnable {
         threadSuspended = true;
     }
 
-    private void changeTime(int time) {
+    private void changeTime(double time) {
         if (!isClockEnded()) {
             timeLefts -= time;
         } else {
@@ -77,8 +93,10 @@ public class TheClock implements Runnable {
                         }
                     }
                 }
-                changeTime(5000);
+                setActualStartTime();
                 thr.sleep(5000);
+                setActualEndTime();
+                changeTime(timeDifferent());
             }
         } catch (Exception e) {
 
@@ -92,7 +110,8 @@ public class TheClock implements Runnable {
             return true;
         }
     }
-    private void displayTime(int timeLefts){
+    private void displayTime(double oTimeLeft){
+        int timeLefts = (int) oTimeLeft;
         timeLefts = timeLefts / 1000;
         int hour = timeLefts / 3600;
         timeLefts -= hour * 3600;
