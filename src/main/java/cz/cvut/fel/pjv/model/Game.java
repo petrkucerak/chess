@@ -59,8 +59,6 @@ public class Game implements Serializable {
         players[0] = p1;
         players[1] = p2;
 
-        this.gameRound = 1;
-
         this.board = new Board();
 
         if (p1.isWhiteSide()) {
@@ -79,6 +77,11 @@ public class Game implements Serializable {
         this.setStatus(GameStatus.ACTIVE);
 
         this.startDate = new Date();
+
+        // set siro only for pgn format
+        this.gameRound = 0;
+        PGNFormatter.updatePgnHeader();
+        this.gameRound = 1;
     }
 
     public void setTimeLefts(double[] timeLefts) {
@@ -279,6 +282,8 @@ public class Game implements Serializable {
                 this.setStatus(GameStatus.BLACK_WIN);
             }
         }
+
+        PGNFormatter.updatePgnHeader();
 
         // set current turn to the other player
         if (this.currentTurn == players[0]) {

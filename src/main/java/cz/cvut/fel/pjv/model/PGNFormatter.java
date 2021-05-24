@@ -44,7 +44,7 @@ public class PGNFormatter {
         }
 
         game.setPgnHeader(pgnHeader.toString());
-
+        System.out.println(game.getPgnHeader());
     }
 
     /**
