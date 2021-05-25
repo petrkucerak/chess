@@ -1,6 +1,7 @@
 package cz.cvut.fel.pjv.model;
 
 import cz.cvut.fel.pjv.MainApp;
+import cz.cvut.fel.pjv.model.Pieces.Pawn;
 
 import java.text.SimpleDateFormat;
 
@@ -52,15 +53,17 @@ public class PGNFormatter {
         Game game = MainApp.getGame();
         String out = "";
 
-        // ToDo: index
         if (game.getGameRound() > 0 && game.getGameRound() % 2 == 1) {
             out += (game.getGameRound() / 2) + 1;
             out += ". ";
         }
 
+        // get last stored move
+        Move move = game.getMovesPlayed().get(game.getGameRound() - 1);
+
         /**
          * ToDo:
-         *  1. index of move
+         *  1. index of move ✅
          *  2. move of pawn
          *  3. move of another pieces
          *  4. killing move
@@ -72,8 +75,32 @@ public class PGNFormatter {
          *  10. checkmating move #
          */
 
+        // move of pawn
+        if (move.getStart().getPiece() instanceof Pawn) {
+            out += addPgnPawnMove(move);
+        }
+
+        // add space
+        out += " ";
+        // final printing
         game.appendPgnMoves(out);
         System.out.println(game.getPgnMoves());
+    }
+
+    private static String addPgnPawnMove(Move move) {
+        Game game = MainApp.getGame();
+        String out = "";
+
+        // normal pawn killing
+        if (move.getEnd().getPiece() != null) {
+            out += returnPgnPosition(move.getStart().getY());
+            out += "x";
+        }
+
+        // normal pawn move
+        out += returnPgnPosition(move.getEnd());
+
+        return out;
     }
 
     /**
@@ -91,6 +118,36 @@ public class PGNFormatter {
         text.append("\"");
         text.append("]");
         text.append("\n");
+    }
+
+    /**
+     * Method to return PGN style of cords.
+     *
+     * @param spot
+     * @return
+     */
+    private static String returnPgnPosition(Spot spot) {
+        int y = spot.getY();
+        int x = spot.getX();
+        char[] cordY = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+        char[] cordX = {'8', '7', '6', '5', '4', '3', '2', '1'};
+        String ret = "";
+        ret += cordY[y];
+        ret += cordX[x];
+        return ret;
+    }
+
+    /**
+     * Method to return PGN style of Y cords.
+     *
+     * @param y
+     * @return
+     */
+    private static String returnPgnPosition(int y) {
+        char[] cordY = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+        String ret = "";
+        ret += cordY[y];
+        return ret;
     }
 
 
