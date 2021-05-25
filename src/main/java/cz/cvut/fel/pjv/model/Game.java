@@ -6,6 +6,7 @@ import cz.cvut.fel.pjv.model.Pieces.King;
 import cz.cvut.fel.pjv.model.Pieces.Pawn;
 import cz.cvut.fel.pjv.model.Pieces.Piece;
 import cz.cvut.fel.pjv.model.Pieces.Queen;
+import cz.cvut.fel.pjv.model.Player.HumanPlayer;
 import cz.cvut.fel.pjv.model.Player.Player;
 
 import java.io.Serializable;
@@ -200,10 +201,12 @@ public class Game implements Serializable {
             return false;
         }
         // validate if color of piece is same as player color
+
         if (sourcePiece.isWhite() != player.isWhiteSide()) {
             LOG.warning("The piece color isn't same as a player color!");
             return false;
         }
+
 
         // valid move
         if (!sourcePiece.canMove(board, move.getStart(), move.getEnd())) {
@@ -301,7 +304,7 @@ public class Game implements Serializable {
 
 
         // check win situation
-        if (GameStatus.CHECK == getStatus() && !matInspectStatus) {
+        /*if (GameStatus.CHECK == getStatus() && !matInspectStatus) {
             matInspectStatus = true;
             if (tryAllMovesIfItIsMat(player, player.isWhiteSide())) {
                 if (player.isWhiteSide()) {
@@ -311,10 +314,12 @@ public class Game implements Serializable {
                 }
             }
             matInspectStatus = false;
-        }
+        }*/
 
-        PGNFormatter.updatePgnHeader();
-        PGNFormatter.updatePgnMoves();
+        if(!matInspectStatus) {
+            PGNFormatter.updatePgnHeader();
+            PGNFormatter.updatePgnMoves();
+        }
 
         // set current turn to the other player
         if (this.currentTurn == players[0]) {
@@ -448,17 +453,6 @@ public class Game implements Serializable {
     }
 
     /**
-     * Method to return the move back.
-     *
-     * @param move
-     */
-    private void unStepMove(Move move) {
-        move.getStart().setPiece(movesPlayed.get(gameRound - 1).getStart().getPiece());
-        move.getEnd().setPiece(movesPlayed.get(gameRound - 1).getEnd().getPiece());
-
-    }
-
-    /**
      * Integrate for all pieces and try remove check status.
      *
      * @param isWhite
@@ -473,9 +467,9 @@ public class Game implements Serializable {
                 // if inst null
                 if (!board.getBox(i, j).isSpotNull()) {
                     // if is my piece
-                    if (board.getBox(i, j).getPiece().isWhite() == isWhite) {
+                    if (board.getBox(i, j).getPiece().isWhite() != isWhite) {
                         // try all moves if anyone isn't checking
-                        if (!tryAllPieceMoves(player, board.getBox(i, j))) {
+                        if (!tryAllPieceMovesItIsMat(player, board.getBox(i, j))) {
                             return false;
                         }
                     }
@@ -483,6 +477,14 @@ public class Game implements Serializable {
             }
         }
         return true;
+    }
+
+    public boolean isMatInspectStatus() {
+        return matInspectStatus;
+    }
+
+    public void setMatInspectStatus(boolean matInspectStatus) {
+        this.matInspectStatus = matInspectStatus;
     }
 
     /**
@@ -493,12 +495,21 @@ public class Game implements Serializable {
      * @return
      * @throws Exception
      */
-    private boolean tryAllPieceMoves(Player player, Spot pieceSpot) throws Exception {
+    private boolean tryAllPieceMovesItIsMat(Player player, Spot pieceSpot) throws Exception {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
 
                 Logger.getLogger("").setLevel(Level.OFF);
                 Logger.getLogger("").getHandlers()[0].setLevel(Level.OFF);
+
+                // set current turn to the other player
+                if (players[0] == player) {
+                     player = players[1];
+                     this.currentTurn = players[1];
+                } else {
+                    player = players[0];
+                    this.currentTurn = players[0];
+                }
 
                 boolean tmp = playerMove(player, pieceSpot.getX(), pieceSpot.getY(), i, j);
 
@@ -507,10 +518,11 @@ public class Game implements Serializable {
 
                 if (tmp) {
                     // return move
-                    MainApp.setGame(Utilities.loadChessboard("mat.bin"));
-                    if (status == GameStatus.CHECK) {
+                    if (status != GameStatus.CHECK) {
+                        MainApp.setGame(Utilities.loadChessboard("mat.bin"));
                         return false;
                     }
+                    MainApp.setGame(Utilities.loadChessboard("mat.bin"));
                 }
             }
         }
