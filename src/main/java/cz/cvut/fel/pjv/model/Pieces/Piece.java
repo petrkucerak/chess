@@ -256,6 +256,8 @@ public abstract class Piece implements Serializable {
                     Piece destPiece = board.getBox(i, j).getPiece();
                     if (destPiece instanceof King && kingColor == destPiece.isWhite()) {
                         if (canMove(board, piecePosition, board.getBox(i, j))) {
+                            // debug print
+                            // System.out.println(i + " " + j);
                             return true;
                         }
                     }
