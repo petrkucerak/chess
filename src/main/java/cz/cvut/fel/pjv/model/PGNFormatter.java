@@ -76,13 +76,13 @@ public class PGNFormatter {
          */
 
         // check castling moves
-        if(move.isShortCastlingMove()){
+        if (move.isShortCastlingMove()) {
             out += PGN_CASTLE_K;
-        } else if(move.isLongCastlingMove()){
+        } else if (move.isLongCastlingMove()) {
             out += PGN_CASTLE_Q;
         }
 
-        if(!move.isLongCastlingMove() && !move.isShortCastlingMove()) {
+        if (!move.isLongCastlingMove() && !move.isShortCastlingMove()) {
 
             // move of Pawn
             if (move.getStart().getPiece() instanceof Pawn) {
@@ -114,15 +114,15 @@ public class PGNFormatter {
             }
         }
 
-        // check checking move
-        if(MainApp.getGame().getStatus() == Game.GameStatus.CHECK){
-            out += "+";
-        }
-
-        // check checkmating move
+        // check checkmating move & check checking move
         if (MainApp.getGame().getStatus() == Game.GameStatus.BLACK_WIN
                 || MainApp.getGame().getStatus() == Game.GameStatus.BLACK_WIN) {
-            out += "#";
+            MainApp.getGame().remove2LastMovesPgnMoves();
+            out = "#";
+            MainApp.getGame().setPgnMoves(MainApp.getGame().removeLastCharFromString(MainApp.getGame().getPgnMoves()));
+
+        } else if (MainApp.getGame().getStatus() == Game.GameStatus.CHECK) {
+            out += "+";
         }
 
 
