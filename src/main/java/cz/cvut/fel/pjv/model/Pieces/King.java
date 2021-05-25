@@ -122,7 +122,8 @@ public class King extends Piece {
     private boolean longCastling(Board board, Spot start, Spot end) throws Exception {
         // validate short castling
         int y = start.getY() - end.getY();
-        if (Math.abs(y) == 2 && y > 0) {
+        int x = start.getX() - end.getX();
+        if (Math.abs(y) == 2 && y > 0 && x == 0) {
             // check clear way
             for (int i = 1; i < 3; i++) {
                 if (board.getBox(start.getX(), start.getY() - i).getPiece() != null) {
@@ -155,7 +156,8 @@ public class King extends Piece {
     private boolean shortCastling(Board board, Spot start, Spot end) throws Exception {
         // validate short castling
         int y = start.getY() - end.getY();
-        if (Math.abs(y) == 2 && y < 0) {
+        int x = start.getX() - end.getX();
+        if (Math.abs(y) == 2 && y < 0 && x == 0) {
             // check clear way
             for (int i = 1; i < 2; i++) {
                 if (board.getBox(start.getX(), start.getY() + i).getPiece() != null) {

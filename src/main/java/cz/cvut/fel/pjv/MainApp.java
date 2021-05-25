@@ -27,6 +27,35 @@ public class MainApp extends Application {
     private static TheClock timer;
     private static Thread time;
 
+    public static TheClock getTimer() {
+        return timer;
+    }
+
+    public static void setTimer(TheClock timer) {
+        MainApp.timer = timer;
+    }
+
+    public static Thread getTime() {
+        return time;
+    }
+
+    public static void setTime(Thread time) {
+        MainApp.time = time;
+    }
+
+    public static int getCountOfCheck() {
+        return countOfCheck;
+    }
+
+    public static void setCountOfCheck(int countOfCheck) {
+        MainApp.countOfCheck = countOfCheck;
+    }
+    public static void addCountOfCheck() {
+        MainApp.countOfCheck ++;
+    }
+
+    private static int countOfCheck = 0;
+
     /**
      * Void launches game.
      *

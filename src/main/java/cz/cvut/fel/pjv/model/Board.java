@@ -66,7 +66,7 @@ public class Board implements Serializable {
      */
     public Spot getBox(int x, int y) throws Exception {
         if (x < 0 || x > 7 || y < 0 || y > 7) {
-            throw new Exception("Index out of Chessboard!");
+            throw new Exception("Index out of Chessboard!" + " (x: " + x + " y: " + y + ")");
         }
         return this.boxes[x][y];
     }

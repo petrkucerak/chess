@@ -2,9 +2,11 @@ package cz.cvut.fel.pjv.model.Pieces;
 
 
 import cz.cvut.fel.pjv.model.Board;
+import cz.cvut.fel.pjv.model.Game;
 import cz.cvut.fel.pjv.model.Spot;
 
 import java.io.Serializable;
+import java.util.logging.Logger;
 
 /**
  * Abstract class for define pieces & support methods for piece
@@ -19,6 +21,8 @@ public abstract class Piece implements Serializable {
     public static final String RESET = "\u001B[0m";
     public static final String BACK = "\u001B[30m";
 
+    private static final Logger LOG = Logger.getLogger(Game.class.getName());
+
     /**
      * Create piece
      *
@@ -27,7 +31,8 @@ public abstract class Piece implements Serializable {
     public Piece(boolean white) {
         this.white = white;
     }
-    public Piece(Piece piece){
+
+    public Piece(Piece piece) {
         this.white = piece.white;
     }
 
@@ -67,7 +72,7 @@ public abstract class Piece implements Serializable {
     boolean isMyPieceInTheWay(Spot end) {
 
         if (end.getPiece() != null && end.getPiece().isWhite() == this.isWhite()) {
-            System.err.println("This spot is occupied by your piece!");
+            LOG.warning("This spot is occupied by your piece!");
             return true;
         }
         return false;
@@ -83,7 +88,7 @@ public abstract class Piece implements Serializable {
     boolean isColorPiecesSame(Spot start, Spot end) {
         if (end.getPiece() != null) {
             if (start.getPiece().isWhite() == end.getPiece().isWhite()) {
-                System.err.println("Spot is occupied by another piece!");
+                LOG.warning("Spot is occupied by another piece!");
                 return true;
             }
         }
@@ -256,6 +261,9 @@ public abstract class Piece implements Serializable {
                     Piece destPiece = board.getBox(i, j).getPiece();
                     if (destPiece instanceof King && kingColor == destPiece.isWhite()) {
                         if (canMove(board, piecePosition, board.getBox(i, j))) {
+                            // debug print
+                            // System.out.println("start position: " + piecePosition.getY() + " " + piecePosition.getX());
+                            // System.out.println("target position: " + i + " " + j);
                             return true;
                         }
                     }
@@ -264,6 +272,25 @@ public abstract class Piece implements Serializable {
         }
 
         return false;
+    }
+
+    public boolean isChecking(Board board, Spot position, Boolean playerColor) throws Exception {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                // check if spot is null
+                if (!board.getBox(i, j).isSpotNull()) {
+                    // valid king and color
+                    Piece destPiece = board.getBox(i,j).getPiece();
+                    if(destPiece instanceof King && playerColor != destPiece.isWhite()){
+                        if(canMove(board, position, board.getBox(i,j))){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+
     }
 
     /**

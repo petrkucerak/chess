@@ -1,5 +1,8 @@
 package cz.cvut.fel.pjv.model;
 
+import cz.cvut.fel.pjv.MainApp;
+import cz.cvut.fel.pjv.PGN.PGNFormatter;
+import cz.cvut.fel.pjv.Utils.Utilities;
 import cz.cvut.fel.pjv.model.Pieces.King;
 import cz.cvut.fel.pjv.model.Pieces.Pawn;
 import cz.cvut.fel.pjv.model.Pieces.Piece;
@@ -27,6 +30,56 @@ public class Game implements Serializable {
     private ArrayList<Move> movesPlayed;
     private ArrayList<Board> gameBoards;
     private Date startDate;
+    private String pgnHeader;
+    private String pgnMoves;
+    private boolean matInspectStatus;
+
+    public void setPgnHeader(String pgnHeader) {
+        this.pgnHeader = pgnHeader;
+    }
+
+    public void setPgnMoves(String pgnMoves) {
+        this.pgnMoves = pgnMoves;
+    }
+
+    public void appendPgnMoves(String pgnMoves) {
+        this.pgnMoves += pgnMoves;
+    }
+
+    public void remove2LastMovesPgnMoves(){
+        String[] words = pgnMoves.split(" ");
+        pgnMoves = "";
+        if(words.length % 3 == 2){
+            for(int i =0; i < words.length - 2; i++){
+                pgnMoves += words[i];
+                if(i != words.length - 3) {
+                    pgnMoves += " ";
+                }
+            }
+        } else {
+            for(int i =0; i < words.length - 1; i++){
+                pgnMoves += words[i];
+                if(i != words.length - 2) {
+                    pgnMoves += " ";
+                }
+            }
+        }
+    }
+
+    public String removeLastCharFromString(String str){
+        if (str != null && str.length() > 0 && str.charAt(str.length() - 1) == '+') {
+            str = str.substring(0, str.length() - 1);
+        }
+        return str;
+    }
+
+    public String getPgnHeader() {
+        return pgnHeader;
+    }
+
+    public String getPgnMoves() {
+        return pgnMoves;
+    }
 
     private static final Logger LOG = Logger.getLogger(Game.class.getName());
 
@@ -40,8 +93,6 @@ public class Game implements Serializable {
         this.players = new Player[2];
         players[0] = p1;
         players[1] = p2;
-
-        this.gameRound = 1;
 
         this.board = new Board();
 
@@ -61,6 +112,17 @@ public class Game implements Serializable {
         this.setStatus(GameStatus.ACTIVE);
 
         this.startDate = new Date();
+
+        // set siro only for pgn format
+        this.gameRound = 0;
+        PGNFormatter.updatePgnHeader();
+        this.gameRound = 1;
+        pgnMoves = "";
+
+        Logger.getLogger("").setLevel(Level.INFO);
+        Logger.getLogger("").getHandlers()[0].setLevel(Level.INFO);
+
+        matInspectStatus = false;
     }
 
     public void setTimeLefts(double[] timeLefts) {
@@ -79,6 +141,7 @@ public class Game implements Serializable {
         this.timeLefts[0] = timeLefts;
         this.timeLefts[1] = timeLefts;
     }
+
     public void setTimeLefts(double timeLefts, int index) {
         this.timeLefts[index] = timeLefts;
     }
@@ -140,8 +203,11 @@ public class Game implements Serializable {
      */
     private boolean makeMove(Move move, Player player) throws Exception {
         // set logger levels
-        Logger.getLogger("").setLevel(Level.INFO);
-        Logger.getLogger("").getHandlers()[0].setLevel(Level.INFO);
+
+        // for returning move
+        turnLogOff();
+        Utilities.saveChessboard(MainApp.getGame(), "move.bin");
+        turnLogOn();
 
         if (isEnd()) {
             LOG.info("End of the game!");
@@ -162,10 +228,12 @@ public class Game implements Serializable {
             return false;
         }
         // validate if color of piece is same as player color
+
         if (sourcePiece.isWhite() != player.isWhiteSide()) {
-            LOG.warning("The piece color isn't same as a paler color!");
+            LOG.warning("The piece color isn't same as a player color!");
             return false;
         }
+
 
         // valid move
         if (!sourcePiece.canMove(board, move.getStart(), move.getEnd())) {
@@ -237,20 +305,34 @@ public class Game implements Serializable {
         move.getEnd().setPiece(move.getStart().getPiece());
         move.getStart().setPiece(null);
 
-        // pinned piece
-        board.setActiveCheckingIsKingInDanger(true);
-        if (isKingInDanger(move.getPlayer().isWhiteSide())) {
-            LOG.warning("The king is in the danger!");
-            board.setActiveCheckingIsKingInDanger(false);
-            unStepMove(movesPlayed.get(movesPlayed.size() - 1));
-            return false;
-        }
-        board.setActiveCheckingIsKingInDanger(false);
+        // inspect CHECKING
 
-        // check 3-fold repetition situation
-        checkThreeFoldRepetition(gameBoards);
-        // store the board
-        gameBoards.add(new Board(board.getBoxes()));
+        if (sourcePiece.isChecking(board, move.getEnd(), sourcePiece.isWhite())) {
+            setStatus(GameStatus.CHECK);
+            LOG.info("The game status has been set ont CHECK!");
+        } else {
+            setStatus(GameStatus.ACTIVE);
+        }
+
+        if (MainApp.getCountOfCheck() < 1) {
+            // pinned piece
+            board.setActiveCheckingIsKingInDanger(true);
+            if (isKingInDanger(move.getPlayer().isWhiteSide())) {
+                LOG.warning("The king is in the danger!");
+                // return move
+                MainApp.setGame(Utilities.loadChessboard("move.bin"));
+                MainApp.addCountOfCheck();
+                board.setActiveCheckingIsKingInDanger(false);
+                return false;
+            }
+            MainApp.setCountOfCheck(0);
+            board.setActiveCheckingIsKingInDanger(false);
+
+            // check 3-fold repetition situation
+            checkThreeFoldRepetition(gameBoards);
+            // store the board
+            gameBoards.add(new Board(board.getBoxes()));
+        }
 
 
         // check win situation
@@ -262,15 +344,84 @@ public class Game implements Serializable {
             }
         }
 
+        if (!matInspectStatus) {
+            PGNFormatter.updatePgnHeader();
+            PGNFormatter.updatePgnMoves();
+        }
+
         // set current turn to the other player
+        switchPlayer();
+        gameRound++;
+
+        MainApp.setCountOfCheck(0);
+
+        return true;
+    }
+
+    /**
+     * set current turn to the other player
+     */
+    private void switchPlayer() {
         if (this.currentTurn == players[0]) {
             this.currentTurn = players[1];
         } else {
             this.currentTurn = players[0];
         }
+    }
 
-        gameRound++;
+    private void turnLogOff() {
+        Logger.getLogger("").setLevel(Level.OFF);
+        Logger.getLogger("").getHandlers()[0].setLevel(Level.OFF);
+    }
 
+    private void turnLogOn() {
+        Logger.getLogger("").setLevel(Level.INFO);
+        Logger.getLogger("").getHandlers()[0].setLevel(Level.INFO);
+    }
+
+    private boolean tryAllMovesIfItIsMat() throws Exception {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                // check if is not null
+                if (!board.getBox(i, j).isSpotNull()) {
+                    // check my color
+                    if (board.getBox(i, j).getPiece().isWhite() == currentTurn.isWhiteSide()) {
+                        if (!tryAllPieceMovesIfItIsMat(board.getBox(i, j))) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean tryAllPieceMovesIfItIsMat(Spot startBox) throws Exception {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+
+                // simulate the next round
+                switchPlayer();
+                gameRound++;
+
+                // set variables
+                Player player = this.currentTurn;
+                Spot endBox = board.getBox(i, j);
+                Move move = new Move(player, startBox, endBox);
+
+                // try if move is valid
+                turnLogOff();
+                if (this.makeMove(move, player)) {
+                    turnLogOn();
+                    MainApp.setGame(Utilities.loadChessboard("checkmating.bin"));
+                    return false;
+                    // if check status disappear, return false
+
+                }
+                MainApp.setGame(Utilities.loadChessboard("checkmating.bin"));
+                turnLogOn();
+            }
+        }
         return true;
     }
 
@@ -317,17 +468,21 @@ public class Game implements Serializable {
         return false;
     }
 
+    private void printPlayer() {
+        if (currentTurn.isWhiteSide()) {
+            System.out.println("On the order is: " + BLACK + "player" + RESET);
+        } else {
+            System.out.println("On the order is: " + WHITE + "player" + RESET);
+        }
+    }
+
     /**
      * Print game info
      */
     public void printGameInfo() {
         System.out.println("Round: " + gameRound);
         System.out.println("Status: " + status);
-        if (currentTurn.isWhiteSide()) {
-            System.out.println("On the order is: " + BLACK + "player" + RESET);
-        } else {
-            System.out.println("On the order is: " + WHITE + "player" + RESET);
-        }
+        printPlayer();
         board.printBoard();
     }
 
@@ -393,13 +548,12 @@ public class Game implements Serializable {
         return gameBoards;
     }
 
-    /**
-     * Method to return the move back.
-     *
-     * @param move
-     */
-    private void unStepMove(Move move) {
-        move.getStart().setPiece(move.getEnd().getPiece());
-        move.getEnd().setPiece(null);
+
+    public boolean isMatInspectStatus() {
+        return matInspectStatus;
+    }
+
+    public void setMatInspectStatus(boolean matInspectStatus) {
+        this.matInspectStatus = matInspectStatus;
     }
 }

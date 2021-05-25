@@ -6,9 +6,11 @@
 <VBox alignment="CENTER" spacing="20" styleClass="main" stylesheets="@ChessBoard.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.cvut.fel.pjv.ChessBoardController">
     <children>
         <GridPane fx:id="grid" gridLinesVisible="true" hgap="2.0" prefHeight="500.0" prefWidth="500.0" vgap="2.0" />
-        <Button fx:id="startButton" layoutX="28.0" layoutY="89.0" mnemonicParsing="false" onAction="#newGame" text="NOVA HRA" textAlignment="CENTER" />
-        <Button fx:id="saveButton" layoutX="25.0" layoutY="161.0" mnemonicParsing="false" onAction="#saveGame" text="ULOŽIT HRU" textAlignment="CENTER" />
+        <Button fx:id="startButton" layoutX="24.0" layoutY="89.0" mnemonicParsing="false" onAction="#newGame" text="NOVA HRA" textAlignment="CENTER" />
+        <Button fx:id="saveButton" layoutX="24.0" layoutY="161.0" mnemonicParsing="false" onAction="#saveGame" text="ULOŽIT HRU" textAlignment="CENTER" />
         <Button fx:id="loadButton" layoutX="24.0" layoutY="233.0" mnemonicParsing="false" onAction="#loadGame" text="NAČÍST HRU" textAlignment="CENTER" />
+        <Button fx:id="loadPGNButton" layoutX="24.0" layoutY="233.0" mnemonicParsing="false" onAction="#loadPGNGame" text="NAČÍST PGN HRU" textAlignment="CENTER" />
+        <Button fx:id="savePGNButton" layoutX="24.0" layoutY="161.0" mnemonicParsing="false" onAction="#savePGNGame" text="ULOŽIT PGN HRU" textAlignment="CENTER" />
     </children>
 
 </VBox>

@@ -2,7 +2,7 @@ package cz.cvut.fel.pjv;
 
 import cz.cvut.fel.pjv.ControlerUtils.PanePiece;
 import cz.cvut.fel.pjv.ControlerUtils.TextPiece;
-import cz.cvut.fel.pjv.PGN.PgnFileSaver;
+import cz.cvut.fel.pjv.PGN.PGNFileSave;
 import cz.cvut.fel.pjv.Utils.Utilities;
 import cz.cvut.fel.pjv.model.Player.Player;
 import javafx.event.ActionEvent;
@@ -185,6 +185,7 @@ public class ChessBoardController {
 
     /**
      * Method processed player move.
+     *
      * @param startX
      * @param startY
      * @param endX
@@ -200,6 +201,7 @@ public class ChessBoardController {
 
     /**
      * Button to start new game.
+     *
      * @throws IOException
      */
     @FXML
@@ -233,4 +235,14 @@ public class ChessBoardController {
         }
     }
 
+    @FXML
+    public void loadPGNGame(ActionEvent actionEvent) throws IOException {
+        System.out.println("LOAD PGN GAME");
+    }
+
+    @FXML
+    public void savePGNGame(ActionEvent actionEvent) throws IOException {
+        System.out.println("SAVE PGN GAME");
+        PGNFileSave.savePGNGame();
+    }
 }
