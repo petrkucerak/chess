@@ -51,9 +51,26 @@ public class PGNFormatter {
     public static void updatePgnMoves(){
         Game game = MainApp.getGame();
         String out = "";
+
+        // ToDo: index
         if(game.getGameRound() > 0 && game.getGameRound() % 2 == 1){
             out += game.getGameRound() / 2;
         }
+
+        /**
+         * ToDo:
+         *  1. index of move
+         *  2. move of pawn
+         *  3. move of another pieces
+         *  4. killing move
+         *  5. killing pawn move
+         *  6. castling
+         *  7. end of the game
+         *  8. max line width
+         *  9. checking move +
+         *  10. checkmating move #
+         */
+
         game.appendPgnMoves(out);
         System.out.println(game.getPgnMoves());
     }
