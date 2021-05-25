@@ -6,7 +6,6 @@ import cz.cvut.fel.pjv.model.Pieces.King;
 import cz.cvut.fel.pjv.model.Pieces.Pawn;
 import cz.cvut.fel.pjv.model.Pieces.Piece;
 import cz.cvut.fel.pjv.model.Pieces.Queen;
-import cz.cvut.fel.pjv.model.Player.HumanPlayer;
 import cz.cvut.fel.pjv.model.Player.Player;
 
 import java.io.Serializable;
@@ -178,11 +177,9 @@ public class Game implements Serializable {
         // set logger levels
 
         // for returning move
-        turnOffLog();
+        turnLogOff();
         Utilities.saveChessboard(MainApp.getGame(), "move.bin");
-        if(!matInspectStatus) {
-            turnOnLog();
-        }
+        turnLogOn();
 
         if (isEnd()) {
             LOG.info("End of the game!");
@@ -281,6 +278,7 @@ public class Game implements Serializable {
         move.getStart().setPiece(null);
 
         // inspect CHECKING
+
         if (sourcePiece.isChecking(board, move.getEnd(), sourcePiece.isWhite())) {
             setStatus(GameStatus.CHECK);
             LOG.info("The game status has been set ont CHECK!");
@@ -288,38 +286,35 @@ public class Game implements Serializable {
             setStatus(GameStatus.ACTIVE);
         }
 
-        // pinned piece
-        board.setActiveCheckingIsKingInDanger(true);
-        if (isKingInDanger(move.getPlayer().isWhiteSide())) {
-            LOG.warning("The king is in the danger!");
-            // return move
-            MainApp.setGame(Utilities.loadChessboard("move.bin"));
+        if (MainApp.getCountOfCheck() < 1) {
+            // pinned piece
+            board.setActiveCheckingIsKingInDanger(true);
+            if (isKingInDanger(move.getPlayer().isWhiteSide())) {
+                LOG.warning("The king is in the danger!");
+                // return move
+                MainApp.setGame(Utilities.loadChessboard("move.bin"));
+                MainApp.addCountOfCheck();
+                board.setActiveCheckingIsKingInDanger(false);
+                return false;
+            }
+            MainApp.setCountOfCheck(0);
             board.setActiveCheckingIsKingInDanger(false);
-            return false;
-        }
-        board.setActiveCheckingIsKingInDanger(false);
 
-        // check 3-fold repetition situation
-        checkThreeFoldRepetition(gameBoards);
-        // store the board
-        gameBoards.add(new Board(board.getBoxes()));
+            // check 3-fold repetition situation
+            checkThreeFoldRepetition(gameBoards);
+            // store the board
+            gameBoards.add(new Board(board.getBoxes()));
+        }
 
 
         // check win situation
-        System.out.println(this.currentTurn);
-        if (GameStatus.CHECK == getStatus() && !matInspectStatus) {
-            matInspectStatus = true;
-            Utilities.saveChessboard(this, "checkmating.bin");
-            if (tryAllMovesIfItIsMat()) {
-                if (player.isWhiteSide()) {
-                    MainApp.getGame().setStatus(GameStatus.WHITE_WIN);
-                } else {
-                    MainApp.getGame().setStatus(GameStatus.BLACK_WIN);
-                }
+        if (destPiece != null && destPiece instanceof King) {
+            if (player.isWhiteSide()) {
+                this.setStatus(GameStatus.WHITE_WIN);
+            } else {
+                this.setStatus(GameStatus.BLACK_WIN);
             }
-            matInspectStatus = false;
         }
-        System.out.println(this.currentTurn);
 
         if (!matInspectStatus) {
             PGNFormatter.updatePgnHeader();
@@ -329,6 +324,8 @@ public class Game implements Serializable {
         // set current turn to the other player
         switchPlayer();
         gameRound++;
+
+        MainApp.setCountOfCheck(0);
 
         return true;
     }
@@ -344,12 +341,12 @@ public class Game implements Serializable {
         }
     }
 
-    private void turnOffLog() {
+    private void turnLogOff() {
         Logger.getLogger("").setLevel(Level.OFF);
         Logger.getLogger("").getHandlers()[0].setLevel(Level.OFF);
     }
 
-    private void turnOnLog() {
+    private void turnLogOn() {
         Logger.getLogger("").setLevel(Level.INFO);
         Logger.getLogger("").getHandlers()[0].setLevel(Level.INFO);
     }
@@ -385,18 +382,16 @@ public class Game implements Serializable {
                 Move move = new Move(player, startBox, endBox);
 
                 // try if move is valid
-                turnOffLog();
+                turnLogOff();
                 if (this.makeMove(move, player)) {
-                    turnOnLog();
+                    turnLogOn();
+                    MainApp.setGame(Utilities.loadChessboard("checkmating.bin"));
+                    return false;
                     // if check status disappear, return false
-                    if (this.status != GameStatus.CHECK) {
-                        MainApp.setGame(Utilities.loadChessboard("checkmating.bin"));
-                        return false;
-                    }
 
                 }
                 MainApp.setGame(Utilities.loadChessboard("checkmating.bin"));
-                turnOnLog();
+                turnLogOn();
             }
         }
         return true;
@@ -445,7 +440,7 @@ public class Game implements Serializable {
         return false;
     }
 
-    private void printPlayer(){
+    private void printPlayer() {
         if (currentTurn.isWhiteSide()) {
             System.out.println("On the order is: " + BLACK + "player" + RESET);
         } else {
