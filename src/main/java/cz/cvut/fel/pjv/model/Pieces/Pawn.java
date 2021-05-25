@@ -73,7 +73,7 @@ public class Pawn extends Piece {
 
         // Implementation 'Promotion'
         // check situation for activate this mode
-        if (!board.isActiveCheckingIsKingInDanger() && !MainApp.getGame().isMatInspectStatus()) {
+        if (!board.isActiveCheckingIsKingInDanger()) {
             if (end.getX() == 0 || end.getX() == 7) {
                 // LOG.info("Piece promotion!");
                 isPromotion = true;
