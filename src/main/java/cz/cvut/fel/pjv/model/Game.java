@@ -178,9 +178,9 @@ public class Game implements Serializable {
         // set logger levels
 
         // for returning move
-        if (!matInspectStatus) {
-            Utilities.saveChessboard(MainApp.getGame(), "move.bin");
-        }
+        turnOffLog();
+        Utilities.saveChessboard(MainApp.getGame(), "move.bin");
+        turnOnLog();
 
         if (isEnd()) {
             LOG.info("End of the game!");
@@ -304,9 +304,10 @@ public class Game implements Serializable {
 
 
         // check win situation
-        /*if (GameStatus.CHECK == getStatus() && !matInspectStatus) {
+        if (GameStatus.CHECK == getStatus() && !matInspectStatus) {
             matInspectStatus = true;
-            if (tryAllMovesIfItIsMat(player, player.isWhiteSide())) {
+            Utilities.saveChessboard(this, "checkmating.bin");
+            if (tryAllMovesIfItIsMat()) {
                 if (player.isWhiteSide()) {
                     MainApp.getGame().setStatus(GameStatus.WHITE_WIN);
                 } else {
@@ -314,22 +315,86 @@ public class Game implements Serializable {
                 }
             }
             matInspectStatus = false;
-        }*/
+        }
 
-        if(!matInspectStatus) {
+        if (!matInspectStatus) {
             PGNFormatter.updatePgnHeader();
             PGNFormatter.updatePgnMoves();
         }
 
         // set current turn to the other player
+        switchPlayer();
+        gameRound++;
+
+        return true;
+    }
+
+    /**
+     * set current turn to the other player
+     */
+    private void switchPlayer() {
         if (this.currentTurn == players[0]) {
             this.currentTurn = players[1];
         } else {
             this.currentTurn = players[0];
         }
+    }
 
-        gameRound++;
+    private void turnOffLog() {
+        Logger.getLogger("").setLevel(Level.OFF);
+        Logger.getLogger("").getHandlers()[0].setLevel(Level.OFF);
+    }
 
+    private void turnOnLog() {
+        Logger.getLogger("").setLevel(Level.INFO);
+        Logger.getLogger("").getHandlers()[0].setLevel(Level.INFO);
+    }
+
+    private boolean tryAllMovesIfItIsMat() throws Exception {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                // check if is not null
+                if (!board.getBox(i, j).isSpotNull()) {
+                    // check my color
+                    if (board.getBox(i, j).getPiece().isWhite() == currentTurn.isWhiteSide()) {
+                        if (!tryAllPieceMovesIfItIsMat(board.getBox(i, j))) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean tryAllPieceMovesIfItIsMat(Spot startBox) throws Exception {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+
+                // simulate the next round
+                switchPlayer();
+                gameRound++;
+
+                // set variables
+                Player player = this.currentTurn;
+                Spot endBox = board.getBox(i, j);
+                Move move = new Move(player, startBox, endBox);
+
+                // try if move is valid
+                turnOffLog();
+                if (this.makeMove(move, player)) {
+                    turnOnLog();
+                    // if check status disappear, return false
+                    if (this.status != GameStatus.CHECK) {
+                        MainApp.setGame(Utilities.loadChessboard("checkmating.bin"));
+                        return false;
+                    }
+
+                }
+                MainApp.setGame(Utilities.loadChessboard("checkmating.bin"));
+                turnOnLog();
+            }
+        }
         return true;
     }
 
