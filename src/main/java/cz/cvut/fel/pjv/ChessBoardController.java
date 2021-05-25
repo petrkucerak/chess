@@ -2,7 +2,6 @@ package cz.cvut.fel.pjv;
 
 import cz.cvut.fel.pjv.ControlerUtils.PanePiece;
 import cz.cvut.fel.pjv.ControlerUtils.TextPiece;
-import cz.cvut.fel.pjv.PGN.PgnFileSaver;
 import cz.cvut.fel.pjv.Utils.Utilities;
 import cz.cvut.fel.pjv.model.Player.Player;
 import javafx.event.ActionEvent;
