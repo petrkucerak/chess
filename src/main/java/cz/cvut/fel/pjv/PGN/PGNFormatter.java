@@ -16,6 +16,9 @@ public class PGNFormatter {
     public static final String DATEFORMAT_PGN = "yyyy.MM.dd";
     public static final String PGN_CASTLE_K = "O-O";
     public static final String PGN_CASTLE_Q = "O-O-O";
+    public static final String PATTERN_COMMENTS = "\\{.*?\\}";
+    public static final String PATTERN_HEADER = "\\[(.*) \"(.*)\"\\]";
+    public static final String PATTERN_PGN = "([RNBQKP]?)([a-h]?)([1-8]?)([x-]?)([a-h][1-8])\\+?=?([RNBQ])?([\\+#])?";
 
     /**
      * Method to update PGN header string.
@@ -134,6 +137,7 @@ public class PGNFormatter {
 
     /**
      * Return String with pawn move in PGN format.
+     *
      * @param move
      * @return
      */
@@ -154,6 +158,7 @@ public class PGNFormatter {
 
     /**
      * Return String with none pawn move in PGN format.
+     *
      * @param move
      * @param piece
      * @return
