@@ -5,6 +5,9 @@ import cz.cvut.fel.pjv.MainApp;
 import java.io.*;
 
 public class PGNFileSave {
+    /**
+     * Method to save PGN game into file;
+     */
     public static void savePGNGame() {
         String str = "";
         str += MainApp.getGame().getPgnHeader();
