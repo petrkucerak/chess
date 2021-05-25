@@ -1,7 +1,10 @@
-package cz.cvut.fel.pjv.model;
+package cz.cvut.fel.pjv.PGN;
 
 import cz.cvut.fel.pjv.MainApp;
+import cz.cvut.fel.pjv.model.Game;
+import cz.cvut.fel.pjv.model.Move;
 import cz.cvut.fel.pjv.model.Pieces.*;
+import cz.cvut.fel.pjv.model.Spot;
 
 import java.text.SimpleDateFormat;
 
@@ -46,7 +49,7 @@ public class PGNFormatter {
         }
 
         game.setPgnHeader(pgnHeader.toString());
-        System.out.println(game.getPgnHeader());
+        // System.out.println(game.getPgnHeader());
     }
 
     public static void updatePgnMoves() {
@@ -60,20 +63,6 @@ public class PGNFormatter {
 
         // get last stored move
         Move move = game.getMovesPlayed().get(game.getGameRound() - 1);
-
-        /**
-         * ToDo:
-         *  1. index of move ✅
-         *  2. move of pawn ✅
-         *  3. move of another pieces ✅
-         *  4. killing move ✅
-         *  5. killing pawn move ✅
-         *  6. castling ✅
-         *  7. end of the game
-         *  8. max line width
-         *  9. checking move +
-         *  10. checkmating move #
-         */
 
         // check castling moves
         if (move.isShortCastlingMove()) {
@@ -130,7 +119,7 @@ public class PGNFormatter {
         out += " ";
         // final printing
         game.appendPgnMoves(out);
-        System.out.println(game.getPgnMoves());
+        // System.out.println(game.getPgnMoves());
     }
 
     private static String addPgnPawnMove(Move move) {
