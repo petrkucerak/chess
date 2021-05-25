@@ -114,6 +114,11 @@ public class PGNFormatter {
             }
         }
 
+        // check checking move
+        if(MainApp.getGame().getStatus() == Game.GameStatus.CHECK){
+            out += "+";
+        }
+
         // check checkmating move
         if (MainApp.getGame().getStatus() == Game.GameStatus.BLACK_WIN
                 || MainApp.getGame().getStatus() == Game.GameStatus.BLACK_WIN) {
