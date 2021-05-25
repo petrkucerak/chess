@@ -180,7 +180,9 @@ public class Game implements Serializable {
         // for returning move
         turnOffLog();
         Utilities.saveChessboard(MainApp.getGame(), "move.bin");
-        turnOnLog();
+        if(!matInspectStatus) {
+            turnOnLog();
+        }
 
         if (isEnd()) {
             LOG.info("End of the game!");
@@ -304,6 +306,7 @@ public class Game implements Serializable {
 
 
         // check win situation
+        System.out.println(this.currentTurn);
         if (GameStatus.CHECK == getStatus() && !matInspectStatus) {
             matInspectStatus = true;
             Utilities.saveChessboard(this, "checkmating.bin");
@@ -316,6 +319,7 @@ public class Game implements Serializable {
             }
             matInspectStatus = false;
         }
+        System.out.println(this.currentTurn);
 
         if (!matInspectStatus) {
             PGNFormatter.updatePgnHeader();
@@ -441,17 +445,21 @@ public class Game implements Serializable {
         return false;
     }
 
+    private void printPlayer(){
+        if (currentTurn.isWhiteSide()) {
+            System.out.println("On the order is: " + BLACK + "player" + RESET);
+        } else {
+            System.out.println("On the order is: " + WHITE + "player" + RESET);
+        }
+    }
+
     /**
      * Print game info
      */
     public void printGameInfo() {
         System.out.println("Round: " + gameRound);
         System.out.println("Status: " + status);
-        if (currentTurn.isWhiteSide()) {
-            System.out.println("On the order is: " + BLACK + "player" + RESET);
-        } else {
-            System.out.println("On the order is: " + WHITE + "player" + RESET);
-        }
+        printPlayer();
         board.printBoard();
     }
 
