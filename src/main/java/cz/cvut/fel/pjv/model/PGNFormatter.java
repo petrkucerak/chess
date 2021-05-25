@@ -65,44 +65,61 @@ public class PGNFormatter {
          * ToDo:
          *  1. index of move ✅
          *  2. move of pawn ✅
-         *  3. move of another pieces
-         *  4. killing move
+         *  3. move of another pieces ✅
+         *  4. killing move ✅
          *  5. killing pawn move ✅
-         *  6. castling
+         *  6. castling ✅
          *  7. end of the game
          *  8. max line width
          *  9. checking move +
          *  10. checkmating move #
          */
 
-        // move of pawn
-        if (move.getStart().getPiece() instanceof Pawn) {
-            out += addPgnPawnMove(move);
+        // check castling moves
+        if(move.isShortCastlingMove()){
+            out += PGN_CASTLE_K;
+        } else if(move.isLongCastlingMove()){
+            out += PGN_CASTLE_Q;
         }
 
-        // move of King
-        if(move.getStart().getPiece() instanceof King){
-            out += addPgnNoPawnMove(move, 'K');
+        if(!move.isLongCastlingMove() && !move.isShortCastlingMove()) {
+
+            // move of Pawn
+            if (move.getStart().getPiece() instanceof Pawn) {
+                out += addPgnPawnMove(move);
+            }
+
+            // move of King
+            if (move.getStart().getPiece() instanceof King) {
+                out += addPgnNoPawnMove(move, 'K');
+            }
+
+            // move of Queen
+            if (move.getStart().getPiece() instanceof Queen) {
+                out += addPgnNoPawnMove(move, 'Q');
+            }
+
+            // move of Rook
+            if (move.getStart().getPiece() instanceof Rook) {
+                out += addPgnNoPawnMove(move, 'R');
+            }
+
+            // move of Bishop
+            if (move.getStart().getPiece() instanceof Bishop) {
+                out += addPgnNoPawnMove(move, 'B');
+            }
+            // move of Knight
+            if (move.getStart().getPiece() instanceof Knight) {
+                out += addPgnNoPawnMove(move, 'N');
+            }
         }
 
-        // move of Queen
-        if(move.getStart().getPiece() instanceof Queen){
-            out += addPgnNoPawnMove(move, 'Q');
+        // check checkmating move
+        if (MainApp.getGame().getStatus() == Game.GameStatus.BLACK_WIN
+                || MainApp.getGame().getStatus() == Game.GameStatus.BLACK_WIN) {
+            out += "#";
         }
 
-        // move of Rook
-        if(move.getStart().getPiece() instanceof Rook){
-            out += addPgnNoPawnMove(move, 'R');
-        }
-
-        // move of Bishop
-        if(move.getStart().getPiece() instanceof Bishop){
-            out += addPgnNoPawnMove(move, 'B');
-        }
-        // move of Knight
-        if(move.getStart().getPiece() instanceof Knight){
-            out += addPgnNoPawnMove(move, 'N');
-        }
 
         // add space
         out += " ";
