@@ -1,5 +1,7 @@
 package cz.cvut.fel.pjv.model;
 
+import cz.cvut.fel.pjv.MainApp;
+import cz.cvut.fel.pjv.Utils.Utilities;
 import cz.cvut.fel.pjv.model.Pieces.King;
 import cz.cvut.fel.pjv.model.Pieces.Pawn;
 import cz.cvut.fel.pjv.model.Pieces.Piece;
@@ -170,6 +172,9 @@ public class Game implements Serializable {
         Logger.getLogger("").setLevel(Level.INFO);
         Logger.getLogger("").getHandlers()[0].setLevel(Level.INFO);
 
+        // for returning move
+        Utilities.saveChessboard(MainApp.getGame(), "move.bin");
+
         if (isEnd()) {
             LOG.info("End of the game!");
             return false;
@@ -190,7 +195,7 @@ public class Game implements Serializable {
         }
         // validate if color of piece is same as player color
         if (sourcePiece.isWhite() != player.isWhiteSide()) {
-            LOG.warning("The piece color isn't same as a paler color!");
+            LOG.warning("The piece color isn't same as a player color!");
             return false;
         }
 
@@ -273,12 +278,12 @@ public class Game implements Serializable {
         }
 
         // pinned piece
-        // ToDo: fix bug, when king in this mode do more killing moves
         board.setActiveCheckingIsKingInDanger(true);
         if (isKingInDanger(move.getPlayer().isWhiteSide())) {
             LOG.warning("The king is in the danger!");
+            // return move
+            MainApp.setGame(Utilities.loadChessboard("move.bin"));
             board.setActiveCheckingIsKingInDanger(false);
-            unStepMove(movesPlayed.get(movesPlayed.size() - 1));
             return false;
         }
         board.setActiveCheckingIsKingInDanger(false);
@@ -438,7 +443,8 @@ public class Game implements Serializable {
      * @param move
      */
     private void unStepMove(Move move) {
-        move.getStart().setPiece(move.getEnd().getPiece());
-        move.getEnd().setPiece(null);
+        move.getStart().setPiece(movesPlayed.get(gameRound-1).getStart().getPiece());
+        move.getEnd().setPiece(movesPlayed.get(gameRound-1).getEnd().getPiece());
+
     }
 }
