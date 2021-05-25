@@ -452,32 +452,6 @@ public class Game implements Serializable {
         return gameBoards;
     }
 
-    /**
-     * Integrate for all pieces and try remove check status.
-     *
-     * @param isWhite
-     * @return
-     * @throws Exception
-     */
-    private boolean tryAllMovesIfItIsMat(Player player, Boolean isWhite) throws Exception {
-        // for returning move
-        Utilities.saveChessboard(MainApp.getGame(), "mat.bin");
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                // if inst null
-                if (!board.getBox(i, j).isSpotNull()) {
-                    // if is my piece
-                    if (board.getBox(i, j).getPiece().isWhite() != isWhite) {
-                        // try all moves if anyone isn't checking
-                        if (!tryAllPieceMovesItIsMat(player, board.getBox(i, j))) {
-                            return false;
-                        }
-                    }
-                }
-            }
-        }
-        return true;
-    }
 
     public boolean isMatInspectStatus() {
         return matInspectStatus;
@@ -485,47 +459,5 @@ public class Game implements Serializable {
 
     public void setMatInspectStatus(boolean matInspectStatus) {
         this.matInspectStatus = matInspectStatus;
-    }
-
-    /**
-     * Integrate for all moves current piece and check if the move remove check status.
-     *
-     * @param player
-     * @param pieceSpot
-     * @return
-     * @throws Exception
-     */
-    private boolean tryAllPieceMovesItIsMat(Player player, Spot pieceSpot) throws Exception {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-
-                Logger.getLogger("").setLevel(Level.OFF);
-                Logger.getLogger("").getHandlers()[0].setLevel(Level.OFF);
-
-                // set current turn to the other player
-                if (players[0] == player) {
-                     player = players[1];
-                     this.currentTurn = players[1];
-                } else {
-                    player = players[0];
-                    this.currentTurn = players[0];
-                }
-
-                boolean tmp = playerMove(player, pieceSpot.getX(), pieceSpot.getY(), i, j);
-
-                Logger.getLogger("").setLevel(Level.INFO);
-                Logger.getLogger("").getHandlers()[0].setLevel(Level.INFO);
-
-                if (tmp) {
-                    // return move
-                    if (status != GameStatus.CHECK) {
-                        MainApp.setGame(Utilities.loadChessboard("mat.bin"));
-                        return false;
-                    }
-                    MainApp.setGame(Utilities.loadChessboard("mat.bin"));
-                }
-            }
-        }
-        return true;
     }
 }
