@@ -9,11 +9,17 @@ import cz.cvut.fel.pjv.model.Spot;
 import java.io.*;
 import java.text.SimpleDateFormat;
 
+/**
+ * Export PGN format.
+ */
 public class PGNFormatter {
     public static final String DATEFORMAT_PGN = "yyyy.MM.dd";
     public static final String PGN_CASTLE_K = "O-O";
     public static final String PGN_CASTLE_Q = "O-O-O";
 
+    /**
+     * Method to update PGN header string.
+     */
     public static void updatePgnHeader() {
         Game game = MainApp.getGame();
 
@@ -53,6 +59,9 @@ public class PGNFormatter {
         // System.out.println(game.getPgnHeader());
     }
 
+    /**
+     * Method to update PGN moves string.
+     */
     public static void updatePgnMoves() {
         Game game = MainApp.getGame();
         String out = "";
@@ -123,6 +132,11 @@ public class PGNFormatter {
         // System.out.println(game.getPgnMoves());
     }
 
+    /**
+     * Return String with pawn move in PGN format.
+     * @param move
+     * @return
+     */
     private static String addPgnPawnMove(Move move) {
         String out = "";
 
@@ -138,6 +152,12 @@ public class PGNFormatter {
         return out;
     }
 
+    /**
+     * Return String with none pawn move in PGN format.
+     * @param move
+     * @param piece
+     * @return
+     */
     private static String addPgnNoPawnMove(Move move, char piece) {
         String out = "";
 
