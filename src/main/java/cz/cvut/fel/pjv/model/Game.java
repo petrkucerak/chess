@@ -31,6 +31,7 @@ public class Game implements Serializable {
     private Date startDate;
     private String pgnHeader;
     private String pgnMoves;
+    private boolean matInspectStatus;
 
     public void setPgnHeader(String pgnHeader) {
         this.pgnHeader = pgnHeader;
@@ -89,6 +90,11 @@ public class Game implements Serializable {
         PGNFormatter.updatePgnHeader();
         this.gameRound = 1;
         pgnMoves = "";
+
+        Logger.getLogger("").setLevel(Level.INFO);
+        Logger.getLogger("").getHandlers()[0].setLevel(Level.INFO);
+
+        matInspectStatus = false;
     }
 
     public void setTimeLefts(double[] timeLefts) {
@@ -169,11 +175,11 @@ public class Game implements Serializable {
      */
     private boolean makeMove(Move move, Player player) throws Exception {
         // set logger levels
-        Logger.getLogger("").setLevel(Level.INFO);
-        Logger.getLogger("").getHandlers()[0].setLevel(Level.INFO);
 
         // for returning move
-        Utilities.saveChessboard(MainApp.getGame(), "move.bin");
+        if(!matInspectStatus) {
+            Utilities.saveChessboard(MainApp.getGame(), "move.bin");
+        }
 
         if (isEnd()) {
             LOG.info("End of the game!");
@@ -295,12 +301,17 @@ public class Game implements Serializable {
 
 
         // check win situation
-        if (destPiece != null && destPiece instanceof King) {
-            if (player.isWhiteSide()) {
-                this.setStatus(GameStatus.WHITE_WIN);
-            } else {
-                this.setStatus(GameStatus.BLACK_WIN);
+        if (GameStatus.CHECK == getStatus() && !matInspectStatus) {
+            matInspectStatus = true;
+            if (tryAllMovesIfItIsMat(player, player.isWhiteSide())) {
+                System.out.println("No jo no!!!");
+                if (player.isWhiteSide()) {
+                    MainApp.getGame().setStatus(GameStatus.WHITE_WIN);
+                } else {
+                    MainApp.getGame().setStatus(GameStatus.BLACK_WIN);
+                }
             }
+            matInspectStatus = false;
         }
 
         PGNFormatter.updatePgnHeader();
@@ -443,8 +454,61 @@ public class Game implements Serializable {
      * @param move
      */
     private void unStepMove(Move move) {
-        move.getStart().setPiece(movesPlayed.get(gameRound-1).getStart().getPiece());
-        move.getEnd().setPiece(movesPlayed.get(gameRound-1).getEnd().getPiece());
+        move.getStart().setPiece(movesPlayed.get(gameRound - 1).getStart().getPiece());
+        move.getEnd().setPiece(movesPlayed.get(gameRound - 1).getEnd().getPiece());
 
+    }
+
+    /**
+     * projed vsecky moje figurky a vzykousej zda nejakym tahem zbavi sachu, pokud ano, vypis false
+     *
+     * @param isWhite
+     * @return
+     * @throws Exception
+     */
+    private boolean tryAllMovesIfItIsMat(Player player, Boolean isWhite) throws Exception {
+        // for returning move
+        Utilities.saveChessboard(MainApp.getGame(), "mat.bin");
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                // if inst null
+                if (!board.getBox(i, j).isSpotNull()) {
+                    // if is my piece
+                    if (board.getBox(i, j).getPiece().isWhite() == isWhite) {
+                        // try all moves if anyone isn't checking
+                        // if move zbarani matu, vupis false
+                        if (!tryAllPieceMoves(player, board.getBox(i, j))) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean tryAllPieceMoves(Player player, Spot pieceSpot) throws Exception {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+
+                Logger.getLogger("").setLevel(Level.OFF);
+                Logger.getLogger("").getHandlers()[0].setLevel(Level.OFF);
+
+                boolean tmp = playerMove(player, pieceSpot.getX(), pieceSpot.getY(), i, j);
+
+                Logger.getLogger("").setLevel(Level.INFO);
+                Logger.getLogger("").getHandlers()[0].setLevel(Level.INFO);
+
+                // pokud je tah mozny a zaroven nezpusobi sach
+                if (tmp) {
+                    // return move
+                    MainApp.setGame(Utilities.loadChessboard("mat.bin"));
+                    if (status == GameStatus.CHECK) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }
