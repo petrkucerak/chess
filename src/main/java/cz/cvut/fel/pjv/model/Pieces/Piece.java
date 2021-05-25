@@ -27,7 +27,8 @@ public abstract class Piece implements Serializable {
     public Piece(boolean white) {
         this.white = white;
     }
-    public Piece(Piece piece){
+
+    public Piece(Piece piece) {
         this.white = piece.white;
     }
 
@@ -257,7 +258,8 @@ public abstract class Piece implements Serializable {
                     if (destPiece instanceof King && kingColor == destPiece.isWhite()) {
                         if (canMove(board, piecePosition, board.getBox(i, j))) {
                             // debug print
-                            // System.out.println(i + " " + j);
+                            // System.out.println("start position: " + piecePosition.getY() + " " + piecePosition.getX());
+                            // System.out.println("target position: " + i + " " + j);
                             return true;
                         }
                     }
