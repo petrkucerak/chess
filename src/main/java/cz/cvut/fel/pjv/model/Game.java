@@ -1,6 +1,7 @@
 package cz.cvut.fel.pjv.model;
 
 import cz.cvut.fel.pjv.MainApp;
+import cz.cvut.fel.pjv.PGN.PGNFormatter;
 import cz.cvut.fel.pjv.Utils.Utilities;
 import cz.cvut.fel.pjv.model.Pieces.King;
 import cz.cvut.fel.pjv.model.Pieces.Pawn;
