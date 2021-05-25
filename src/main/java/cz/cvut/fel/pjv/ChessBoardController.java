@@ -2,6 +2,7 @@ package cz.cvut.fel.pjv;
 
 import cz.cvut.fel.pjv.ControlerUtils.PanePiece;
 import cz.cvut.fel.pjv.ControlerUtils.TextPiece;
+import cz.cvut.fel.pjv.PGN.PGNFileRead;
 import cz.cvut.fel.pjv.PGN.PGNFileSave;
 import cz.cvut.fel.pjv.Utils.Utilities;
 import cz.cvut.fel.pjv.model.Player.Player;
@@ -238,6 +239,7 @@ public class ChessBoardController {
     @FXML
     public void loadPGNGame(ActionEvent actionEvent) throws IOException {
         System.out.println("LOAD PGN GAME");
+        PGNFileRead.readPGNFile("output.pgn");
     }
 
     @FXML
