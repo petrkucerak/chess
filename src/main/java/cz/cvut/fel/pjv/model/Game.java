@@ -37,7 +37,8 @@ public class Game implements Serializable {
     public void setPgnMoves(String pgnMoves) {
         this.pgnMoves = pgnMoves;
     }
-    public void appendPgnMoves(String pgnMoves){
+
+    public void appendPgnMoves(String pgnMoves) {
         this.pgnMoves += pgnMoves;
     }
 
@@ -104,6 +105,7 @@ public class Game implements Serializable {
         this.timeLefts[0] = timeLefts;
         this.timeLefts[1] = timeLefts;
     }
+
     public void setTimeLefts(double timeLefts, int index) {
         this.timeLefts[index] = timeLefts;
     }
@@ -261,6 +263,14 @@ public class Game implements Serializable {
         // move piece from the start box to end box
         move.getEnd().setPiece(move.getStart().getPiece());
         move.getStart().setPiece(null);
+
+        // inspect CHECKING
+        if (sourcePiece.isChecking(board, move.getEnd(), sourcePiece.isWhite())) {
+            setStatus(GameStatus.CHECK);
+            LOG.info("The game status has been set ont CHECK!");
+        } else {
+            setStatus(GameStatus.ACTIVE);
+        }
 
         // pinned piece
         // ToDo: fix bug, when king in this mode do more killing moves

@@ -270,6 +270,25 @@ public abstract class Piece implements Serializable {
         return false;
     }
 
+    public boolean isChecking(Board board, Spot position, Boolean playerColor) throws Exception {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                // check if spot is null
+                if (!board.getBox(i, j).isSpotNull()) {
+                    // valid king and color
+                    Piece destPiece = board.getBox(i,j).getPiece();
+                    if(destPiece instanceof King && playerColor != destPiece.isWhite()){
+                        if(canMove(board, position, board.getBox(i,j))){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+
+    }
+
     /**
      * Method to get a symbol of the piece for print on board.
      *
