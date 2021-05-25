@@ -6,6 +6,7 @@ import cz.cvut.fel.pjv.model.Move;
 import cz.cvut.fel.pjv.model.Pieces.*;
 import cz.cvut.fel.pjv.model.Spot;
 
+import java.io.*;
 import java.text.SimpleDateFormat;
 
 public class PGNFormatter {
