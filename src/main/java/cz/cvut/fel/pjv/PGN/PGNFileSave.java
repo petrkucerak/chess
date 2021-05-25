@@ -15,6 +15,11 @@ public class PGNFileSave {
         for (int i = 0; i < words.length; i++) {
             line += words[i];
             line += " ";
+            if(line.length() > 70 && i % 3 == 2){
+                line += "\n";
+                str += line;
+                line = "";
+            }
         }
         str += line;
 
