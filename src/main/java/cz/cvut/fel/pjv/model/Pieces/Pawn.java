@@ -1,7 +1,11 @@
 package cz.cvut.fel.pjv.model.Pieces;
 
+import cz.cvut.fel.pjv.MainApp;
 import cz.cvut.fel.pjv.model.Board;
+import cz.cvut.fel.pjv.model.Game;
 import cz.cvut.fel.pjv.model.Spot;
+
+import java.util.logging.Logger;
 
 /**
  * Class representation of the pawn piece.
@@ -11,6 +15,8 @@ public class Pawn extends Piece {
     private boolean wasLastSuperJump;
     private boolean didElPassant;
     private boolean isPromotion;
+
+    private static final Logger LOG = Logger.getLogger(Game.class.getName());
 
     /**
      * Create pawn piece
@@ -67,9 +73,9 @@ public class Pawn extends Piece {
 
         // Implementation 'Promotion'
         // check situation for activate this mode
-        if (!board.isActiveCheckingIsKingInDanger()) {
+        if (!board.isActiveCheckingIsKingInDanger() && !MainApp.getGame().isMatInspectStatus()) {
             if (end.getX() == 0 || end.getX() == 7) {
-                System.out.println("Piece promotion!");
+                // LOG.info("Piece promotion!");
                 isPromotion = true;
             }
         }
