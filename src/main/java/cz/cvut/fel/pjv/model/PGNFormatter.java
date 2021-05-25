@@ -1,7 +1,7 @@
 package cz.cvut.fel.pjv.model;
 
 import cz.cvut.fel.pjv.MainApp;
-import cz.cvut.fel.pjv.model.Pieces.Pawn;
+import cz.cvut.fel.pjv.model.Pieces.*;
 
 import java.text.SimpleDateFormat;
 
@@ -64,10 +64,10 @@ public class PGNFormatter {
         /**
          * ToDo:
          *  1. index of move ✅
-         *  2. move of pawn
+         *  2. move of pawn ✅
          *  3. move of another pieces
          *  4. killing move
-         *  5. killing pawn move
+         *  5. killing pawn move ✅
          *  6. castling
          *  7. end of the game
          *  8. max line width
@@ -80,6 +80,30 @@ public class PGNFormatter {
             out += addPgnPawnMove(move);
         }
 
+        // move of King
+        if(move.getStart().getPiece() instanceof King){
+            out += addPgnNoPawnMove(move, 'K');
+        }
+
+        // move of Queen
+        if(move.getStart().getPiece() instanceof Queen){
+            out += addPgnNoPawnMove(move, 'Q');
+        }
+
+        // move of Rook
+        if(move.getStart().getPiece() instanceof Rook){
+            out += addPgnNoPawnMove(move, 'R');
+        }
+
+        // move of Bishop
+        if(move.getStart().getPiece() instanceof Bishop){
+            out += addPgnNoPawnMove(move, 'B');
+        }
+        // move of Knight
+        if(move.getStart().getPiece() instanceof Knight){
+            out += addPgnNoPawnMove(move, 'N');
+        }
+
         // add space
         out += " ";
         // final printing
@@ -88,7 +112,6 @@ public class PGNFormatter {
     }
 
     private static String addPgnPawnMove(Move move) {
-        Game game = MainApp.getGame();
         String out = "";
 
         // normal pawn killing
@@ -98,6 +121,23 @@ public class PGNFormatter {
         }
 
         // normal pawn move
+        out += returnPgnPosition(move.getEnd());
+
+        return out;
+    }
+
+    private static String addPgnNoPawnMove(Move move, char piece) {
+        String out = "";
+
+        // add name of piece
+        out += piece;
+
+        // killing move
+        if (move.getEnd().getPiece() != null) {
+            out += "x";
+        }
+
+        // coords of move
         out += returnPgnPosition(move.getEnd());
 
         return out;
