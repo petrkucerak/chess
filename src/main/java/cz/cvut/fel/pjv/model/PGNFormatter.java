@@ -48,13 +48,14 @@ public class PGNFormatter {
         System.out.println(game.getPgnHeader());
     }
 
-    public static void updatePgnMoves(){
+    public static void updatePgnMoves() {
         Game game = MainApp.getGame();
         String out = "";
 
         // ToDo: index
-        if(game.getGameRound() > 0 && game.getGameRound() % 2 == 1){
-            out += game.getGameRound() / 2;
+        if (game.getGameRound() > 0 && game.getGameRound() % 2 == 1) {
+            out += (game.getGameRound() / 2) + 1;
+            out += ". ";
         }
 
         /**
