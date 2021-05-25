@@ -2,9 +2,11 @@ package cz.cvut.fel.pjv.model.Pieces;
 
 
 import cz.cvut.fel.pjv.model.Board;
+import cz.cvut.fel.pjv.model.Game;
 import cz.cvut.fel.pjv.model.Spot;
 
 import java.io.Serializable;
+import java.util.logging.Logger;
 
 /**
  * Abstract class for define pieces & support methods for piece
@@ -18,6 +20,8 @@ public abstract class Piece implements Serializable {
     public static final String GREEN = "\u001B[32m";
     public static final String RESET = "\u001B[0m";
     public static final String BACK = "\u001B[30m";
+
+    private static final Logger LOG = Logger.getLogger(Game.class.getName());
 
     /**
      * Create piece
@@ -68,7 +72,7 @@ public abstract class Piece implements Serializable {
     boolean isMyPieceInTheWay(Spot end) {
 
         if (end.getPiece() != null && end.getPiece().isWhite() == this.isWhite()) {
-            System.err.println("This spot is occupied by your piece!");
+            LOG.warning("This spot is occupied by your piece!");
             return true;
         }
         return false;
@@ -84,7 +88,7 @@ public abstract class Piece implements Serializable {
     boolean isColorPiecesSame(Spot start, Spot end) {
         if (end.getPiece() != null) {
             if (start.getPiece().isWhite() == end.getPiece().isWhite()) {
-                System.err.println("Spot is occupied by another piece!");
+                LOG.warning("Spot is occupied by another piece!");
                 return true;
             }
         }
