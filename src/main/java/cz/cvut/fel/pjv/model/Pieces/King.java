@@ -157,7 +157,6 @@ public class King extends Piece {
         // validate short castling
         int y = start.getY() - end.getY();
         int x = start.getX() - end.getX();
-        System.out.println(x);
         if (Math.abs(y) == 2 && y < 0 && x == 0) {
             // check clear way
             for (int i = 1; i < 2; i++) {
