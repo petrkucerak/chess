@@ -3,15 +3,18 @@ package cz.cvut.fel.pjv.Utils;
 import cz.cvut.fel.pjv.model.Game;
 
 import java.io.*;
+import java.util.logging.Logger;
 
 public class Utilities {
+    private static final Logger LOG = Logger.getLogger(Game.class.getName());
+
     public static void saveChessboard(Game game, String filepath) {
         try (OutputStream fos = new FileOutputStream(filepath);
              ObjectOutputStream out = new ObjectOutputStream(fos)) {
             out.writeObject(game);
-            System.out.println("Game data has been saved into: " + filepath);
+            LOG.info("Game data has been saved into: " + filepath);
         } catch (IOException e) {
-            System.err.println("Serialization error " + e);
+            LOG.warning("Serialization error " + e);
         }
     }
 
@@ -21,9 +24,9 @@ public class Utilities {
              ObjectInputStream in = new ObjectInputStream(fis)) {
             game = (Game) in.readObject();
         } catch (ClassNotFoundException e) {
-            System.err.println("I can't find the class definition: " + e);
+            LOG.warning("I can't find the class definition: " + e);
         } catch (IOException e) {
-            System.err.println("Problem with read file : " + e);
+            LOG.warning("Problem with read file : " + e);
         }
         return game;
     }
