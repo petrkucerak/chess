@@ -2,6 +2,7 @@ package cz.cvut.fel.pjv.PGN;
 
 import cz.cvut.fel.pjv.MainApp;
 import cz.cvut.fel.pjv.model.Game;
+import cz.cvut.fel.pjv.model.Player.ComputerPlayer;
 import cz.cvut.fel.pjv.model.Player.HumanPlayer;
 import cz.cvut.fel.pjv.model.Player.Player;
 
@@ -42,7 +43,7 @@ public class PGNFileRead {
 
         // create PGN game
         Player playerBlack = new HumanPlayer(false);
-        Player playerWhite = new HumanPlayer(true);
+        Player playerWhite = new ComputerPlayer(true);
 
         playerBlack.setName(playerBlackString);
         playerWhite.setName(playerWhiteString);
