@@ -1,6 +1,7 @@
 package cz.cvut.fel.pjv.PGN;
 
 import cz.cvut.fel.pjv.MainApp;
+import cz.cvut.fel.pjv.Utils.Log;
 import cz.cvut.fel.pjv.model.Game;
 import cz.cvut.fel.pjv.model.Player.ComputerPlayer;
 import cz.cvut.fel.pjv.model.Player.HumanPlayer;
@@ -82,7 +83,9 @@ public class PGNFileRead {
             int endY = moves[3];
 
             if (game.playerMove(game.getCurrentTurn(), startX, startY, endX, endY)) {
+                // Log.turnLogOff();
                 LOG.info("Move has been success!");
+                // Log.turnLogOn();
             }
 
         } while (gameRound != game.getGameRound() - 1);
@@ -190,7 +193,7 @@ public class PGNFileRead {
     static void parseMoveString(String input) {
         // remove new lines
         String regex = "\n";
-        input = input.replaceAll(regex, "");
+        input = input.replaceAll(regex, " ");
 
         // remove comments
         regex = PATTERN_COMMENTS;
@@ -212,8 +215,8 @@ public class PGNFileRead {
         for (int i = 0; i < movesPGNParsed.size(); i++) {
             System.out.println(movesPGNParsed.get(i));
         }
-        */
 
+        */
         gameRound = movesPGNParsed.size();
     }
 

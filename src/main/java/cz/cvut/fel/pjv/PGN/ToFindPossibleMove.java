@@ -60,6 +60,7 @@ public class ToFindPossibleMove {
 
             if (startY != -1) {
                 getStartCordsWithY(game, endX, endY, startY);
+                System.out.println("Yo");
             } else {
                 getStartCords(game, endX, endY);
             }
@@ -177,12 +178,12 @@ public class ToFindPossibleMove {
                 endX = i;
             }
         }
-        Log.turnLogOn();
+        // Log.turnLogOn();
         LOG.info("X chord is: " + endX);
         LOG.info("y chord is: " + endY);
         LOG.info("start y chord is: " + startY);
         LOG.info("start x chord is: " + startX);
-        Log.turnLogOff();
+        // Log.turnLogOff();
     }
 
     private static boolean isShortCastling(String string) {
@@ -227,8 +228,8 @@ public class ToFindPossibleMove {
                             if (startPiece.canMove(game.getBoard(), startSpot, endSpot)) {
                                 startX = i;
                                 startY = j;
-                                LOG.info("Start x cord is: " + startX);
-                                LOG.info("Start y cord is: " + startY);
+                                // LOG.info("Start x cord is: " + startX);
+                                // LOG.info("Start y cord is: " + startY);
                             }
                         }
                     }
@@ -250,10 +251,10 @@ public class ToFindPossibleMove {
                         Spot endSpot = game.getBoard().getBox(endX, endY);
                         if (startPiece.canMove(game.getBoard(), startSpot, endSpot)) {
                             startX = i;
-                            Log.turnLogOn();
+                            // Log.turnLogOn();
                             LOG.info("Start x cord is: " + startX);
                             LOG.info("Start y cord is: " + startY);
-                            Log.turnLogOff();
+                            // Log.turnLogOff();
                         }
                     }
                 }
