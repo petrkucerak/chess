@@ -5,12 +5,11 @@ package cz.cvut.fel.pjv.model.Player;
  */
 public class ComputerPlayer extends Player {
 
-    private String name;
 
     public ComputerPlayer(boolean whiteSide) {
         this.whiteSide = whiteSide;
         this.humanPlayer = false;
-        this.name = "Computer, Player";
+        this.setName("Computer, Player");
     }
 
     @Override
@@ -18,11 +17,4 @@ public class ComputerPlayer extends Player {
         return "Computer, Player";
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
