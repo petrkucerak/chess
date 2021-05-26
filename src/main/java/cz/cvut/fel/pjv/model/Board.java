@@ -22,6 +22,15 @@ public class Board implements Serializable {
         this.activeCheckingIsKingInDanger = false;
     }
 
+    public Board(boolean testBishop) {
+        if(testBishop){
+            this.testBishopMoves();
+        } else {
+            this.newBoard(); // chose the chessboard
+        }
+        this.activeCheckingIsKingInDanger = false;
+    }
+
     public void setActiveCheckingIsKingInDanger(boolean activeCheckingIsKingInDanger) {
         this.activeCheckingIsKingInDanger = activeCheckingIsKingInDanger;
     }
@@ -221,7 +230,19 @@ public class Board implements Serializable {
                 }
             }
         }
+    }
 
+    public void testBishopMoves() {
+        this.boxes = new Spot[8][8];
+        // place other spots as null
+        boxes[4][4] = new Spot(new Bishop(false), 4, 4);
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (boxes[i][j] == null) {
+                    boxes[i][j] = new Spot(null, i, j);
+                }
+            }
+        }
     }
 
     /**
