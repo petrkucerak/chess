@@ -2,6 +2,7 @@ package cz.cvut.fel.pjv.PGN;
 
 import cz.cvut.fel.pjv.Utils.Utilities;
 import cz.cvut.fel.pjv.model.Game;
+import cz.cvut.fel.pjv.model.Pieces.*;
 import cz.cvut.fel.pjv.model.Spot;
 
 import java.util.logging.Logger;
@@ -16,8 +17,10 @@ public class ToFindPossibleMove {
 
     private static final Logger LOG = Logger.getLogger(Game.class.getName());
 
-    private static int x;
-    private static int y;
+    private static int endX;
+    private static int endY;
+    private static int startX;
+    private static int startY;
     private static char type;
     private static boolean longCastling = false;
     private static boolean shortCastling = false;
@@ -26,9 +29,9 @@ public class ToFindPossibleMove {
     final static private char[] cordY = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
     final static private char[] cordX = {'8', '7', '6', '5', '4', '3', '2', '1'};
 
-    public static int[] returnPossiblePNGmove(PGNGame game, String pgnCurrentMove) {
+    public static int[] returnPossiblePNGmove(PGNGame game, String pgnCurrentMove) throws Exception {
         int[] moves = new int[4];
-        Utilities.saveChessboard(game, "PGN-load.bin");
+        Utilities.savePGNChessboard(game, "PGN-load.bin");
 
         // check castling
         if (isLongCastling(pgnCurrentMove)) {
@@ -46,10 +49,15 @@ public class ToFindPossibleMove {
             getCoords(pgnCurrentMove);
         }
 
-        moves[2] = x;
-        moves[3] = y;
+        moves[2] = endX;
+        moves[3] = endY;
 
-        getStartCords(game, x, y);
+        getStartCords(game, endX, endY);
+
+        moves[0] = startX;
+        moves[1] = startY;
+
+        PGNFileRead.setGame(Utilities.loadPGNChessboard("PGN-load.bin"));
 
         return moves;
     }
@@ -71,16 +79,16 @@ public class ToFindPossibleMove {
         }
         for (int i = 0; i < cordY.length; i++) {
             if (input.charAt(index) == cordY[i]) {
-                y = i;
+                endY = i;
             }
         }
         for (int i = 0; i < cordX.length; i++) {
             if (input.charAt(index + 1) == cordX[i]) {
-                x = i;
+                endX = i;
             }
         }
-        LOG.info("X chord is: " + x);
-        LOG.info("y chord is: " + y);
+        LOG.info("X chord is: " + endX);
+        LOG.info("y chord is: " + endY);
     }
 
     private static boolean isShortCastling(String string) {
@@ -110,8 +118,46 @@ public class ToFindPossibleMove {
         }
     }
 
-    static void getStartCords(PGNGame game, int endX, int endY){
+    static void getStartCords(PGNGame game, int endX, int endY) throws Exception {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                // if spot isn't null
+                if (!game.getBoard().getBox(i, j).isSpotNull()) {
+                    Piece startPiece = game.getBoard().getBox(i, j).getPiece();
+                    // if piece has right color
+                    if (startPiece.isWhite() == game.getCurrentTurn().isWhiteSide()) {
+                        // if piece has a right type
+                        if (isRightTypeOfPiece(startPiece)) {
+                            Spot startSpot = game.getBoard().getBox(i, j);
+                            Spot endSpot = game.getBoard().getBox(endX, endY);
+                            if (startPiece.canMove(game.getBoard(), startSpot, endSpot)) {
+                                startX = i;
+                                startY = j;
+                                LOG.info("Start x cord is: " + startX);
+                                LOG.info("Start y cord is: " + startY);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // check if move is possible
+    }
 
+    /**
+     * If instanceof startPiece == type, return true.
+     *
+     * @param startPiece
+     * @return
+     */
+    private static boolean isRightTypeOfPiece(Piece startPiece) {
+        if (type == 'K' && startPiece instanceof King) return true;
+        if (type == 'Q' && startPiece instanceof Queen) return true;
+        if (type == 'N' && startPiece instanceof Knight) return true;
+        if (type == 'B' && startPiece instanceof Bishop) return true;
+        if (type == 'R' && startPiece instanceof Rook) return true;
+        if (type == 'p' && startPiece instanceof Pawn) return true;
+        return false;
     }
 
 
