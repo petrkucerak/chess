@@ -1,5 +1,6 @@
 package cz.cvut.fel.pjv.PGN;
 
+import cz.cvut.fel.pjv.MainApp;
 import cz.cvut.fel.pjv.model.Game;
 import cz.cvut.fel.pjv.model.Player.HumanPlayer;
 import cz.cvut.fel.pjv.model.Player.Player;
@@ -56,7 +57,13 @@ public class PGNFileRead {
         playGameByPGNMoves(game);
 
         // set game to normal game
+        setPGNGameToStandardGame(game);
         game.setPGNGame(false);
+    }
+
+    private static void setPGNGameToStandardGame(PGNGame game) {
+        MainApp.setGame(null);
+        MainApp.setGame(game);
     }
 
     static void playGameByPGNMoves(PGNGame game) throws Exception {
@@ -75,11 +82,10 @@ public class PGNFileRead {
             int endY = moves[3];
 
             if (game.playerMove(game.getCurrentTurn(), startX, startY, endX, endY)) {
-                LOG.info("Move has been sucess!");
+                LOG.info("Move has been success!");
             }
 
-        // } while (false);
-        } while (gameRound != game.getGameRound()-1);
+        } while (gameRound != game.getGameRound() - 1);
     }
 
     /**
@@ -132,7 +138,7 @@ public class PGNFileRead {
         String[] lines = headerPGN.split("\n");
 
         parseDate(lines[2]);
-        parseGameRound(lines[3]);
+        // parseGameRound(lines[3]); use size of moves ArrayList
         parseWhitePlayer(lines[4]);
         parseBlackPlayer(lines[5]);
         parseGameResult(lines[6]);
@@ -201,6 +207,14 @@ public class PGNFileRead {
                 movesPGNParsed.add(words[i]);
             }
         }
+        /*
+        // test print
+        for (int i = 0; i < movesPGNParsed.size(); i++) {
+            System.out.println(movesPGNParsed.get(i));
+        }
+        */
+
+        gameRound = movesPGNParsed.size();
     }
 
     public static String getDateString() {
