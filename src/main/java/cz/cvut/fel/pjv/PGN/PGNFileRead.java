@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 import static cz.cvut.fel.pjv.PGN.PGNFormatter.DATEFORMAT_PGN;
 import static cz.cvut.fel.pjv.PGN.PGNFormatter.PATTERN_COMMENTS;
+import static cz.cvut.fel.pjv.PGN.ToFindPossibleMove.returnPossiblePNGmove;
 
 public class PGNFileRead {
 
@@ -53,16 +54,19 @@ public class PGNFileRead {
     }
 
     static void playGameByPGNMoves(PGNGame game) throws Exception {
-        // create loop
 
+        // create loop
         parseMoveString(movesPGN);
 
         do {
+            // get move from PGN format
 
-            int startX = 0;
-            int startY = 0;
-            int endX = 0;
-            int endY = 0;
+            int[] moves = returnPossiblePNGmove(game, movesPGNParsed.get(game.getGameRound()-1));
+
+            int startX = moves[0];
+            int startY = moves[1];
+            int endX = moves[2];
+            int endY = moves[3];
 
             game.playerMove(game.getCurrentTurn(), startX, startY, endX, endY);
 
