@@ -27,6 +27,8 @@ public class PGNFileRead {
     static private String headerPGN;
     static private String movesPGN;
 
+    private static PGNGame game;
+
     public static void readPGNFile(String pathname) throws Exception {
         // read file
         String input = readFile(pathname);
@@ -44,7 +46,7 @@ public class PGNFileRead {
         SimpleDateFormat dataFormat = new SimpleDateFormat(DATEFORMAT_PGN);
         Date date = dataFormat.parse(dateString);
 
-        PGNGame game = new PGNGame();
+        game = new PGNGame();
         game.initGame(playerWhite, playerBlack, date);
 
         // load game from pgn
@@ -248,5 +250,21 @@ public class PGNFileRead {
 
     public static void setPlayerBlackString(String playerBlackString) {
         PGNFileRead.playerBlackString = playerBlackString;
+    }
+
+    public static ArrayList<String> getMovesPGNParsed() {
+        return movesPGNParsed;
+    }
+
+    public static void setMovesPGNParsed(ArrayList<String> movesPGNParsed) {
+        PGNFileRead.movesPGNParsed = movesPGNParsed;
+    }
+
+    public static PGNGame getGame() {
+        return game;
+    }
+
+    public static void setGame(PGNGame game) {
+        PGNFileRead.game = game;
     }
 }
