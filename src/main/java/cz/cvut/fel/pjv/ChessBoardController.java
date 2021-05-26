@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -26,12 +27,17 @@ public class ChessBoardController {
     @FXML
     private GridPane grid;
 
+    @FXML
+    private GridPane gridClock;
+
     /**
      * Initialize windows with the Chess
      *
      * @throws Exception
      */
     public void initialize() throws Exception {
+
+        createHourItems();
 
         // init array with turn position
         turnPositions = new int[4];
@@ -61,6 +67,38 @@ public class ChessBoardController {
         grid.setMinSize(560, 560);
 
         setChessBoard();
+
+    }
+
+    /**
+     * Create clock elements.
+     */
+    void createHourItems(){
+
+        // creat grid
+        for (int i = 0; i < 2; i++) {
+            ColumnConstraints colConstraints = new ColumnConstraints();
+            colConstraints.setHgrow(Priority.SOMETIMES);
+            gridClock.getColumnConstraints().add(colConstraints);
+        }
+        RowConstraints rowConstraints = new RowConstraints();
+        rowConstraints.setVgrow(Priority.SOMETIMES);
+        gridClock.getRowConstraints().add(rowConstraints);
+
+        Text blackClock = new Text();
+        Text whiteClock = new Text();
+
+        blackClock.setText("00:00:00");
+        whiteClock.setText("00:00:00");
+
+        blackClock.setFill(Color.WHITE);
+        whiteClock.setFill(Color.WHITE);
+
+        // set style of pane
+
+        // text to the grid
+        gridClock.add(whiteClock, 0, 0);
+        gridClock.add(blackClock, 0, 1);
 
     }
 
