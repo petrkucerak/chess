@@ -15,6 +15,7 @@ public class PGNGame extends Game implements Serializable {
     public void initGame(Player p1, Player p2, Date startDate) {
         super.initGame(p1, p2);
         this.setStartDate(startDate);
+        this.setPGNGame(true);
     }
 
     public GameStatus getFinalStatus() {

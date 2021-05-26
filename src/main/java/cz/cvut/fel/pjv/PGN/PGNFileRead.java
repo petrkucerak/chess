@@ -53,6 +53,7 @@ public class PGNFileRead {
         playGameByPGNMoves(game);
 
         // set game to normal game
+        game.setPGNGame(false);
     }
 
     static void playGameByPGNMoves(PGNGame game) throws Exception {
