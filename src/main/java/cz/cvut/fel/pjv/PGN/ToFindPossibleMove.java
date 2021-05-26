@@ -52,15 +52,50 @@ public class ToFindPossibleMove {
 
             // get target coords
             getCoords(pgnCurrentMove);
+
+            moves[2] = endX;
+            moves[3] = endY;
+
+            getStartCords(game, endX, endY);
+
         }
 
-        moves[2] = endX;
-        moves[3] = endY;
-
-        getStartCords(game, endX, endY);
+        if (longCastling) {
+            startY = 4;
+            endY = 2;
+            if (game.getCurrentTurn().isWhiteSide()) {
+                startX = 7;
+                endX = 7;
+            } else {
+                startX = 0;
+                endX = 0;
+            }
+            longCastling = false;
+        }
+        if (shortCastling) {
+            startY = 4;
+            endY = 6;
+            if (game.getCurrentTurn().isWhiteSide()) {
+                startX = 7;
+                endX = 7;
+            } else {
+                startX = 0;
+                endX = 0;
+            }
+            shortCastling = false;
+        }
 
         moves[0] = startX;
         moves[1] = startY;
+        moves[2] = endX;
+        moves[3] = endY;
+
+        if (longCastling || shortCastling) {
+            Log.turnLogOn();
+            LOG.info("Game chords are: " + startX + startY + endX + endY);
+            Log.turnLogOff();
+        }
+
 
         PGNFileRead.setGame(Utilities.loadPGNChessboard("PGN-load.bin"));
 
@@ -101,12 +136,12 @@ public class ToFindPossibleMove {
     }
 
     private static boolean isShortCastling(String string) {
-        if (string == PGN_CASTLE_K) return true;
+        if (string.contains(PGN_CASTLE_K)) return true;
         return false;
     }
 
     private static boolean isLongCastling(String string) {
-        if (string == PGN_CASTLE_Q) return true;
+        if (string.contains(PGN_CASTLE_Q)) return true;
         return false;
     }
 
