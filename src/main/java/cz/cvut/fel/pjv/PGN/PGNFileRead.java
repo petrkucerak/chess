@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import static cz.cvut.fel.pjv.PGN.PGNFormatter.PATTERN_HEADER;
+
 public class PGNFileRead {
 
     static private String date = "";
@@ -62,6 +64,10 @@ public class PGNFileRead {
         String[] parts = input.split("\n\n");
         PGNFileRead.headerPGN = parts[0];
         PGNFileRead.movesPGN = parts[1];
+
+        System.out.println(parts[0]);
+        System.out.println(parts[1]);
+        
 
     }
 
