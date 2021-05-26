@@ -36,6 +36,11 @@ public class ToFindPossibleMove {
 
         int[] moves = new int[4];
 
+        startY = -1;
+        startX = -1;
+        endY = -1;
+        endX = -1;
+
         Utilities.savePGNChessboard(game, "PGN-load.bin");
 
         // check castling
@@ -56,7 +61,11 @@ public class ToFindPossibleMove {
             moves[2] = endX;
             moves[3] = endY;
 
-            getStartCords(game, endX, endY);
+            if (startY != -1) {
+                getStartCordsWithY(game, endX, endY, startY);
+            } else {
+                getStartCords(game, endX, endY);
+            }
 
         }
 
@@ -127,26 +136,26 @@ public class ToFindPossibleMove {
         } else if (type == 'p') { // if pawn in killing mode
             if (isKillingMove) {
                 for (int i = 0; i < cordY.length; i++) {
-                    if(input.charAt(0) == cordY[i]){
+                    if (input.charAt(0) == cordY[i]) {
                         startY = i;
                     }
                 }
             }
-        } else if(isKillingMove){ // if piece in killing mode, more options
-            if(input.length() == 5){
+        } else if (isKillingMove) { // if piece in killing mode, more options
+            if (input.length() == 5) {
                 index = 3;
                 for (int i = 0; i < cordY.length; i++) {
-                    if(input.charAt(1) == cordY[i]){
+                    if (input.charAt(1) == cordY[i]) {
                         startY = i;
                     }
                 }
             }
-        } else if(type != 'p'){ // if piece in more options
-            if(!isKillingMove){
-                if(input.length() == 4){
+        } else if (type != 'p') { // if piece in more options
+            if (!isKillingMove) {
+                if (input.length() == 4) {
                     index = 2;
                     for (int i = 0; i < cordY.length; i++) {
-                        if(input.charAt(1) == cordY[i]){
+                        if (input.charAt(1) == cordY[i]) {
                             startY = i;
                         }
                     }
@@ -217,7 +226,28 @@ public class ToFindPossibleMove {
                 }
             }
         }
-        // check if move is possible
+    }
+
+    static void getStartCordsWithY(PGNGame game, int endX, int endY, int startY) throws Exception {
+        for (int i = 0; i < 8; i++) {
+            // if spot isn't null
+            if (!game.getBoard().getBox(i, startY).isSpotNull()) {
+                Piece startPiece = game.getBoard().getBox(i, startY).getPiece();
+                // if piece has right color
+                if (startPiece.isWhite() == game.getCurrentTurn().isWhiteSide()) {
+                    // if piece has a right type
+                    if (isRightTypeOfPiece(startPiece)) {
+                        Spot startSpot = game.getBoard().getBox(i, startY);
+                        Spot endSpot = game.getBoard().getBox(endX, endY);
+                        if (startPiece.canMove(game.getBoard(), startSpot, endSpot)) {
+                            startX = i;
+                            LOG.info("Start x cord is: " + startX);
+                            LOG.info("Start y cord is: " + startY);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
