@@ -41,6 +41,8 @@ public class ToFindPossibleMove {
         endX = -1;
         endY = -1;
 
+        isKillingMove = false;
+
         Utilities.savePGNChessboard(game, "PGN-load.bin");
 
         // check castling
@@ -98,17 +100,17 @@ public class ToFindPossibleMove {
         moves[3] = endY;
 
         if (longCastling || shortCastling) {
-            Log.turnLogOn();
+            // Log.turnLogOn();
             LOG.info("Game chords are: " + startX + startY + endX + endY);
-            Log.turnLogOff();
+            // Log.turnLogOff();
         }
 
 
         PGNFileRead.setGame(Utilities.loadPGNChessboard("PGN-load.bin"));
 
-        Log.turnLogOn();
+        // Log.turnLogOn();
         LOG.info(pgnCurrentMove);
-        Log.turnLogOff();
+        // Log.turnLogOff();
         Log.turnLogOn();
 
         return moves;
@@ -129,7 +131,7 @@ public class ToFindPossibleMove {
 
     private static void getCoords(String input) {
         // set position of first coords
-        int index = 0;
+        int index;
         if(type == 'p'){
             if(isKillingMove){
                 index = 2;
@@ -166,7 +168,6 @@ public class ToFindPossibleMove {
                 }
             }
         }
-
 
         for (int i = 0; i < cordY.length; i++) {
             if (input.charAt(index) == cordY[i]) {
