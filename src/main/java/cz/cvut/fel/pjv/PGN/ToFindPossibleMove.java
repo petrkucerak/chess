@@ -107,6 +107,10 @@ public class ToFindPossibleMove {
     private static void checkKillingStatus(String input) {
         if (input.charAt(1) == 'x') {
             isKillingMove = true;
+        } else if (input.length() > 2) {
+            if(input.charAt(2) == 'x'){
+                isKillingMove = true;
+            }
         } else {
             isKillingMove = false;
         }
