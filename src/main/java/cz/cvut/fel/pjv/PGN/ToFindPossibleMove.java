@@ -49,6 +49,8 @@ public class ToFindPossibleMove {
         moves[2] = x;
         moves[3] = y;
 
+        getStartCords(game, x, y);
+
         return moves;
     }
 
@@ -106,6 +108,10 @@ public class ToFindPossibleMove {
         } else {
             type = 'p';
         }
+    }
+
+    static void getStartCords(PGNGame game, int endX, int endY){
+
     }
 
 
