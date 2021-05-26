@@ -52,7 +52,7 @@ public class PGNFileRead {
         // set game to normal game
     }
 
-    static void playGameByPGNMoves(PGNGame game){
+    static void playGameByPGNMoves(PGNGame game) {
         // create loop
 
         parseMoveString(movesPGN);
@@ -113,9 +113,10 @@ public class PGNFileRead {
 
     /**
      * Parse header string int class variables.
+     *
      * @param input
      */
-    static void parseHeaderString(String input){
+    static void parseHeaderString(String input) {
         String[] lines = headerPGN.split("\n");
 
         parseDate(lines[2]);
@@ -126,44 +127,44 @@ public class PGNFileRead {
 
     }
 
-    static void parseDate(String input){
+    static void parseDate(String input) {
         String regex = "\\[(.*) \"";
-        input = input.replaceAll(regex,"");
+        input = input.replaceAll(regex, "");
         regex = "\"\\]";
-        dateString = input.replaceAll(regex,"");
+        dateString = input.replaceAll(regex, "");
     }
 
-    static void parseGameRound(String input){
+    static void parseGameRound(String input) {
         String regex = "\\[(.*) \"";
-        input = input.replaceAll(regex,"");
+        input = input.replaceAll(regex, "");
         regex = "\"\\]";
-        input = input.replaceAll(regex,"");
+        input = input.replaceAll(regex, "");
         gameRound = Integer.parseInt(input);
     }
 
-    static void parseWhitePlayer(String input){
+    static void parseWhitePlayer(String input) {
         String regex = "\\[(.*) \"";
-        input = input.replaceAll(regex,"");
+        input = input.replaceAll(regex, "");
         regex = "\"\\]";
-        playerWhiteString = input.replaceAll(regex,"");
+        playerWhiteString = input.replaceAll(regex, "");
     }
 
-    static void parseBlackPlayer(String input){
+    static void parseBlackPlayer(String input) {
         String regex = "\\[(.*) \"";
-        input = input.replaceAll(regex,"");
+        input = input.replaceAll(regex, "");
         regex = "\"\\]";
-        playerBlackString = input.replaceAll(regex,"");
+        playerBlackString = input.replaceAll(regex, "");
 
     }
 
-    static void parseGameResult(String input){
+    static void parseGameResult(String input) {
         String regex = "\\[(.*) \"";
-        input = input.replaceAll(regex,"");
+        input = input.replaceAll(regex, "");
         regex = "\"\\]";
-        result = input.replaceAll(regex,"");
+        result = input.replaceAll(regex, "");
     }
 
-    static void parseMoveString(String input){
+    static void parseMoveString(String input) {
         // remove new lines
         String regex = "\n";
         input = input.replaceAll(regex, "");
@@ -178,7 +179,7 @@ public class PGNFileRead {
 
         // split into string array
         String[] words = input.split("  ");
-        for (int i =0; i < words.length; i++){
+        for (int i = 0; i < words.length; i++) {
             System.out.println(words[i]);
         }
     }
