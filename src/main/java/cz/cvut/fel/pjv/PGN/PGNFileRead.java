@@ -164,6 +164,10 @@ public class PGNFileRead {
         result = input.replaceAll(regex, "");
     }
 
+    /**
+     * Parse move from string into the ArrayList movesPGNParsed.
+     * @param input
+     */
     static void parseMoveString(String input) {
         // remove new lines
         String regex = "\n";
