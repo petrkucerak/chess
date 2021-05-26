@@ -177,17 +177,12 @@ public class PGNFileRead {
         regex = "\\d\\.";
         input = input.replaceAll(regex, "");
 
-        System.out.println(input);
-
         // split into string array
         String[] words = input.split(" ");
         for (int i = 0; i < words.length; i++) {
             if (words[i].length() >= 2) {
                 movesPGNParsed.add(words[i]);
             }
-        }
-        for (int i = 0; i < movesPGNParsed.size(); i++) {
-            System.out.println(movesPGNParsed.get(i));
         }
     }
 
