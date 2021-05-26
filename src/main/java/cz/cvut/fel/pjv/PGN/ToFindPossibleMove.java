@@ -46,6 +46,8 @@ public class ToFindPossibleMove {
             getCoords(pgnCurrentMove);
         }
 
+        moves[2] = x;
+        moves[3] = y;
 
         return moves;
     }
