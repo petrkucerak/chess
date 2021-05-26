@@ -73,7 +73,6 @@ public class PGNFileRead {
 
         do {
             // get move from PGN format
-
             int[] moves = returnPossiblePNGmove(game, movesPGNParsed.get(game.getGameRound() - 1));
 
             int startX = moves[0];
