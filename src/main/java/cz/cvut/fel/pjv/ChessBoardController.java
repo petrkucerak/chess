@@ -35,6 +35,46 @@ public class ChessBoardController {
     @FXML
     private GridPane gridClock;
 
+    public int[] getTurnPositions() {
+        return turnPositions;
+    }
+
+    public void setTurnPositions(int[] turnPositions) {
+        this.turnPositions = turnPositions;
+    }
+
+    public GridPane getGrid() {
+        return grid;
+    }
+
+    public void setGrid(GridPane grid) {
+        this.grid = grid;
+    }
+
+    public GridPane getGridClock() {
+        return gridClock;
+    }
+
+    public void setGridClock(GridPane gridClock) {
+        this.gridClock = gridClock;
+    }
+
+    public EventHandler<MouseEvent> getPiecePaneClickHandler() {
+        return piecePaneClickHandler;
+    }
+
+    public void setPiecePaneClickHandler(EventHandler<MouseEvent> piecePaneClickHandler) {
+        this.piecePaneClickHandler = piecePaneClickHandler;
+    }
+
+    public EventHandler<MouseEvent> getPieceTextClickHandler() {
+        return pieceTextClickHandler;
+    }
+
+    public void setPieceTextClickHandler(EventHandler<MouseEvent> pieceTextClickHandler) {
+        this.pieceTextClickHandler = pieceTextClickHandler;
+    }
+
     /**
      * Initialize windows with the Chess
      *
@@ -104,6 +144,13 @@ public class ChessBoardController {
         // text to the grid
         gridClock.add(whiteClock, 0, 0);
         gridClock.add(blackClock, 1, 0);
+
+    }
+
+    public static void setBlackClock(String time){
+
+    }
+    public static void setWhiteClock(String time){
 
     }
 
