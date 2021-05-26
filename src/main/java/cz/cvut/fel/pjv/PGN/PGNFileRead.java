@@ -1,5 +1,6 @@
 package cz.cvut.fel.pjv.PGN;
 
+import cz.cvut.fel.pjv.model.Game;
 import cz.cvut.fel.pjv.model.Player.HumanPlayer;
 import cz.cvut.fel.pjv.model.Player.Player;
 
@@ -10,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 import static cz.cvut.fel.pjv.PGN.PGNFormatter.DATEFORMAT_PGN;
 import static cz.cvut.fel.pjv.PGN.PGNFormatter.PATTERN_COMMENTS;
@@ -28,6 +30,7 @@ public class PGNFileRead {
     static private String movesPGN;
 
     private static PGNGame game;
+    private static final Logger LOG = Logger.getLogger(Game.class.getName());
 
     public static void readPGNFile(String pathname) throws Exception {
         // read file
@@ -71,10 +74,12 @@ public class PGNFileRead {
             int endX = moves[2];
             int endY = moves[3];
 
-            game.playerMove(game.getCurrentTurn(), startX, startY, endX, endY);
+            if (game.playerMove(game.getCurrentTurn(), startX, startY, endX, endY)) {
+                LOG.info("Move has been sucess!");
+            }
 
-        } while (false);
-        //} while (gameRound != game.getGameRound());
+        // } while (false);
+        } while (gameRound != game.getGameRound()-1);
     }
 
     /**
@@ -173,6 +178,7 @@ public class PGNFileRead {
 
     /**
      * Parse move from string into the ArrayList movesPGNParsed.
+     *
      * @param input
      */
     static void parseMoveString(String input) {
