@@ -2,6 +2,9 @@ package cz.cvut.fel.pjv.TimeClock;
 
 import java.util.Date;
 
+/**
+ * Class for manipulation with the ChessClock.
+ */
 public class TheClock implements Runnable {
 
     private double timeLefts;
@@ -45,6 +48,10 @@ public class TheClock implements Runnable {
         return (endTime - startTime) / 1e6;
     }
 
+    /**
+     * The ChessClock constructor.
+     * @param timeLets
+     */
     public TheClock(double timeLets) {
         this.timeLefts = timeLets;
         setActualEndTime();
@@ -109,6 +116,10 @@ public class TheClock implements Runnable {
         }
     }
 
+    /**
+     * Check if the clock has been ended.
+     * @return
+     */
     public boolean isClockEnded() {
         if (timeLefts > 0) {
             return false;
@@ -116,6 +127,11 @@ public class TheClock implements Runnable {
             return true;
         }
     }
+
+    /**
+     * Method to display left time.
+     * @param oTimeLeft
+     */
     private void displayTime(double oTimeLeft){
         int timeLefts = (int) oTimeLeft;
         timeLefts = timeLefts / 1000;
