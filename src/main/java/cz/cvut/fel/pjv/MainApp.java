@@ -50,8 +50,9 @@ public class MainApp extends Application {
     public static void setCountOfCheck(int countOfCheck) {
         MainApp.countOfCheck = countOfCheck;
     }
+
     public static void addCountOfCheck() {
-        MainApp.countOfCheck ++;
+        MainApp.countOfCheck++;
     }
 
     private static int countOfCheck = 0;
@@ -149,9 +150,14 @@ public class MainApp extends Application {
 
     public static void changeTimer() {
         // if process in progress, kill it
+        if (TheClock.isActiveBlack) {
+            TheClock.isActiveBlack = false;
+        } else {
+            TheClock.isActiveBlack = true;
+        }
         if (time != null) {
             if (time.isAlive()) {
-                if(game.getGameRound() % 2 == 1){
+                if (game.getGameRound() % 2 == 1) {
                     game.setTimeLefts(timer.getTimeLefts(), 1);
                 } else {
                     game.setTimeLefts(timer.getTimeLefts(), 0);
@@ -169,7 +175,7 @@ public class MainApp extends Application {
             timeLefts = game.getTimeLefts()[1];
         }
 
-        if(timeLefts > 0) {
+        if (timeLefts > 0) {
             // init chess clock
             timer = new TheClock(timeLefts);
             time = new Thread(timer);

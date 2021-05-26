@@ -1,16 +1,33 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.1" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="20" styleClass="main" stylesheets="@ChessBoard.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.cvut.fel.pjv.ChessBoardController">
+<VBox alignment="CENTER" spacing="20" styleClass="main" stylesheets="@ChessBoard.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.cvut.fel.pjv.ChessBoardController">
     <children>
+        <GridPane fx:id="gridClock" gridLinesVisible="true" hgap="2.0" prefHeight="59.0" prefWidth="500.0" vgap="2.0" />
         <GridPane fx:id="grid" gridLinesVisible="true" hgap="2.0" prefHeight="500.0" prefWidth="500.0" vgap="2.0" />
-        <Button fx:id="startButton" layoutX="24.0" layoutY="89.0" mnemonicParsing="false" onAction="#newGame" text="NOVA HRA" textAlignment="CENTER" />
-        <Button fx:id="saveButton" layoutX="24.0" layoutY="161.0" mnemonicParsing="false" onAction="#saveGame" text="ULOŽIT HRU" textAlignment="CENTER" />
-        <Button fx:id="loadButton" layoutX="24.0" layoutY="233.0" mnemonicParsing="false" onAction="#loadGame" text="NAČÍST HRU" textAlignment="CENTER" />
-        <Button fx:id="loadPGNButton" layoutX="24.0" layoutY="233.0" mnemonicParsing="false" onAction="#loadPGNGame" text="NAČÍST PGN HRU" textAlignment="CENTER" />
-        <Button fx:id="savePGNButton" layoutX="24.0" layoutY="161.0" mnemonicParsing="false" onAction="#savePGNGame" text="ULOŽIT PGN HRU" textAlignment="CENTER" />
+      <GridPane prefHeight="91.0" prefWidth="313.0" VBox.vgrow="SOMETIMES">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+              <Button fx:id="savePGNButton" mnemonicParsing="false" onAction="#savePGNGame" text="ULOŽIT PGN HRU" textAlignment="CENTER" GridPane.rowIndex="1" />
+              <Button fx:id="loadPGNButton" mnemonicParsing="false" onAction="#loadPGNGame" text="NAČÍST PGN HRU" textAlignment="CENTER" />
+              <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveGame" text="ULOŽIT HRU" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+              <Button fx:id="loadButton" mnemonicParsing="false" onAction="#loadGame" text="NAČÍST HRU" textAlignment="CENTER" GridPane.columnIndex="1" />
+              <Button fx:id="startButton" mnemonicParsing="false" onAction="#newGame" text="NOVA HRA" textAlignment="CENTER" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
     </children>
 
 </VBox>

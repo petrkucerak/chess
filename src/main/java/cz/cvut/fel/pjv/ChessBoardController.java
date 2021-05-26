@@ -4,17 +4,24 @@ import cz.cvut.fel.pjv.ControlerUtils.PanePiece;
 import cz.cvut.fel.pjv.ControlerUtils.TextPiece;
 import cz.cvut.fel.pjv.PGN.PGNFileRead;
 import cz.cvut.fel.pjv.PGN.PGNFileSave;
+import cz.cvut.fel.pjv.TimeClock.TheClock;
 import cz.cvut.fel.pjv.Utils.Utilities;
+import cz.cvut.fel.pjv.model.Pieces.Piece;
 import cz.cvut.fel.pjv.model.Player.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.text.ParseException;
+
+import static javafx.geometry.Pos.CENTER;
 
 /**
  * Class to representation game controller.
@@ -26,12 +33,20 @@ public class ChessBoardController {
     @FXML
     private GridPane grid;
 
+    @FXML
+    private GridPane gridClock;
+
+    static public Text blackClock;
+    static public Text whiteClock;
+
     /**
      * Initialize windows with the Chess
      *
      * @throws Exception
      */
     public void initialize() throws Exception {
+
+        createHourItems();
 
         // init array with turn position
         turnPositions = new int[4];
@@ -62,6 +77,45 @@ public class ChessBoardController {
 
         setChessBoard();
 
+    }
+
+    /**
+     * Create clock elements.
+     */
+    private void createHourItems() {
+
+        // creat grid
+        for (int i = 0; i < 2; i++) {
+            ColumnConstraints colConstraints = new ColumnConstraints();
+            colConstraints.setHgrow(Priority.SOMETIMES);
+            gridClock.getColumnConstraints().add(colConstraints);
+        }
+        RowConstraints rowConstraints = new RowConstraints();
+        rowConstraints.setVgrow(Priority.SOMETIMES);
+        gridClock.getRowConstraints().add(rowConstraints);
+
+        blackClock = new Text();
+        whiteClock = new Text();
+
+        TheClock.setStartTime(MainApp.getGame().getAllTimeLefts());
+
+        blackClock.setFill(Color.RED);
+        whiteClock.setFill(Color.GREEN);
+
+        // set style of pane
+
+        // text to the grid
+        gridClock.add(whiteClock, 0, 0);
+        gridClock.add(blackClock, 1, 0);
+
+    }
+
+    public static void setBlackClock(String time) {
+        blackClock.setText(time);
+    }
+
+    public static void setWhiteClock(String time) {
+        whiteClock.setText(time);
     }
 
     /**
