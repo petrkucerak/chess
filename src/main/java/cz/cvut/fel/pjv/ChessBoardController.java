@@ -11,11 +11,14 @@ import cz.cvut.fel.pjv.model.Player.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -88,10 +91,12 @@ public class ChessBoardController {
         for (int i = 0; i < 2; i++) {
             ColumnConstraints colConstraints = new ColumnConstraints();
             colConstraints.setHgrow(Priority.SOMETIMES);
+            colConstraints.setHalignment(HPos.CENTER);
             gridClock.getColumnConstraints().add(colConstraints);
         }
         RowConstraints rowConstraints = new RowConstraints();
         rowConstraints.setVgrow(Priority.SOMETIMES);
+        rowConstraints.setValignment(VPos.CENTER);
         gridClock.getRowConstraints().add(rowConstraints);
 
         blackClock = new Text();
@@ -101,6 +106,9 @@ public class ChessBoardController {
 
         blackClock.setFill(Color.RED);
         whiteClock.setFill(Color.GREEN);
+
+        blackClock.setFont(Font.font(20));
+        whiteClock.setFont(Font.font(20));
 
         // set style of pane
 
