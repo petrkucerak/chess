@@ -11,9 +11,9 @@ public class PGNGame extends Game {
     private GameStatus finalStatus;
     private int finalGameRound;
 
-    @Override
-    public void initGame(Player p1, Player p2) {
+    public void initGame(Player p1, Player p2, Date startDate) {
         super.initGame(p1, p2);
+        this.setStartDate(startDate);
     }
 
     public GameStatus getFinalStatus() {

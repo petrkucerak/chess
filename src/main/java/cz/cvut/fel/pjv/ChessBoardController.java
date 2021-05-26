@@ -14,6 +14,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 /**
  * Class to representation game controller.
@@ -237,7 +238,7 @@ public class ChessBoardController {
     }
 
     @FXML
-    public void loadPGNGame(ActionEvent actionEvent) throws IOException {
+    public void loadPGNGame(ActionEvent actionEvent) throws IOException, ParseException {
         System.out.println("LOAD PGN GAME");
         PGNFileRead.readPGNFile("output.pgn");
     }

@@ -5,11 +5,16 @@ import cz.cvut.fel.pjv.model.Player.Player;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
+
+import static cz.cvut.fel.pjv.PGN.PGNFormatter.DATEFORMAT_PGN;
 
 public class PGNFileRead {
 
-    static private String date = "";
+    static private String dateString = "";
     static private int gameRound = 0;
     static private String playerWhiteString = "";
     static private String playerBlackString = "";
@@ -18,7 +23,7 @@ public class PGNFileRead {
     static private String headerPGN;
     static private String movesPGN;
 
-    public static void readPGNFile(String pathname) {
+    public static void readPGNFile(String pathname) throws ParseException {
         // read file
         String input = readFile(pathname);
 
@@ -32,7 +37,11 @@ public class PGNFileRead {
         playerBlack.setName(playerBlackString);
         playerWhite.setName(playerWhiteString);
 
+        SimpleDateFormat dataFormat = new SimpleDateFormat(DATEFORMAT_PGN);
+        Date date = dataFormat.parse(dateString);
+
         PGNGame game = new PGNGame();
+        game.initGame(playerWhite, playerBlack, date);
 
         // load game from pgn
         // set game to normal game
@@ -98,7 +107,7 @@ public class PGNFileRead {
         String regex = "\\[(.*) \"";
         input = input.replaceAll(regex,"");
         regex = "\"\\]";
-        date = input.replaceAll(regex,"");
+        dateString = input.replaceAll(regex,"");
     }
 
     static void parseGameRound(String input){
@@ -131,12 +140,12 @@ public class PGNFileRead {
         result = input.replaceAll(regex,"");
     }
 
-    public static String getDate() {
-        return date;
+    public static String getDateString() {
+        return dateString;
     }
 
-    public static void setDate(String date) {
-        PGNFileRead.date = date;
+    public static void setDateString(String dateString) {
+        PGNFileRead.dateString = dateString;
     }
 
     public static int getGameRound() {
