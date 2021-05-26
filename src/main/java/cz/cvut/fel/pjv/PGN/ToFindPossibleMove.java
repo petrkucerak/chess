@@ -1,5 +1,6 @@
 package cz.cvut.fel.pjv.PGN;
 
+import cz.cvut.fel.pjv.Utils.Log;
 import cz.cvut.fel.pjv.Utils.Utilities;
 import cz.cvut.fel.pjv.model.Game;
 import cz.cvut.fel.pjv.model.Pieces.*;
@@ -30,7 +31,11 @@ public class ToFindPossibleMove {
     final static private char[] cordX = {'8', '7', '6', '5', '4', '3', '2', '1'};
 
     public static int[] returnPossiblePNGmove(PGNGame game, String pgnCurrentMove) throws Exception {
+
+        Log.turnLogOff();
+
         int[] moves = new int[4];
+
         Utilities.savePGNChessboard(game, "PGN-load.bin");
 
         // check castling
@@ -58,6 +63,8 @@ public class ToFindPossibleMove {
         moves[1] = startY;
 
         PGNFileRead.setGame(Utilities.loadPGNChessboard("PGN-load.bin"));
+
+        Log.turnLogOn();
 
         return moves;
     }
