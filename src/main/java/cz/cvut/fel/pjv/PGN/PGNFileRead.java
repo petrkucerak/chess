@@ -7,10 +7,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
 import static cz.cvut.fel.pjv.PGN.PGNFormatter.DATEFORMAT_PGN;
+import static cz.cvut.fel.pjv.PGN.PGNFormatter.PATTERN_COMMENTS;
 
 public class PGNFileRead {
 
@@ -19,6 +21,7 @@ public class PGNFileRead {
     static private String playerWhiteString = "";
     static private String playerBlackString = "";
     static private String result = "";
+    static private ArrayList<String> movesPGNParsed;
 
     static private String headerPGN;
     static private String movesPGN;
@@ -44,7 +47,27 @@ public class PGNFileRead {
         game.initGame(playerWhite, playerBlack, date);
 
         // load game from pgn
+        playGameByPGNMoves(game);
+
         // set game to normal game
+    }
+
+    static void playGameByPGNMoves(PGNGame game){
+        // create loop
+
+        parseMoveString(movesPGN);
+
+        /*do {
+
+            int startX;
+            int startY;
+            int endX;
+            int endY;
+
+            game.playerMove(game.getCurrentTurn(), startX, startY, endX, endY);
+
+
+        } while (gameRound == game.getGameRound());*/
     }
 
     /**
@@ -138,6 +161,26 @@ public class PGNFileRead {
         input = input.replaceAll(regex,"");
         regex = "\"\\]";
         result = input.replaceAll(regex,"");
+    }
+
+    static void parseMoveString(String input){
+        // remove new lines
+        String regex = "\n";
+        input = input.replaceAll(regex, "");
+        // remove comments
+        regex = PATTERN_COMMENTS;
+        input = input.replaceAll(regex, "");
+        // remove index num
+        regex = "([1-9]*)(\\.)";
+        input = input.replaceAll(regex, "");
+
+        System.out.println(input);
+
+        // split into string array
+        String[] words = input.split("  ");
+        for (int i =0; i < words.length; i++){
+            System.out.println(words[i]);
+        }
     }
 
     public static String getDateString() {
