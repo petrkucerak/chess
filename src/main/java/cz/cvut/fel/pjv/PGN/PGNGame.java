@@ -3,10 +3,11 @@ package cz.cvut.fel.pjv.PGN;
 import cz.cvut.fel.pjv.model.Game;
 import cz.cvut.fel.pjv.model.Player.Player;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class PGNGame extends Game {
+public class PGNGame extends Game implements Serializable {
 
     private GameStatus finalStatus;
     private int finalGameRound;
