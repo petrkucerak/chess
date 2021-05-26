@@ -26,7 +26,7 @@ public class PGNFileRead {
     static private String headerPGN;
     static private String movesPGN;
 
-    public static void readPGNFile(String pathname) throws ParseException {
+    public static void readPGNFile(String pathname) throws Exception {
         // read file
         String input = readFile(pathname);
 
@@ -52,22 +52,22 @@ public class PGNFileRead {
         // set game to normal game
     }
 
-    static void playGameByPGNMoves(PGNGame game) {
+    static void playGameByPGNMoves(PGNGame game) throws Exception {
         // create loop
 
         parseMoveString(movesPGN);
 
-        /*do {
+        do {
 
-            int startX;
-            int startY;
-            int endX;
-            int endY;
+            int startX = 0;
+            int startY = 0;
+            int endX = 0;
+            int endY = 0;
 
             game.playerMove(game.getCurrentTurn(), startX, startY, endX, endY);
 
 
-        } while (gameRound == game.getGameRound());*/
+        } while (gameRound == game.getGameRound());
     }
 
     /**
