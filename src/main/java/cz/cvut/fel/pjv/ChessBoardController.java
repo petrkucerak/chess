@@ -5,17 +5,22 @@ import cz.cvut.fel.pjv.ControlerUtils.TextPiece;
 import cz.cvut.fel.pjv.PGN.PGNFileRead;
 import cz.cvut.fel.pjv.PGN.PGNFileSave;
 import cz.cvut.fel.pjv.Utils.Utilities;
+import cz.cvut.fel.pjv.model.Pieces.Piece;
 import cz.cvut.fel.pjv.model.Player.Player;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.text.ParseException;
+
+import static javafx.geometry.Pos.CENTER;
 
 /**
  * Class to representation game controller.
@@ -91,14 +96,14 @@ public class ChessBoardController {
         blackClock.setText("00:00:00");
         whiteClock.setText("00:00:00");
 
-        blackClock.setFill(Color.WHITE);
-        whiteClock.setFill(Color.WHITE);
+        blackClock.setFill(Color.RED);
+        whiteClock.setFill(Color.GREEN);
 
         // set style of pane
 
         // text to the grid
         gridClock.add(whiteClock, 0, 0);
-        gridClock.add(blackClock, 0, 1);
+        gridClock.add(blackClock, 1, 0);
 
     }
 
