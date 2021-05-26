@@ -21,7 +21,7 @@ public class PGNFileRead {
     static private String playerWhiteString = "";
     static private String playerBlackString = "";
     static private String result = "";
-    static private ArrayList<String> movesPGNParsed;
+    static private ArrayList<String> movesPGNParsed = new ArrayList<String>();
 
     static private String headerPGN;
     static private String movesPGN;
@@ -168,19 +168,26 @@ public class PGNFileRead {
         // remove new lines
         String regex = "\n";
         input = input.replaceAll(regex, "");
+
         // remove comments
         regex = PATTERN_COMMENTS;
         input = input.replaceAll(regex, "");
+
         // remove index num
-        regex = "([1-9]*)(\\.)";
+        regex = "\\d\\.";
         input = input.replaceAll(regex, "");
 
         System.out.println(input);
 
         // split into string array
-        String[] words = input.split("  ");
+        String[] words = input.split(" ");
         for (int i = 0; i < words.length; i++) {
-            System.out.println(words[i]);
+            if (words[i].length() >= 2) {
+                movesPGNParsed.add(words[i]);
+            }
+        }
+        for (int i = 0; i < movesPGNParsed.size(); i++) {
+            System.out.println(movesPGNParsed.get(i));
         }
     }
 
