@@ -12,8 +12,8 @@ public class PGNFileRead {
 
     static private String date = "";
     static private int gameRound = 0;
-    static private String player1name = "";
-    static private String player2name = "";
+    static private String playerWhite = "";
+    static private String playerBlack = "";
     static private String result = "";
 
     static private String headerPGN;
@@ -67,8 +67,61 @@ public class PGNFileRead {
 
         System.out.println(parts[0]);
         System.out.println(parts[1]);
-        
 
+        parseHeaderString(headerPGN);
+
+    }
+
+    /**
+     * Parse header string int class variables.
+     * @param input
+     */
+    static void parseHeaderString(String input){
+        String[] lines = headerPGN.split("\n");
+
+        parseDate(lines[2]);
+        parseGameRound(lines[3]);
+        parseWhitePlayer(lines[4]);
+        parseBlackPlayer(lines[5]);
+        parseGameResult(lines[6]);
+
+    }
+
+    static void parseDate(String input){
+        String regex = "\\[(.*) \"";
+        input = input.replaceAll(regex,"");
+        regex = "\"\\]";
+        date = input.replaceAll(regex,"");
+    }
+
+    static void parseGameRound(String input){
+        String regex = "\\[(.*) \"";
+        input = input.replaceAll(regex,"");
+        regex = "\"\\]";
+        input = input.replaceAll(regex,"");
+        gameRound = Integer.parseInt(input);
+    }
+
+    static void parseWhitePlayer(String input){
+        String regex = "\\[(.*) \"";
+        input = input.replaceAll(regex,"");
+        regex = "\"\\]";
+        playerWhite = input.replaceAll(regex,"");
+    }
+
+    static void parseBlackPlayer(String input){
+        String regex = "\\[(.*) \"";
+        input = input.replaceAll(regex,"");
+        regex = "\"\\]";
+        playerBlack = input.replaceAll(regex,"");
+
+    }
+
+    static void parseGameResult(String input){
+        String regex = "\\[(.*) \"";
+        input = input.replaceAll(regex,"");
+        regex = "\"\\]";
+        result = input.replaceAll(regex,"");
     }
 
     public static String getDate() {
@@ -85,22 +138,6 @@ public class PGNFileRead {
 
     public static void setGameRound(int gameRound) {
         PGNFileRead.gameRound = gameRound;
-    }
-
-    public static String getPlayer1name() {
-        return player1name;
-    }
-
-    public static void setPlayer1name(String player1name) {
-        PGNFileRead.player1name = player1name;
-    }
-
-    public static String getPlayer2name() {
-        return player2name;
-    }
-
-    public static void setPlayer2name(String player2name) {
-        PGNFileRead.player2name = player2name;
     }
 
     public static String getResult() {
@@ -127,4 +164,19 @@ public class PGNFileRead {
         PGNFileRead.movesPGN = movesPGN;
     }
 
+    public static String getPlayerWhite() {
+        return playerWhite;
+    }
+
+    public static void setPlayerWhite(String playerWhite) {
+        PGNFileRead.playerWhite = playerWhite;
+    }
+
+    public static String getPlayerBlack() {
+        return playerBlack;
+    }
+
+    public static void setPlayerBlack(String playerBlack) {
+        PGNFileRead.playerBlack = playerBlack;
+    }
 }
