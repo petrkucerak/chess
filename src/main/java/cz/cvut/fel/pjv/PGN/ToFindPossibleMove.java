@@ -62,7 +62,6 @@ public class ToFindPossibleMove {
 
             if (startY != -1) {
                 getStartCordsWithY(game, endX, endY, startY);
-                System.out.println("Yo");
             } else {
                 getStartCords(game, endX, endY);
             }
@@ -168,7 +167,7 @@ public class ToFindPossibleMove {
                 }
             }
         }
-
+        // System.out.println(input);
         for (int i = 0; i < cordY.length; i++) {
             if (input.charAt(index) == cordY[i]) {
                 endY = i;
@@ -229,8 +228,10 @@ public class ToFindPossibleMove {
                             if (startPiece.canMove(game.getBoard(), startSpot, endSpot)) {
                                 startX = i;
                                 startY = j;
-                                // LOG.info("Start x cord is: " + startX);
-                                // LOG.info("Start y cord is: " + startY);
+                                // Log.turnLogOn();
+                                LOG.info("Start x cord is: " + startX);
+                                LOG.info("Start y cord is: " + startY);
+                                // Log.turnLogOff();
                             }
                         }
                     }

@@ -82,6 +82,10 @@ public class PGNFileRead {
             int endX = moves[2];
             int endY = moves[3];
 
+            // Log.turnLogOn();
+            // LOG.info("Cords are: " + startX + startY + endX + endY);
+            // Log.turnLogOff();
+
             if (game.playerMove(game.getCurrentTurn(), startX, startY, endX, endY)) {
                 // Log.turnLogOff();
                 LOG.info("Move has been success!");
@@ -201,6 +205,10 @@ public class PGNFileRead {
 
         // remove index num
         regex = "\\d\\.";
+        input = input.replaceAll(regex, "");
+
+        // remove checking info
+        regex = "\\+";
         input = input.replaceAll(regex, "");
 
         // split into string array
