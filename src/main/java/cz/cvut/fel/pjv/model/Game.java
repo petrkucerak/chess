@@ -46,27 +46,27 @@ public class Game implements Serializable {
         this.pgnMoves += pgnMoves;
     }
 
-    public void remove2LastMovesPgnMoves(){
+    public void remove2LastMovesPgnMoves() {
         String[] words = pgnMoves.split(" ");
         pgnMoves = "";
-        if(words.length % 3 == 2){
-            for(int i =0; i < words.length - 2; i++){
+        if (words.length % 3 == 2) {
+            for (int i = 0; i < words.length - 2; i++) {
                 pgnMoves += words[i];
-                if(i != words.length - 3) {
+                if (i != words.length - 3) {
                     pgnMoves += " ";
                 }
             }
         } else {
-            for(int i =0; i < words.length - 1; i++){
+            for (int i = 0; i < words.length - 1; i++) {
                 pgnMoves += words[i];
-                if(i != words.length - 2) {
+                if (i != words.length - 2) {
                     pgnMoves += " ";
                 }
             }
         }
     }
 
-    public String removeLastCharFromString(String str){
+    public String removeLastCharFromString(String str) {
         if (str != null && str.length() > 0 && str.charAt(str.length() - 1) == '+') {
             str = str.substring(0, str.length() - 1);
         }
@@ -148,6 +148,10 @@ public class Game implements Serializable {
 
     public double[] getTimeLefts() {
         return timeLefts;
+    }
+
+    public double getAllTimeLefts() {
+        return timeLefts[0];
     }
 
     public static Logger getLOG() {

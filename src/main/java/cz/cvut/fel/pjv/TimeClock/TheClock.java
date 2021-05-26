@@ -1,5 +1,8 @@
 package cz.cvut.fel.pjv.TimeClock;
 
+import cz.cvut.fel.pjv.ChessBoardController;
+import cz.cvut.fel.pjv.MainApp;
+
 import java.util.Date;
 
 /**
@@ -13,6 +16,7 @@ public class TheClock implements Runnable {
     Thread thr = null;
     boolean threadSuspended;
     private boolean isActive;
+    static public boolean isActiveBlack = false;
 
     public void setTimeLefts(int timeLefts) {
         this.timeLefts = timeLefts;
@@ -38,18 +42,21 @@ public class TheClock implements Runnable {
         return timeLefts;
     }
 
-    private void setActualStartTime(){
+    private void setActualStartTime() {
         startTime = System.nanoTime();
     }
-    private void setActualEndTime(){
+
+    private void setActualEndTime() {
         endTime = System.nanoTime();
     }
-    private double timeDifferent(){
+
+    private double timeDifferent() {
         return (endTime - startTime) / 1e6;
     }
 
     /**
      * The ChessClock constructor.
+     *
      * @param timeLets
      */
     public TheClock(double timeLets) {
@@ -92,7 +99,7 @@ public class TheClock implements Runnable {
     public void run() {
         try {
             while (true) {
-                if(isClockEnded() && isActive != false){
+                if (isClockEnded() && isActive != false) {
                     isActive = false;
                     System.err.println("The time has been expired!");
                 }
@@ -107,7 +114,7 @@ public class TheClock implements Runnable {
                     }
                 }
                 setActualStartTime();
-                thr.sleep(5000);
+                thr.sleep(1000);
                 setActualEndTime();
                 changeTime(timeDifferent());
             }
@@ -118,6 +125,7 @@ public class TheClock implements Runnable {
 
     /**
      * Check if the clock has been ended.
+     *
      * @return
      */
     public boolean isClockEnded() {
@@ -130,9 +138,10 @@ public class TheClock implements Runnable {
 
     /**
      * Method to display left time.
+     *
      * @param oTimeLeft
      */
-    private void displayTime(double oTimeLeft){
+    private void displayTime(double oTimeLeft) {
         int timeLefts = (int) oTimeLeft;
         timeLefts = timeLefts / 1000;
         int hour = timeLefts / 3600;
@@ -141,6 +150,28 @@ public class TheClock implements Runnable {
         timeLefts -= min * 60;
         int sec = timeLefts;
 
-        System.out.println("Time lefts: " + hour + "h " + min + "m " + sec + "s");
+        // System.out.println("Time lefts: " + hour + "h " + min + "m " + sec + "s");
+        if (isActiveBlack) {
+            ChessBoardController.setWhiteClock(hour + ":" + min + ":" + sec);
+            MainApp.getGame().setTimeLefts(oTimeLeft, 0);
+        } else {
+            ChessBoardController.setBlackClock(hour + ":" + min + ":" + sec);
+            MainApp.getGame().setTimeLefts(oTimeLeft, 1);
+        }
+    }
+
+    public static void setStartTime(double oTimeLeft) {
+        int timeLefts = (int) oTimeLeft;
+        timeLefts = timeLefts / 1000;
+        int hour = timeLefts / 3600;
+        timeLefts -= hour * 3600;
+        int min = timeLefts / 60;
+        timeLefts -= min * 60;
+        int sec = timeLefts;
+
+        ChessBoardController.setWhiteClock(hour + ":" + min + ":" + sec);
+
+        ChessBoardController.setBlackClock(hour + ":" + min + ":" + sec);
+
     }
 }

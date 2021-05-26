@@ -4,6 +4,7 @@ import cz.cvut.fel.pjv.ControlerUtils.PanePiece;
 import cz.cvut.fel.pjv.ControlerUtils.TextPiece;
 import cz.cvut.fel.pjv.PGN.PGNFileRead;
 import cz.cvut.fel.pjv.PGN.PGNFileSave;
+import cz.cvut.fel.pjv.TimeClock.TheClock;
 import cz.cvut.fel.pjv.Utils.Utilities;
 import cz.cvut.fel.pjv.model.Pieces.Piece;
 import cz.cvut.fel.pjv.model.Player.Player;
@@ -35,45 +36,8 @@ public class ChessBoardController {
     @FXML
     private GridPane gridClock;
 
-    public int[] getTurnPositions() {
-        return turnPositions;
-    }
-
-    public void setTurnPositions(int[] turnPositions) {
-        this.turnPositions = turnPositions;
-    }
-
-    public GridPane getGrid() {
-        return grid;
-    }
-
-    public void setGrid(GridPane grid) {
-        this.grid = grid;
-    }
-
-    public GridPane getGridClock() {
-        return gridClock;
-    }
-
-    public void setGridClock(GridPane gridClock) {
-        this.gridClock = gridClock;
-    }
-
-    public EventHandler<MouseEvent> getPiecePaneClickHandler() {
-        return piecePaneClickHandler;
-    }
-
-    public void setPiecePaneClickHandler(EventHandler<MouseEvent> piecePaneClickHandler) {
-        this.piecePaneClickHandler = piecePaneClickHandler;
-    }
-
-    public EventHandler<MouseEvent> getPieceTextClickHandler() {
-        return pieceTextClickHandler;
-    }
-
-    public void setPieceTextClickHandler(EventHandler<MouseEvent> pieceTextClickHandler) {
-        this.pieceTextClickHandler = pieceTextClickHandler;
-    }
+    static public Text blackClock;
+    static public Text whiteClock;
 
     /**
      * Initialize windows with the Chess
@@ -118,7 +82,7 @@ public class ChessBoardController {
     /**
      * Create clock elements.
      */
-    void createHourItems(){
+    private void createHourItems() {
 
         // creat grid
         for (int i = 0; i < 2; i++) {
@@ -130,11 +94,10 @@ public class ChessBoardController {
         rowConstraints.setVgrow(Priority.SOMETIMES);
         gridClock.getRowConstraints().add(rowConstraints);
 
-        Text blackClock = new Text();
-        Text whiteClock = new Text();
+        blackClock = new Text();
+        whiteClock = new Text();
 
-        blackClock.setText("00:00:00");
-        whiteClock.setText("00:00:00");
+        TheClock.setStartTime(MainApp.getGame().getAllTimeLefts());
 
         blackClock.setFill(Color.RED);
         whiteClock.setFill(Color.GREEN);
@@ -147,11 +110,12 @@ public class ChessBoardController {
 
     }
 
-    public static void setBlackClock(String time){
-
+    public static void setBlackClock(String time) {
+        blackClock.setText(time);
     }
-    public static void setWhiteClock(String time){
 
+    public static void setWhiteClock(String time) {
+        whiteClock.setText(time);
     }
 
     /**
