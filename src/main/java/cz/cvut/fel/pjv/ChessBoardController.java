@@ -295,6 +295,7 @@ public class ChessBoardController {
     public void loadPGNGame(ActionEvent actionEvent) throws Exception {
         System.out.println("LOAD PGN GAME");
         PGNFileRead.readPGNFile("output.pgn");
+        MainApp.updateScene();
     }
 
     @FXML
