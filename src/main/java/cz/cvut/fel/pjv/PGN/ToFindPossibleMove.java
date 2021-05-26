@@ -29,7 +29,7 @@ public class ToFindPossibleMove {
     final static private char[] cordY = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
     final static private char[] cordX = {'8', '7', '6', '5', '4', '3', '2', '1'};
 
-    public static int[] returnPossiblePNGmove(PGNGame game, String pgnCurrentMove) throws Exception {
+    public static int[] returnPossiblePNGmove(Game game, String pgnCurrentMove) throws Exception {
         int[] moves = new int[4];
         Utilities.savePGNChessboard(game, "PGN-load.bin");
 
@@ -118,7 +118,7 @@ public class ToFindPossibleMove {
         }
     }
 
-    static void getStartCords(PGNGame game, int endX, int endY) throws Exception {
+    static void getStartCords(Game game, int endX, int endY) throws Exception {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 // if spot isn't null

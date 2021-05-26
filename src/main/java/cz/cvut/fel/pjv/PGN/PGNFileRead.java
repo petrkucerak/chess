@@ -1,5 +1,6 @@
 package cz.cvut.fel.pjv.PGN;
 
+import cz.cvut.fel.pjv.model.Game;
 import cz.cvut.fel.pjv.model.Player.HumanPlayer;
 import cz.cvut.fel.pjv.model.Player.Player;
 
@@ -27,7 +28,7 @@ public class PGNFileRead {
     static private String headerPGN;
     static private String movesPGN;
 
-    private static PGNGame game;
+    private static Game game;
 
     public static void readPGNFile(String pathname) throws Exception {
         // read file
@@ -55,7 +56,7 @@ public class PGNFileRead {
         // set game to normal game
     }
 
-    static void playGameByPGNMoves(PGNGame game) throws Exception {
+    static void playGameByPGNMoves(Game game) throws Exception {
 
         // create loop
         parseMoveString(movesPGN);
@@ -260,7 +261,7 @@ public class PGNFileRead {
         PGNFileRead.movesPGNParsed = movesPGNParsed;
     }
 
-    public static PGNGame getGame() {
+    public static Game getGame() {
         return game;
     }
 

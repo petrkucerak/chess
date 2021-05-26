@@ -31,7 +31,7 @@ public class Utilities {
      * @param game
      * @param filepath
      */
-    public static void savePGNChessboard(PGNGame game, String filepath) {
+    public static void savePGNChessboard(Game game, String filepath) {
         try (OutputStream fos = new FileOutputStream(filepath);
              ObjectOutputStream out = new ObjectOutputStream(fos)) {
             out.writeObject(game);
