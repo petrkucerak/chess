@@ -108,7 +108,7 @@ public class ToFindPossibleMove {
         if (input.charAt(1) == 'x') {
             isKillingMove = true;
         } else if (input.length() > 2) {
-            if(input.charAt(2) == 'x'){
+            if (input.charAt(2) == 'x') {
                 isKillingMove = true;
             }
         } else {
@@ -124,6 +124,34 @@ public class ToFindPossibleMove {
             index = 2;
         } else if (type == 'p') {
             index = 0;
+        } else if (type == 'p') { // if pawn in killing mode
+            if (isKillingMove) {
+                for (int i = 0; i < cordY.length; i++) {
+                    if(input.charAt(0) == cordY[i]){
+                        startY = i;
+                    }
+                }
+            }
+        } else if(isKillingMove){ // if piece in killing mode, more options
+            if(input.length() == 5){
+                index = 3;
+                for (int i = 0; i < cordY.length; i++) {
+                    if(input.charAt(1) == cordY[i]){
+                        startY = i;
+                    }
+                }
+            }
+        } else if(type != 'p'){ // if piece in more options
+            if(!isKillingMove){
+                if(input.length() == 4){
+                    index = 2;
+                    for (int i = 0; i < cordY.length; i++) {
+                        if(input.charAt(1) == cordY[i]){
+                            startY = i;
+                        }
+                    }
+                }
+            }
         }
         for (int i = 0; i < cordY.length; i++) {
             if (input.charAt(index) == cordY[i]) {
