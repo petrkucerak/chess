@@ -82,14 +82,14 @@ public class PGNFileRead {
             int endX = moves[2];
             int endY = moves[3];
 
-            // Log.turnLogOn();
-            // LOG.info("Cords are: " + startX + startY + endX + endY);
-            // Log.turnLogOff();
+            Log.turnLogOff();
+            LOG.info("Cords are: " + startX + startY + endX + endY);
+            Log.turnLogOn();
 
             if (game.playerMove(game.getCurrentTurn(), startX, startY, endX, endY)) {
-                // Log.turnLogOff();
+                Log.turnLogOff();
                 LOG.info("Move has been success!");
-                // Log.turnLogOn();
+                Log.turnLogOn();
             }
 
         } while (gameRound != game.getGameRound() - 1);
