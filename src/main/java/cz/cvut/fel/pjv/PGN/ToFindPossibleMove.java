@@ -36,10 +36,10 @@ public class ToFindPossibleMove {
 
         int[] moves = new int[4];
 
-        startY = -1;
         startX = -1;
-        endY = -1;
+        startY = -1;
         endX = -1;
+        endY = -1;
 
         Utilities.savePGNChessboard(game, "PGN-load.bin");
 
@@ -57,9 +57,6 @@ public class ToFindPossibleMove {
 
             // get target coords
             getCoords(pgnCurrentMove);
-
-            moves[2] = endX;
-            moves[3] = endY;
 
             if (startY != -1) {
                 getStartCordsWithY(game, endX, endY, startY);
@@ -109,6 +106,9 @@ public class ToFindPossibleMove {
         PGNFileRead.setGame(Utilities.loadPGNChessboard("PGN-load.bin"));
 
         Log.turnLogOn();
+        LOG.info(pgnCurrentMove);
+        Log.turnLogOff();
+        Log.turnLogOn();
 
         return moves;
     }
@@ -128,40 +128,45 @@ public class ToFindPossibleMove {
 
     private static void getCoords(String input) {
         // set position of first coords
-        int index = 1;
-        if (isKillingMove) {
-            index = 2;
-        } else if (type == 'p') {
-            index = 0;
-        } else if (type == 'p') { // if pawn in killing mode
-            if (isKillingMove) {
-                for (int i = 0; i < cordY.length; i++) {
-                    if (input.charAt(0) == cordY[i]) {
+        int index = 0;
+        if(type == 'p'){
+            if(isKillingMove){
+                index = 2;
+                for(int i = 0; i < cordY.length; i++){
+                    if(input.charAt(0) == cordY[i]){
                         startY = i;
                     }
                 }
+            } else {
+                index = 0;
             }
-        } else if (isKillingMove) { // if piece in killing mode, more options
-            if (input.length() == 5) {
-                index = 3;
-                for (int i = 0; i < cordY.length; i++) {
-                    if (input.charAt(1) == cordY[i]) {
-                        startY = i;
-                    }
-                }
-            }
-        } else if (type != 'p') { // if piece in more options
-            if (!isKillingMove) {
-                if (input.length() == 4) {
-                    index = 2;
-                    for (int i = 0; i < cordY.length; i++) {
-                        if (input.charAt(1) == cordY[i]) {
+        } else {
+            if (isKillingMove){
+                if(input.length() == 5){
+                    index = 3;
+                    for(int i = 0; i < cordY.length; i++){
+                        if(input.charAt(1) == cordY[i]){
                             startY = i;
                         }
                     }
+                } else {
+                    index = 2;
+                }
+            } else {
+                if(input.length() == 4){
+                    index = 2;
+                    for(int i = 0; i < cordY.length; i++){
+                        if(input.charAt(1) == cordY[i]){
+                            startY = i;
+                        }
+                    }
+                } else {
+                    index = 1;
                 }
             }
         }
+
+
         for (int i = 0; i < cordY.length; i++) {
             if (input.charAt(index) == cordY[i]) {
                 endY = i;
@@ -172,8 +177,12 @@ public class ToFindPossibleMove {
                 endX = i;
             }
         }
+        Log.turnLogOn();
         LOG.info("X chord is: " + endX);
         LOG.info("y chord is: " + endY);
+        LOG.info("start y chord is: " + startY);
+        LOG.info("start x chord is: " + startX);
+        Log.turnLogOff();
     }
 
     private static boolean isShortCastling(String string) {
@@ -241,8 +250,10 @@ public class ToFindPossibleMove {
                         Spot endSpot = game.getBoard().getBox(endX, endY);
                         if (startPiece.canMove(game.getBoard(), startSpot, endSpot)) {
                             startX = i;
+                            Log.turnLogOn();
                             LOG.info("Start x cord is: " + startX);
                             LOG.info("Start y cord is: " + startY);
+                            Log.turnLogOff();
                         }
                     }
                 }
