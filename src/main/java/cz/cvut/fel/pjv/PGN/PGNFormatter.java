@@ -24,7 +24,12 @@ public class PGNFormatter {
      * Method to update PGN header string.
      */
     public static void updatePgnHeader() {
-        Game game = MainApp.getGame();
+        Game game;
+        if(PGNFileRead.getGame() != null){
+            game = PGNFileRead.getGame();
+        } else {
+            game = MainApp.getGame();
+        }
 
         // create String builder
         StringBuilder pgnHeader = new StringBuilder();
@@ -66,7 +71,13 @@ public class PGNFormatter {
      * Method to update PGN moves string.
      */
     public static void updatePgnMoves() {
-        Game game = MainApp.getGame();
+        Game game;
+        if(PGNFileRead.getGame() != null){
+            game = PGNFileRead.getGame();
+        } else {
+            game = MainApp.getGame();
+        }
+
         String out = "";
 
         if (game.getGameRound() > 0 && game.getGameRound() % 2 == 1) {
@@ -117,13 +128,13 @@ public class PGNFormatter {
         }
 
         // check checkmating move & check checking move
-        if (MainApp.getGame().getStatus() == Game.GameStatus.BLACK_WIN
-                || MainApp.getGame().getStatus() == Game.GameStatus.BLACK_WIN) {
-            MainApp.getGame().remove2LastMovesPgnMoves();
+        if (game.getStatus() == Game.GameStatus.BLACK_WIN
+                || game.getStatus() == Game.GameStatus.BLACK_WIN) {
+            game.remove2LastMovesPgnMoves();
             out = "#";
-            MainApp.getGame().setPgnMoves(MainApp.getGame().removeLastCharFromString(MainApp.getGame().getPgnMoves()));
+            game.setPgnMoves(MainApp.getGame().removeLastCharFromString(game.getPgnMoves()));
 
-        } else if (MainApp.getGame().getStatus() == Game.GameStatus.CHECK) {
+        } else if (game.getStatus() == Game.GameStatus.CHECK) {
             out += "+";
         }
 

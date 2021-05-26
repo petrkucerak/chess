@@ -2,6 +2,7 @@ package cz.cvut.fel.pjv.model;
 
 import cz.cvut.fel.pjv.MainApp;
 import cz.cvut.fel.pjv.PGN.PGNFormatter;
+import cz.cvut.fel.pjv.PGN.PGNGame;
 import cz.cvut.fel.pjv.Utils.Utilities;
 import cz.cvut.fel.pjv.model.Pieces.King;
 import cz.cvut.fel.pjv.model.Pieces.Pawn;
@@ -33,9 +34,18 @@ public class Game implements Serializable {
     private String pgnHeader;
     private String pgnMoves;
     private boolean matInspectStatus;
+    private boolean PGNGame = false;
 
     public void setPgnHeader(String pgnHeader) {
         this.pgnHeader = pgnHeader;
+    }
+
+    public boolean isPGNGame() {
+        return PGNGame;
+    }
+
+    public void setPGNGame(boolean PGNGame) {
+        this.PGNGame = PGNGame;
     }
 
     public void setPgnMoves(String pgnMoves) {
@@ -349,8 +359,11 @@ public class Game implements Serializable {
         }
 
         if (!matInspectStatus) {
-            PGNFormatter.updatePgnHeader();
-            PGNFormatter.updatePgnMoves();
+            // ToDo
+            if(!PGNGame) {
+                PGNFormatter.updatePgnHeader();
+                PGNFormatter.updatePgnMoves();
+            }
         }
 
         // set current turn to the other player

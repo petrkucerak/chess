@@ -77,6 +77,8 @@ public class Pawn extends Piece {
             if (end.getX() == 0 || end.getX() == 7) {
                 // LOG.info("Piece promotion!");
                 isPromotion = true;
+            } else {
+                isPromotion = false;
             }
         }
 

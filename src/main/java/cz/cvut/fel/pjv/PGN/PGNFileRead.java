@@ -1,5 +1,9 @@
 package cz.cvut.fel.pjv.PGN;
 
+import cz.cvut.fel.pjv.MainApp;
+import cz.cvut.fel.pjv.Utils.Log;
+import cz.cvut.fel.pjv.model.Game;
+import cz.cvut.fel.pjv.model.Player.ComputerPlayer;
 import cz.cvut.fel.pjv.model.Player.HumanPlayer;
 import cz.cvut.fel.pjv.model.Player.Player;
 
@@ -10,9 +14,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 import static cz.cvut.fel.pjv.PGN.PGNFormatter.DATEFORMAT_PGN;
 import static cz.cvut.fel.pjv.PGN.PGNFormatter.PATTERN_COMMENTS;
+import static cz.cvut.fel.pjv.PGN.ToFindPossibleMove.returnPossiblePNGmove;
 
 public class PGNFileRead {
 
@@ -21,12 +27,15 @@ public class PGNFileRead {
     static private String playerWhiteString = "";
     static private String playerBlackString = "";
     static private String result = "";
-    static private ArrayList<String> movesPGNParsed;
+    static private ArrayList<String> movesPGNParsed = new ArrayList<String>();
 
     static private String headerPGN;
     static private String movesPGN;
 
-    public static void readPGNFile(String pathname) throws ParseException {
+    private static PGNGame game;
+    private static final Logger LOG = Logger.getLogger(Game.class.getName());
+
+    public static void readPGNFile(String pathname) throws Exception {
         // read file
         String input = readFile(pathname);
 
@@ -35,7 +44,7 @@ public class PGNFileRead {
 
         // create PGN game
         Player playerBlack = new HumanPlayer(false);
-        Player playerWhite = new HumanPlayer(true);
+        Player playerWhite = new ComputerPlayer(true);
 
         playerBlack.setName(playerBlackString);
         playerWhite.setName(playerWhiteString);
@@ -43,31 +52,47 @@ public class PGNFileRead {
         SimpleDateFormat dataFormat = new SimpleDateFormat(DATEFORMAT_PGN);
         Date date = dataFormat.parse(dateString);
 
-        PGNGame game = new PGNGame();
+        game = new PGNGame();
         game.initGame(playerWhite, playerBlack, date);
 
         // load game from pgn
         playGameByPGNMoves(game);
 
         // set game to normal game
+        setPGNGameToStandardGame(game);
+        game.setPGNGame(false);
     }
 
-    static void playGameByPGNMoves(PGNGame game) {
-        // create loop
+    private static void setPGNGameToStandardGame(PGNGame game) {
+        MainApp.setGame(null);
+        MainApp.setGame(game);
+    }
 
+    static void playGameByPGNMoves(PGNGame game) throws Exception {
+
+        // create loop
         parseMoveString(movesPGN);
 
-        /*do {
+        do {
+            // get move from PGN format
+            int[] moves = returnPossiblePNGmove(game, movesPGNParsed.get(game.getGameRound() - 1));
 
-            int startX;
-            int startY;
-            int endX;
-            int endY;
+            int startX = moves[0];
+            int startY = moves[1];
+            int endX = moves[2];
+            int endY = moves[3];
 
-            game.playerMove(game.getCurrentTurn(), startX, startY, endX, endY);
+            Log.turnLogOff();
+            LOG.info("Cords are: " + startX + startY + endX + endY);
+            Log.turnLogOn();
 
+            if (game.playerMove(game.getCurrentTurn(), startX, startY, endX, endY)) {
+                Log.turnLogOff();
+                LOG.info("Move has been success!");
+                Log.turnLogOn();
+            }
 
-        } while (gameRound == game.getGameRound());*/
+        } while (gameRound != game.getGameRound() - 1);
     }
 
     /**
@@ -120,7 +145,7 @@ public class PGNFileRead {
         String[] lines = headerPGN.split("\n");
 
         parseDate(lines[2]);
-        parseGameRound(lines[3]);
+        // parseGameRound(lines[3]); use size of moves ArrayList
         parseWhitePlayer(lines[4]);
         parseBlackPlayer(lines[5]);
         parseGameResult(lines[6]);
@@ -164,24 +189,43 @@ public class PGNFileRead {
         result = input.replaceAll(regex, "");
     }
 
+    /**
+     * Parse move from string into the ArrayList movesPGNParsed.
+     *
+     * @param input
+     */
     static void parseMoveString(String input) {
         // remove new lines
         String regex = "\n";
-        input = input.replaceAll(regex, "");
+        input = input.replaceAll(regex, " ");
+
         // remove comments
         regex = PATTERN_COMMENTS;
         input = input.replaceAll(regex, "");
+
         // remove index num
-        regex = "([1-9]*)(\\.)";
+        regex = "\\d\\.";
         input = input.replaceAll(regex, "");
 
-        System.out.println(input);
+        // remove checking info
+        regex = "\\+";
+        input = input.replaceAll(regex, "");
 
         // split into string array
-        String[] words = input.split("  ");
+        String[] words = input.split(" ");
         for (int i = 0; i < words.length; i++) {
-            System.out.println(words[i]);
+            if (words[i].length() >= 2) {
+                movesPGNParsed.add(words[i]);
+            }
         }
+        /*
+        // test print
+        for (int i = 0; i < movesPGNParsed.size(); i++) {
+            System.out.println(movesPGNParsed.get(i));
+        }
+
+        */
+        gameRound = movesPGNParsed.size();
     }
 
     public static String getDateString() {
@@ -238,5 +282,21 @@ public class PGNFileRead {
 
     public static void setPlayerBlackString(String playerBlackString) {
         PGNFileRead.playerBlackString = playerBlackString;
+    }
+
+    public static ArrayList<String> getMovesPGNParsed() {
+        return movesPGNParsed;
+    }
+
+    public static void setMovesPGNParsed(ArrayList<String> movesPGNParsed) {
+        PGNFileRead.movesPGNParsed = movesPGNParsed;
+    }
+
+    public static PGNGame getGame() {
+        return game;
+    }
+
+    public static void setGame(PGNGame game) {
+        PGNFileRead.game = game;
     }
 }
