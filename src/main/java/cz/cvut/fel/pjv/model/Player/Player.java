@@ -8,6 +8,7 @@ import java.io.Serializable;
 public abstract class Player implements Serializable {
     public boolean whiteSide;
     public boolean humanPlayer;
+    private String name;
 
     public boolean isWhiteSide() {
         return whiteSide;
@@ -23,5 +24,13 @@ public abstract class Player implements Serializable {
 
     public void setHumanPlayer(boolean humanPlayer) {
         this.humanPlayer = humanPlayer;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -8,6 +8,12 @@ import java.util.logging.Logger;
 public class Utilities {
     private static final Logger LOG = Logger.getLogger(Game.class.getName());
 
+    /**
+     * Save game into the binary file.
+     *
+     * @param game
+     * @param filepath
+     */
     public static void saveChessboard(Game game, String filepath) {
         try (OutputStream fos = new FileOutputStream(filepath);
              ObjectOutputStream out = new ObjectOutputStream(fos)) {
@@ -18,6 +24,12 @@ public class Utilities {
         }
     }
 
+    /**
+     * Method for load game.
+     *
+     * @param filepath location of binary file.
+     * @return
+     */
     public static Game loadChessboard(String filepath) {
         Game game = null;
         try (InputStream fis = new FileInputStream(filepath);
