@@ -1,19 +1,18 @@
 package cz.cvut.fel.pjv.PGN;
 
+import cz.cvut.fel.pjv.model.Player.HumanPlayer;
 import cz.cvut.fel.pjv.model.Player.Player;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import static cz.cvut.fel.pjv.PGN.PGNFormatter.PATTERN_HEADER;
-
 public class PGNFileRead {
 
     static private String date = "";
     static private int gameRound = 0;
-    static private String playerWhite = "";
-    static private String playerBlack = "";
+    static private String playerWhiteString = "";
+    static private String playerBlackString = "";
     static private String result = "";
 
     static private String headerPGN;
@@ -25,7 +24,15 @@ public class PGNFileRead {
 
         // parse string
         parseString(input);
+
         // create PGN game
+        Player playerBlack = new HumanPlayer(false);
+        Player playerWhite = new HumanPlayer(true);
+
+        playerBlack.setName(playerBlackString);
+        playerWhite.setName(playerWhiteString);
+
+        PGNGame game = new PGNGame();
 
         // load game from pgn
         // set game to normal game
@@ -106,14 +113,14 @@ public class PGNFileRead {
         String regex = "\\[(.*) \"";
         input = input.replaceAll(regex,"");
         regex = "\"\\]";
-        playerWhite = input.replaceAll(regex,"");
+        playerWhiteString = input.replaceAll(regex,"");
     }
 
     static void parseBlackPlayer(String input){
         String regex = "\\[(.*) \"";
         input = input.replaceAll(regex,"");
         regex = "\"\\]";
-        playerBlack = input.replaceAll(regex,"");
+        playerBlackString = input.replaceAll(regex,"");
 
     }
 
@@ -164,19 +171,19 @@ public class PGNFileRead {
         PGNFileRead.movesPGN = movesPGN;
     }
 
-    public static String getPlayerWhite() {
-        return playerWhite;
+    public static String getPlayerWhiteString() {
+        return playerWhiteString;
     }
 
-    public static void setPlayerWhite(String playerWhite) {
-        PGNFileRead.playerWhite = playerWhite;
+    public static void setPlayerWhiteString(String playerWhiteString) {
+        PGNFileRead.playerWhiteString = playerWhiteString;
     }
 
-    public static String getPlayerBlack() {
-        return playerBlack;
+    public static String getPlayerBlackString() {
+        return playerBlackString;
     }
 
-    public static void setPlayerBlack(String playerBlack) {
-        PGNFileRead.playerBlack = playerBlack;
+    public static void setPlayerBlackString(String playerBlackString) {
+        PGNFileRead.playerBlackString = playerBlackString;
     }
 }
